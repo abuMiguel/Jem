@@ -1,0 +1,17 @@
+﻿{
+  "say": {
+    "pos": [ "verb", "noun", "interjection" ],
+    //verb
+    "forms": [ "says", "said", "saying" ],
+    "doer": [ "person" ],
+    "tense": "present",
+    "root": "say",
+    //noun
+    "is": [  ],
+    "can": [  ],
+    "description": [  ],
+    "in": [ "person" ],
+    "has": [ "contains" ],
+    "synonyms": [ "opinion", "voice" ]
+  }
+}

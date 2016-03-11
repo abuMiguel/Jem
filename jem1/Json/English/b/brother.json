@@ -1,0 +1,9 @@
+﻿{
+  "brother": {
+    "is": "person",
+    "description": [ "male", "sibling" ],
+    "pos": "noun",
+    "plural": "brothers",
+    "synonyms": [ "bro" ]
+  }
+}

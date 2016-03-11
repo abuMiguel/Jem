@@ -1,0 +1,9 @@
+﻿{
+  "am": {
+    "forms": [ "is", "are" ],
+    "is": "verb",
+    "pos": "helper verb",
+    "tense": "present",
+    "root": "be"
+  }
+}

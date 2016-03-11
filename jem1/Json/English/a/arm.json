@@ -1,0 +1,10 @@
+﻿{
+  "arm": {
+    "forms": [ "arms" ],
+    "is": "limb",
+    "pos": "noun",
+    "has": [ "hand", 1 ],
+    "synonymns": [ ],
+    "plural": "arms"
+  }
+}

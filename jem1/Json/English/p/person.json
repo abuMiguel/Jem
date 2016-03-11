@@ -1,0 +1,10 @@
+﻿{
+  "person": {
+    "forms": [ "persons", "people" ],
+    "is": "human",
+    "pos": "noun",
+    "has": [ "arm", 2, "leg", 2, "eye", 2, "nose", 1, "ear", 2, "mouth", 1, "foot", 2, "finger", 10, "toe", 10, "hand", 2 ],
+    "synonyms": [ "individual" ],
+    "plural": "people"
+  }
+}

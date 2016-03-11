@@ -1,0 +1,8 @@
+﻿{
+  "one": {
+    "pos": "adjective",
+    "sentiment": "neutral", 
+    "root":  "one",
+    "synonyms": [ "1", "single" ]
+  }
+}

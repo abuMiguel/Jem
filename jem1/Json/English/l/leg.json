@@ -1,0 +1,10 @@
+﻿{
+  "leg": {
+    "forms": [ "legs" ],
+    "is": "limb",
+    "pos": "noun",
+    "has": [ "foot", 1 ],
+    "synonymns": [ ],
+    "plural": "legs"
+  }
+}

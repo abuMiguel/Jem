@@ -1,0 +1,8 @@
+﻿{
+  "two": {
+    "pos": "adjective",
+    "sentiment": "neutral", 
+    "root":  "two",
+    "synonyms": [ "dual", "couple", "both" ]
+  }
+}

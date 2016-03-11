@@ -1,0 +1,9 @@
+﻿{
+  "went": {
+    "pos": "verb",
+    "forms": [ "go", "gone", "going" ],
+    "doer": [ "anything" ],
+    "tense": "past",
+    "root": "go"
+  }
+}

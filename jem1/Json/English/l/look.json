@@ -1,0 +1,8 @@
+﻿{
+  "look": {
+    "forms": [ "looks", "looked", "looking" ],
+    "pos": "verb",
+    "tense": "present",
+    "root": "look"
+  }
+}

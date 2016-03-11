@@ -1,0 +1,8 @@
+﻿{
+  "Paris": {
+    "is": "city",
+    "pos": "proper noun",
+    "location": "France",
+    "description": [ "capitol" ]
+  }
+}

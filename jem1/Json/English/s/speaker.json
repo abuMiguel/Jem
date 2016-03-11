@@ -1,0 +1,7 @@
+﻿{
+  "speaker": {
+    "forms": [ "speak", "speaks", "speaking", "speakers", "spoke" ],
+    "is": "person",
+    "pos": "noun"
+  }
+}

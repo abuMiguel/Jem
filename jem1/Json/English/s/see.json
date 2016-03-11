@@ -1,0 +1,9 @@
+﻿{
+  "see": {
+    "forms": [ "saw", "sees", "seen" ],
+    "pos": "verb",
+    "tense": "present",
+    "past": "saw",
+    "root": "see"
+  }
+}

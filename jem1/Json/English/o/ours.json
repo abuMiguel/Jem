@@ -1,0 +1,9 @@
+﻿{
+  "ours": {
+    "forms": [ "we", "our" ],
+    "role": "pronoun",
+    "pos": "possessive pronoun",
+    "person": "first",
+    "root": "we"
+  }
+}

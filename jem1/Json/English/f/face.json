@@ -1,0 +1,9 @@
+﻿{
+  "face": {
+    "is": "part",
+    "pos": "noun",
+    "has": [ "cheeks", 2, "beard", 1, "nose", 1 ],
+    "synonymns": [ ],
+    "plural": "faces"
+  }
+}

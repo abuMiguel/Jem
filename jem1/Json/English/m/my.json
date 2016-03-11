@@ -1,0 +1,9 @@
+﻿{
+  "my": {
+    "forms": [ "I", "me" ],
+    "role": "adjective",
+    "pos": "possessive determiner",
+    "person": "first", 
+    "root":  "I"
+  }
+}

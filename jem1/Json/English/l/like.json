@@ -1,0 +1,21 @@
+﻿{
+  "like": {
+    "pos": [ "verb", "preposition", "noun" ],
+
+    //verb
+    "forms": [ "likes", "liked", "liking" ],
+    "doer": [ "organism" ],
+    "tense": "present",
+    "root": "like",
+    //end verb
+    "synonyms": [ "prefer", "preference", "favorite", "favor" ],
+    //noun
+    "plural": "likes",
+    "is": [  ],
+    "can": [  ],
+    "description": [  ],
+    "in": [ "organism" ],
+    "has": [  ]
+    //end noun
+  }
+}

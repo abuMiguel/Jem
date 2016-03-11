@@ -1,0 +1,10 @@
+﻿{
+  "tree": {
+    "is": "plant",
+    "description": [ "tall", "woody" ],
+    "in": [ "ground" ],
+    "has": [ "branches", "leaves", "bark" ],
+    "pos": "noun",
+    "plural": "trees"
+  }
+}

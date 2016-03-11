@@ -1,0 +1,10 @@
+﻿{
+  "said": {
+    "pos": "verb",
+    "forms": [ "say", "says", "saying" ],
+    "doer": [ "person" ],
+    "tense": "past",
+    "root": "say"
+    "synonyms":  [ "declared", "claimed", "spoke", "uttered", "expressed" ]
+  }
+}

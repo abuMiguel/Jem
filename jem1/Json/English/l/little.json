@@ -1,0 +1,19 @@
+﻿{
+  "little": {
+    "pos": [ "adjective", "noun", "adverb" ],
+
+    //adjective
+    "comparative": "littler",
+    "superlative": "littlest",
+    "sentiment": "neutral",
+    "synonyms": [ "small", "tiny", "miniscule", "mini" ],
+
+    //noun
+    "is": [ "amount" ],
+    "can": [ ],
+    "description": [ ],
+    "in": [ ],
+    "has": [ ],
+
+  }
+}

@@ -1,0 +1,13 @@
+﻿{
+  "running": {
+    "pos": [ "noun", "verb", "adjective" ],
+    "forms": [ "run", "ran", "runs" ],
+    "doer": [ "anything" ],
+    "tense": "progressive",
+    "root": "run",
+    "is": [ "action" ],
+    "can": [  ],
+    "description": [ "fast" ],
+    "synonyms": [ "jogging", "sprinting" ]
+  }
+}

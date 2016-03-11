@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A281CA28-E8E6-49E2-B504-F3ED0F78DC5C}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>jem1</RootNamespace>
+    <AssemblyName>jem1</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ImpromptuInterface, Version=6.2.2.0, Culture=neutral, PublicKeyToken=0b1781c923b2975b, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImpromptuInterface.6.2.2\lib\net40\ImpromptuInterface.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Answer.cs" />
+    <Compile Include="DataStructure\Graph.cs" />
+    <Compile Include="DataStructure\GraphNode.cs" />
+    <Compile Include="DataStructure\Node.cs" />
+    <Compile Include="DataStructure\NodeList.cs" />
+    <Compile Include="Grammar\Determiner.cs" />
+    <Compile Include="Grammar\POSTagger.cs" />
+    <Compile Include="Grammar\PrepPhrase.cs" />
+    <Compile Include="Grammar\Punctuation.cs" />
+    <Compile Include="Grammar\Question.cs" />
+    <Compile Include="Grammar\Rules.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Session.cs" />
+    <Compile Include="Structure\Clause.cs" />
+    <Compile Include="Structure\JO.cs" />
+    <Compile Include="Structure\Meaning.cs" />
+    <Compile Include="Structure\Sentence.cs" />
+    <Compile Include="Structure\Word.cs" />
+    <Compile Include="U.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Json\English\a\air.json" />
+    <None Include="Json\English\a\an.json" />
+    <None Include="Json\English\a\a.json" />
+    <None Include="Json\English\a\about.json" />
+    <None Include="Json\English\a\after.json" />
+    <None Include="Json\English\a\am.json" />
+    <None Include="Json\English\a\and.json" />
+    <None Include="Json\English\a\angry.json" />
+    <None Include="Json\English\a\are.json" />
+    <None Include="Json\English\a\arm.json" />
+    <None Include="Json\English\a\arms.json" />
+    <None Include="Json\English\a\as.json" />
+    <None Include="Json\English\a\at.json" />
+    <None Include="Json\English\b\because.json" />
+    <None Include="Json\English\b\before.json" />
+    <None Include="Json\English\b\bored.json" />
+    <None Include="Json\English\b\brother.json" />
+    <None Include="Json\English\b\but.json" />
+    <None Include="Json\English\b\by.json" />
+    <None Include="Json\English\d\dad.json" />
+    <None Include="Json\English\d\dads.json" />
+    <None Include="Json\English\d\despite.json" />
+    <None Include="Json\English\d\do.json" />
+    <None Include="Json\English\d\during.json" />
+    <None Include="Json\English\e\example.json" />
+    <None Include="Json\English\e\except.json" />
+    <None Include="Json\English\f\face.json" />
+    <None Include="Json\English\f\father.json" />
+    <None Include="Json\English\f\fathers.json" />
+    <None Include="Json\English\f\find.json" />
+    <None Include="Json\English\f\for.json" />
+    <None Include="Json\English\f\from.json" />
+    <None Include="Json\English\f\fun.json" />
+    <None Include="Json\English\f\if.json" />
+    <None Include="Json\English\g\Germany.json" />
+    <None Include="Json\English\g\good.json" />
+    <None Include="Json\English\h\happy.json" />
+    <None Include="Json\English\h\have.json" />
+    <None Include="Json\English\h\he.json" />
+    <None Include="Json\English\h\her.json" />
+    <None Include="Json\English\h\hers.json" />
+    <None Include="Json\English\h\his.json" />
+    <None Include="Json\English\h\honest.json" />
+    <None Include="Json\English\h\has.json" />
+    <None Include="Json\English\i\I.json" />
+    <None Include="Json\English\i\if.json" />
+    <None Include="Json\English\i\interestingly.json" />
+    <None Include="Json\English\i\is.json" />
+    <None Include="Json\English\i\its.json" />
+    <None Include="Json\English\i\in.json" />
+    <None Include="Json\English\j\Jem.json" />
+    <None Include="Json\English\l\little.json" />
+    <None Include="Json\English\l\leg.json" />
+    <None Include="Json\English\l\legs.json" />
+    <None Include="Json\English\l\look.json" />
+    <None Include="Json\English\l\like.json" />
+    <None Include="Json\English\m\mine.json" />
+    <None Include="Json\English\m\moms.json" />
+    <None Include="Json\English\m\mom.json" />
+    <None Include="Json\English\m\mother.json" />
+    <None Include="Json\English\m\mothers.json" />
+    <None Include="Json\English\m\my.json" />
+    <None Include="Json\English\n\names.json" />
+    <None Include="Json\English\n\name.json" />
+    <None Include="Json\English\n\new.json" />
+    <None Include="Json\English\o\one.json" />
+    <None Include="Json\English\o\of.json" />
+    <None Include="Json\English\o\on.json" />
+    <None Include="Json\English\o\or.json" />
+    <None Include="Json\English\o\our.json" />
+    <None Include="Json\English\o\ours.json" />
+    <None Include="Json\English\o\over.json" />
+    <None Include="Json\English\p\Paris.json" />
+    <None Include="Json\English\p\people.json" />
+    <None Include="Json\English\p\person.json" />
+    <None Include="Json\English\r\really.json" />
+    <None Include="Json\English\r\run.json" />
+    <None Include="Json\English\r\ran.json" />
+    <None Include="Json\English\r\running.json" />
+    <None Include="Json\English\s\sandwich.json" />
+    <None Include="Json\English\s\same.json" />
+    <None Include="Json\English\s\store.json" />
+    <None Include="Json\English\s\she.json" />
+    <None Include="Json\English\s\see.json" />
+    <None Include="Json\English\s\speaker.json" />
+    <None Include="Json\English\s\say.json" />
+    <None Include="Json\English\s\said.json" />
+    <None Include="Json\English\t\two.json" />
+    <None Include="Json\English\t\than.json" />
+    <None Include="Json\English\t\that.json" />
+    <None Include="Json\English\t\the.json" />
+    <None Include="Json\English\t\their.json" />
+    <None Include="Json\English\t\theirs.json" />
+    <None Include="Json\English\t\they.json" />
+    <None Include="Json\English\t\through.json" />
+    <None Include="Json\English\t\to.json" />
+    <None Include="Json\English\t\trees.json" />
+    <None Include="Json\English\t\tree.json" />
+    <None Include="Json\English\u\under.json" />
+    <None Include="Json\English\u\until.json" />
+    <None Include="Json\English\u\up.json" />
+    <None Include="Json\English\v\very.json" />
+    <None Include="Json\English\w\went.json" />
+    <None Include="Json\English\w\was.json" />
+    <None Include="Json\English\w\well.json" />
+    <None Include="Json\English\w\were.json" />
+    <None Include="Json\English\w\which.json" />
+    <None Include="Json\English\w\who.json" />
+    <None Include="Json\English\w\with.json" />
+    <None Include="Json\English\w\without.json" />
+    <None Include="Json\English\y\you.json" />
+    <None Include="Json\English\y\your.json" />
+    <None Include="Json\English\y\yours.json" />
+    <None Include="Json\English\g\goodbye.json" />
+    <None Include="Json\Meanings\t\Teenage Mutant Ninja Turtles.json" />
+    <None Include="Json\Templates\adjective.json" />
+    <None Include="Json\Templates\adverb.json" />
+    <None Include="Json\Templates\determiner.json" />
+    <None Include="Json\Templates\noun.json" />
+    <None Include="Json\Templates\preposition.json" />
+    <None Include="Json\Templates\pronoun.json" />
+    <None Include="Json\Templates\subordinatingConjunction.json" />
+    <None Include="Json\Templates\verb.json" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Json\English\c\" />
+    <Folder Include="Json\English\k\" />
+    <Folder Include="Json\English\q\" />
+    <Folder Include="Json\English\x\" />
+    <Folder Include="Json\English\z\" />
+    <Folder Include="Json\Meanings\a\" />
+    <Folder Include="Json\Meanings\b\" />
+    <Folder Include="Json\Meanings\c\" />
+    <Folder Include="Json\Meanings\d\" />
+    <Folder Include="Json\Meanings\e\" />
+    <Folder Include="Json\Meanings\f\" />
+    <Folder Include="Json\Meanings\g\" />
+    <Folder Include="Json\Meanings\h\" />
+    <Folder Include="Json\Meanings\i\" />
+    <Folder Include="Json\Meanings\j\" />
+    <Folder Include="Json\Meanings\k\" />
+    <Folder Include="Json\Meanings\l\" />
+    <Folder Include="Json\Meanings\m\" />
+    <Folder Include="Json\Meanings\n\" />
+    <Folder Include="Json\Meanings\o\" />
+    <Folder Include="Json\Meanings\p\" />
+    <Folder Include="Json\Meanings\q\" />
+    <Folder Include="Json\Meanings\r\" />
+    <Folder Include="Json\Meanings\s\" />
+    <Folder Include="Json\Meanings\u\" />
+    <Folder Include="Json\Meanings\v\" />
+    <Folder Include="Json\Meanings\w\" />
+    <Folder Include="Json\Meanings\x\" />
+    <Folder Include="Json\Meanings\y\" />
+    <Folder Include="Json\Meanings\z\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

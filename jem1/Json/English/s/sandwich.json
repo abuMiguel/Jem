@@ -1,0 +1,23 @@
+﻿{
+  "sandwich": {
+    "pos": [ "noun", "verb" ],
+
+    //noun
+    "plural": "sandwiches",
+    "is": [ "food" ],
+    "can": [ "nourish" ],
+    "description": [ ],
+    "in": [ "person", "kitchen", "restaurant", "refrigerator" ],
+    "has": [ "ingredients", "bread" ],
+    "synonyms": [ "hoagie", "sub", "sammich" ],
+    //end noun
+
+    //verb
+    "forms": [ "sandwiches", "sandwiched", "sandwiching" ],
+    "doer": [ "anything" ],
+    "tense": "present",
+    "root": "sandwich"
+    //end verb
+
+  }
+}

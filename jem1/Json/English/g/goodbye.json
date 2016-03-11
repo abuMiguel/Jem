@@ -1,0 +1,37 @@
+﻿{
+  "goodbye": {
+    "abbreviation": "bye",
+    "aka": "farewell",
+    "is": "expression of intent of departure",
+    "synonyms": [
+      "goodbye",
+      "bye",
+      "see you later",
+      "see ya",
+      "later",
+      "see ya later",
+      "adios",
+      "I'm out",
+      "ciao",
+      "bye bye",
+      "good bye",
+      "aufwiedersehen",
+      "adieu",
+      "catch ya later",
+      "peace",
+      "talk to you later",
+      "talk to ya later",
+      "farewell",
+      "tootles",
+      "so long",
+      "Godspeed",
+      "bye-bye",
+      "cheerio",
+      "have a nice day",
+      "hasta la vista",
+      "ta ta",
+      "ta-ta"
+    ],
+    "pos": "interjection"
+  }
+}

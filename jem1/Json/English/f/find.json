@@ -1,0 +1,8 @@
+﻿{
+  "find": {
+    "forms": [ "finds", "found", "finding" ],
+    "pos": "verb",
+    "tense": "present",
+    "root": "find"
+  }
+}
