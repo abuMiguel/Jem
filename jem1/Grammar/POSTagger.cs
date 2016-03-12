@@ -56,6 +56,17 @@ namespace jem1.Grammar
                             verbCount++;
                         }
                         break;
+                    case "linking verb":
+                        if (!w.inRelPhrase)
+                        {
+                            if (verbCount == 0)
+                            {
+                                verbPosition = cID;
+                            }
+                            c.verbs.Add(w);
+                            verbCount++;
+                        }
+                        break;
                     case "preposition":
                         List<Word> ppwords = new List<Word>();
                         for (int i = cID; i < c.WordCount(); i++)
@@ -81,9 +92,9 @@ namespace jem1.Grammar
                             {
                                 vrbs.Add("v");
                             }
-                            else if (c.words[i].pos == "helper verb")
+                            else if (c.words[i].pos == "helper verb" || c.words[i].pos == "linking verb")
                             {
-                                vrbs.Add("hv");
+                                vrbs.Add("hlv");
                             }
                             // if more than 1 Verb AND current word's POS is Verb
                             if (vrbs.Count > 1 && c.words[i].pos.Contains("verb"))
@@ -91,11 +102,11 @@ namespace jem1.Grammar
                                 switch (vrbs.Count)
                                 {
                                     case 2:   // verb-verb OR verb-helper verb
-                                        if (vrbs[0] == "v" && (vrbs[1] == "v" || vrbs[1] == "hv"))
+                                        if (vrbs[0] == "v" && (vrbs[1] == "v" || vrbs[1] == "hlv"))
                                         {
                                             end = true;
                                         }     // helper verb-verb AND word before is NOT helper verb
-                                        else if (vrbs[0] == "hv" && vrbs[1] == "v" && c.words[i - 1].pos != "helper verb")
+                                        else if (vrbs[0] == "hlv" && vrbs[1] == "v" && (c.words[i - 1].pos != "helper verb" || c.words[i - 1].pos != "linking verb"))
                                         {
                                             end = true;
                                         }
@@ -257,7 +268,7 @@ namespace jem1.Grammar
                             {
                                 // wa = word after the adverb
                                 var wa = c.words[cID + 1].pos;
-                                if (wa == "adjective" || wa == "verb" || wa == "adverb" && c.predicate.Contains(w))
+                                if (wa == "adjective" || wa.Contains("verb") || wa == "adverb" && c.predicate.Contains(w))
                                 {
                                     c.words[cID + 1].descriptor.Add(w.name);
                                 }
@@ -405,21 +416,20 @@ namespace jem1.Grammar
         {
             //can safely check the word before
             Rules.DeterminerPreceedingRule(wBefore, posL, w, s);
-            Rules.IngVerbRule(wBefore, posL, w);
+            if (U.EndsWith(w, "ing")) { Rules.IngVerbRule(wBefore, posL, w); }
         }
 
         private static void RunMiddleWordRules(Word wBefore, Word wAfter, List<string> posL, Word w, Sentence s)
         {
             //can safely check the word before AND the word after
             Rules.DeterminerPreceedingRule(wBefore, wAfter, posL, w, s);
-            Rules.IngVerbRule(wBefore, posL, w);
+            if (U.EndsWith(w, "ing")) { Rules.IngVerbRule(wBefore, posL, w); }
 
         }
 
         private static void RunUnknownMiddleRules(Word wBefore, Word wAfter, Word w, Sentence s)
         {
             Rules.UnknownMiddleRules(wBefore, wAfter, w, s);
-
         }
 
         private static void RunUnknownLastRules(Word wBefore, Word w, Sentence s)
@@ -461,6 +471,9 @@ namespace jem1.Grammar
                     break;
                 case "helper verb":
                     abbr = "HV";
+                    break;
+                case "linking verb":
+                    abbr = "LV";
                     break;
                 case "pronoun":
                     if (w.role == "subject") { abbr = "SP"; }

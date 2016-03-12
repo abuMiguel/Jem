@@ -40,6 +40,19 @@ namespace jem1
             else { return ""; }
         }
 
+        public static bool EndsWith(Word w, string ending)
+        {
+            int num = ending.Length;
+            string wordReverseEnding = " ";
+
+            if (w.name.Length > num)
+            {
+                wordReverseEnding = new string(w.name.Reverse().Take(num).ToArray());
+            }
+           
+            return wordReverseEnding == new string(ending.Reverse().ToArray()) ? true : false;
+        }
+
         //Determine whether the words preceeding a word up until a particular part of speech, are all
         //words listed in an OK list. This allows a rule to apply where there are an infinite number 
         //of words inbetween that don't disturb the rule

@@ -1,0 +1,10 @@
+﻿{
+  "eat": {
+    "pos": "verb",
+    "forms": [ "eats", "ate", "eaten", "eating" ],
+    "doer": [ "organism" ],
+    "tense": "present",
+    "root": "eat",
+    "synonyms": [ "devour", "ingest", "consume" ]
+  }
+}

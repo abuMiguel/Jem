@@ -1,0 +1,8 @@
+﻿{
+  "runs": {
+    "forms": [ "run", "ran", "running" ],
+    "pos": [ "verb", "noun" ],
+    "tense": "present",
+    "root": "run"
+  }
+}

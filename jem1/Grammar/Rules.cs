@@ -39,7 +39,7 @@ namespace jem1.Grammar
         public static void IngVerbRule(Word wBefore, List<string> posL, Word w)
         {
             //ING verb rule
-            if (wBefore.pos == "helper verb")
+            if (wBefore.pos == "helper verb" || wBefore.pos == "linking verb")
             {
                 posL.RemoveAll(x => x != "verb");
             }
@@ -55,14 +55,20 @@ namespace jem1.Grammar
             w.pos = ListToString(posL);
         }
 
+        public static void LyAdverbRule(Word w)
+        {
+            if(EndsWith(w, "ly")) { w.pos = "adverb"; }
+        }
+
         public static void UnknownMiddleRules(Word wBefore, Word wAfter, Word w, Sentence s)
         {
             //Determiner preceeding rule
             string[] oklist = new string[3] { "adjective", "noun", "unknown" };
-            if (wBefore.pos.Contains("determiner") || NothingButBetween(w, "determiner", oklist, s))
+            if (wBefore.pos.Contains("determiner"))
             {
                 w.pos = "noun,adjective";
             }
+            LyAdverbRule(w);
 
         }
 
@@ -70,10 +76,11 @@ namespace jem1.Grammar
         {
             //Determiner preceeding rule
             string[] oklist = new string[3] { "adjective", "noun", "unknown" };
-            if (wBefore.pos.Contains("determiner") || NothingButBetween(w, "determiner", oklist, s))
+            if (wBefore.pos.Contains("determiner"))
             {
                 w.pos = "noun";
             }
+            LyAdverbRule(w);
         }
     }
 }

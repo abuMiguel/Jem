@@ -94,6 +94,9 @@
     <None Include="Json\English\b\brother.json" />
     <None Include="Json\English\b\but.json" />
     <None Include="Json\English\b\by.json" />
+    <None Include="Json\English\b\be.json" />
+    <None Include="Json\English\c\can.json" />
+    <None Include="Json\English\c\could.json" />
     <None Include="Json\English\d\dad.json" />
     <None Include="Json\English\d\dads.json" />
     <None Include="Json\English\d\despite.json" />
@@ -101,6 +104,7 @@
     <None Include="Json\English\d\during.json" />
     <None Include="Json\English\e\example.json" />
     <None Include="Json\English\e\except.json" />
+    <None Include="Json\English\e\eat.json" />
     <None Include="Json\English\f\face.json" />
     <None Include="Json\English\f\father.json" />
     <None Include="Json\English\f\fathers.json" />
@@ -111,6 +115,9 @@
     <None Include="Json\English\f\if.json" />
     <None Include="Json\English\g\Germany.json" />
     <None Include="Json\English\g\good.json" />
+    <None Include="Json\English\g\go.json" />
+    <None Include="Json\English\g\going.json" />
+    <None Include="Json\English\h\here.json" />
     <None Include="Json\English\h\happy.json" />
     <None Include="Json\English\h\have.json" />
     <None Include="Json\English\h\he.json" />
@@ -137,6 +144,7 @@
     <None Include="Json\English\m\mother.json" />
     <None Include="Json\English\m\mothers.json" />
     <None Include="Json\English\m\my.json" />
+    <None Include="Json\English\n\not.json" />
     <None Include="Json\English\n\names.json" />
     <None Include="Json\English\n\name.json" />
     <None Include="Json\English\n\new.json" />
@@ -151,6 +159,7 @@
     <None Include="Json\English\p\people.json" />
     <None Include="Json\English\p\person.json" />
     <None Include="Json\English\r\really.json" />
+    <None Include="Json\English\r\runs.json" />
     <None Include="Json\English\r\run.json" />
     <None Include="Json\English\r\ran.json" />
     <None Include="Json\English\r\running.json" />
@@ -162,6 +171,7 @@
     <None Include="Json\English\s\speaker.json" />
     <None Include="Json\English\s\say.json" />
     <None Include="Json\English\s\said.json" />
+    <None Include="Json\English\s\should.json" />
     <None Include="Json\English\t\two.json" />
     <None Include="Json\English\t\than.json" />
     <None Include="Json\English\t\that.json" />
@@ -177,6 +187,8 @@
     <None Include="Json\English\u\until.json" />
     <None Include="Json\English\u\up.json" />
     <None Include="Json\English\v\very.json" />
+    <None Include="Json\English\w\would.json" />
+    <None Include="Json\English\w\will.json" />
     <None Include="Json\English\w\went.json" />
     <None Include="Json\English\w\was.json" />
     <None Include="Json\English\w\well.json" />
@@ -201,7 +213,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Json\English\c\" />
     <Folder Include="Json\English\k\" />
     <Folder Include="Json\English\q\" />
     <Folder Include="Json\English\x\" />
