@@ -9,11 +9,11 @@ namespace jem1.Grammar
 {
     static class Rules
     {
-        //Determiner preceeding rule overloaded for last word only.
-        public static void DeterminerPreceedingRule(Word wBefore, List<string> posL, Word w, Sentence s)
+        //Determiner preceding rule overloaded for last word only.
+        public static void DeterminerPrecedingRule(Word wBefore, List<string> posL, Word w, Sentence s)
         {
             string[] oklist = new string[3] { "adjective", "noun", "unknown" };
-            //Determiner preceeding rule
+            //Determiner preceding rule
             if (wBefore.pos.Contains("determiner") || NothingButBetween(w, "determiner", oklist, s))
             {
                 posL.RemoveAll(x => !x.Contains("noun") && !x.Contains("adjective"));
@@ -23,10 +23,10 @@ namespace jem1.Grammar
         }
 
         //Does the word come after a determiner?  This is for middle words only.
-        public static void DeterminerPreceedingRule(Word wBefore, Word wAfter, List<string> posL, Word w, Sentence s)
+        public static void DeterminerPrecedingRule(Word wBefore, Word wAfter, List<string> posL, Word w, Sentence s)
         {
             string[] oklist = new string[3] { "adjective", "noun", "unknown" };
-            //Determiner preceeding rule
+            //Determiner preceding rule
             if (wBefore.pos.Contains("determiner") || NothingButBetween(w, "determiner", oklist, s))
             {
                 posL.RemoveAll(x => !x.Contains("noun") && !x.Contains("adjective"));
@@ -35,7 +35,7 @@ namespace jem1.Grammar
             w.pos = ListToString(posL);
         }
 
-        //Is the ING word preceeded by 
+        //Is the ING word preceded by 
         public static void IngVerbRule(Word wBefore, List<string> posL, Word w)
         {
             //ING verb rule
@@ -55,6 +55,16 @@ namespace jem1.Grammar
             w.pos = ListToString(posL);
         }
 
+        //(middle word) any relative pronoun possibility meeting this requirement is a relative pronoun
+        public static void RelativePronounRule(Word wBefore, Word w)
+        {
+            if(wBefore.pos == "noun" || wBefore.pos == "pronoun")
+            {
+                w.pos = "relative pronoun";
+            }
+        }
+
+        //best guess for a word ending in 'ly' is adverb
         public static void LyAdverbRule(Word w)
         {
             if(EndsWith(w, "ly")) { w.pos = "adverb"; }
@@ -62,7 +72,7 @@ namespace jem1.Grammar
 
         public static void UnknownMiddleRules(Word wBefore, Word wAfter, Word w, Sentence s)
         {
-            //Determiner preceeding rule
+            //Determiner preceding rule
             string[] oklist = new string[3] { "adjective", "noun", "unknown" };
             if (wBefore.pos.Contains("determiner"))
             {
@@ -74,7 +84,7 @@ namespace jem1.Grammar
 
         public static void UnknownLastRules(Word wBefore, Word w, Sentence s)
         {
-            //Determiner preceeding rule
+            //Determiner preceding rule
             string[] oklist = new string[3] { "adjective", "noun", "unknown" };
             if (wBefore.pos.Contains("determiner"))
             {

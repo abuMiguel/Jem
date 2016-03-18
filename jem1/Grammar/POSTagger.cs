@@ -412,20 +412,23 @@ namespace jem1.Grammar
             Rules.IngStartRule(posL, w);
         }
 
-        private static void RunLastWordRules(Word wBefore, List<string> posL, Word w, Sentence s)
-        {
-            //can safely check the word before
-            Rules.DeterminerPreceedingRule(wBefore, posL, w, s);
-            if (U.EndsWith(w, "ing") && posL.Contains("verb")) { Rules.IngVerbRule(wBefore, posL, w); }
-        }
-
         private static void RunMiddleWordRules(Word wBefore, Word wAfter, List<string> posL, Word w, Sentence s)
         {
             //can safely check the word before AND the word after
-            Rules.DeterminerPreceedingRule(wBefore, wAfter, posL, w, s);
+            Rules.DeterminerPrecedingRule(wBefore, wAfter, posL, w, s);
             if (U.EndsWith(w, "ing") && posL.Contains("verb")) { Rules.IngVerbRule(wBefore, posL, w); }
+            if (posL.Contains("relative pronoun") && posL.Count > 1) { Rules.RelativePronounRule(wBefore, w); }
 
         }
+
+        private static void RunLastWordRules(Word wBefore, List<string> posL, Word w, Sentence s)
+        {
+            //can safely check the word before
+            Rules.DeterminerPrecedingRule(wBefore, posL, w, s);
+            if (U.EndsWith(w, "ing") && posL.Contains("verb")) { Rules.IngVerbRule(wBefore, posL, w); }
+        }
+
+        
 
         private static void RunUnknownMiddleRules(Word wBefore, Word wAfter, Word w, Sentence s)
         {

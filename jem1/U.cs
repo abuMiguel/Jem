@@ -53,7 +53,7 @@ namespace jem1
             return wordReverseEnding == new string(ending.Reverse().ToArray()) ? true : false;
         }
 
-        //Determine whether the words preceeding a word up until a particular part of speech, are all
+        //Determine whether the words preceding a word up until a particular part of speech, are all
         //words listed in an OK list. This allows a rule to apply where there are an infinite number 
         //of words inbetween that don't disturb the rule
         public static bool NothingButBetween(Word startWord, string endPOS, string[] okList, Sentence s)

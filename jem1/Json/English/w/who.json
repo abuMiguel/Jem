@@ -1,6 +1,6 @@
 ﻿{
   "who": {
     "is": "person",
-    "pos": "relative pronoun"
+    "pos": [ "pronoun", "relative pronoun" ]
   }
 }
