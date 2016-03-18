@@ -1,0 +1,16 @@
+﻿{
+  "ingVerb": {
+    "pos": [ "verb", "noun" ],
+    //noun
+    "forms": [ "s", "ed" ],
+    "doer": [ "who verbs" ],
+    "tense": "progressive",
+    "root": "root",
+    "synonyms": [ "synonym" ],
+    //verb
+    "plural": "ings",
+    "is": [ "action" ],
+    "description": [  ]
+
+  }
+}

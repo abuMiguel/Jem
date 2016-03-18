@@ -1,7 +1,7 @@
 ﻿{
   "do": {
     "forms": [ "did", "does" ],
-    "pos": "helper verb",
+    "pos": [ "verb", "helper verb" ],
     "tense": "present"
   }
 }

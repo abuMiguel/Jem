@@ -88,6 +88,8 @@
     <None Include="Json\English\a\arms.json" />
     <None Include="Json\English\a\as.json" />
     <None Include="Json\English\a\at.json" />
+    <None Include="Json\English\a\ate.json" />
+    <None Include="Json\English\b\big.json" />
     <None Include="Json\English\b\because.json" />
     <None Include="Json\English\b\before.json" />
     <None Include="Json\English\b\bored.json" />
@@ -97,14 +99,21 @@
     <None Include="Json\English\b\be.json" />
     <None Include="Json\English\c\can.json" />
     <None Include="Json\English\c\could.json" />
+    <None Include="Json\English\c\climb.json" />
+    <None Include="Json\English\c\climbed.json" />
     <None Include="Json\English\d\dad.json" />
     <None Include="Json\English\d\dads.json" />
     <None Include="Json\English\d\despite.json" />
     <None Include="Json\English\d\do.json" />
+    <None Include="Json\English\d\doing.json" />
+    <None Include="Json\English\d\done.json" />
     <None Include="Json\English\d\during.json" />
+    <None Include="Json\English\d\did.json" />
+    <None Include="Json\English\e\enjoyed.json" />
     <None Include="Json\English\e\example.json" />
     <None Include="Json\English\e\except.json" />
     <None Include="Json\English\e\eat.json" />
+    <None Include="Json\English\e\enjoy.json" />
     <None Include="Json\English\f\face.json" />
     <None Include="Json\English\f\father.json" />
     <None Include="Json\English\f\fathers.json" />
@@ -148,6 +157,7 @@
     <None Include="Json\English\n\names.json" />
     <None Include="Json\English\n\name.json" />
     <None Include="Json\English\n\new.json" />
+    <None Include="Json\English\n\need.json" />
     <None Include="Json\English\o\one.json" />
     <None Include="Json\English\o\of.json" />
     <None Include="Json\English\o\on.json" />
@@ -205,6 +215,7 @@
     <None Include="Json\Templates\adjective.json" />
     <None Include="Json\Templates\adverb.json" />
     <None Include="Json\Templates\determiner.json" />
+    <None Include="Json\Templates\ingVerb.json" />
     <None Include="Json\Templates\noun.json" />
     <None Include="Json\Templates\preposition.json" />
     <None Include="Json\Templates\pronoun.json" />

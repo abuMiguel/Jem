@@ -1,0 +1,10 @@
+﻿{
+  "climbed": {
+    "pos": [ "verb" ],
+    "forms": [ "climbs", "climbed", "climbing" ],
+    "doer": [ ],
+    "tense": "past",
+    "root": "climb",
+    "synonyms": [ ]
+  }
+}

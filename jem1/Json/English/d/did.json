@@ -1,0 +1,10 @@
+﻿{
+  "did": {
+    "pos": [ "verb", "helper verb" ],
+    "forms": [ "do", "done", "doing" ],
+    "doer": [  ],
+    "tense": "past",
+    "root": "do",
+    "synonyms": [  ]
+  }
+}

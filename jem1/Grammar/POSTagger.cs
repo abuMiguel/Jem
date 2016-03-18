@@ -416,25 +416,25 @@ namespace jem1.Grammar
         {
             //can safely check the word before
             Rules.DeterminerPreceedingRule(wBefore, posL, w, s);
-            if (U.EndsWith(w, "ing")) { Rules.IngVerbRule(wBefore, posL, w); }
+            if (U.EndsWith(w, "ing") && posL.Contains("verb")) { Rules.IngVerbRule(wBefore, posL, w); }
         }
 
         private static void RunMiddleWordRules(Word wBefore, Word wAfter, List<string> posL, Word w, Sentence s)
         {
             //can safely check the word before AND the word after
             Rules.DeterminerPreceedingRule(wBefore, wAfter, posL, w, s);
-            if (U.EndsWith(w, "ing")) { Rules.IngVerbRule(wBefore, posL, w); }
+            if (U.EndsWith(w, "ing") && posL.Contains("verb")) { Rules.IngVerbRule(wBefore, posL, w); }
 
         }
 
         private static void RunUnknownMiddleRules(Word wBefore, Word wAfter, Word w, Sentence s)
         {
-            Rules.UnknownMiddleRules(wBefore, wAfter, w, s);
+            //Rules.UnknownMiddleRules(wBefore, wAfter, w, s);
         }
 
         private static void RunUnknownLastRules(Word wBefore, Word w, Sentence s)
         {
-            Rules.UnknownLastRules(wBefore, w, s);
+            //Rules.UnknownLastRules(wBefore, w, s);
         }
      
         public static string GetAbbrev(Word w)

@@ -1,5 +1,5 @@
 ﻿{
   "that": {
-    "pos": "relative pronoun"
+    "pos": [ "relative pronoun", "adjective", "pronoun", "conjunction" ]
   }
 }
