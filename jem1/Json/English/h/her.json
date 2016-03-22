@@ -2,7 +2,7 @@
   "her": {
     "forms": [ "she", "hers" ],
     "role": "adjective",
-    "pos": "possessive determiner",
+    "pos": [ "possessive determiner", "pronoun" ],
     "person": "third",
     "root": "she"
   }

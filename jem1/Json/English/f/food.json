@@ -1,0 +1,13 @@
+﻿{
+  "food": {
+    "pos": "noun",
+    "plural": "foods",
+    "is": [  ],
+    "can": [  ],
+    "description": [  ],
+    "in": [  ],
+    "has": [ "taste", "flavor" ],
+    "synonyms": [  ]
+
+  }
+}

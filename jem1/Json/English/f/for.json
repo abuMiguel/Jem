@@ -1,6 +1,6 @@
 ﻿{
   "for": {
-    "is": "preposition",
-    "pos": "preposition"
+    "is": "word",
+    "pos": [ "preposition", "coordinating conjunction" ]
   }
 }

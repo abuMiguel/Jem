@@ -227,7 +227,7 @@ namespace jem1.Grammar
                 }
 
                 int adjFlag = 0;
-                //find the adjectives and what they modify
+                //find the adjectives and adverbs and what they modify
                 foreach (Word w in c.words)
                 {
                     int cID = w.ID - c.words[0].ID;
@@ -330,6 +330,7 @@ namespace jem1.Grammar
                     word.pos = "unknown";
                 }
             }
+
             Deconflict(s);
         }
 
@@ -344,7 +345,7 @@ namespace jem1.Grammar
                 {
                     var posL = CSVToList(w.pos);
 
-                    if (w.pos.Contains(","))  //has more than one choice
+                    if (w.pos.Contains(","))  //has more than one choice for POS
                     {
                         if (s.WordCount() == 1) //Only one word in sentence
                         {
@@ -365,7 +366,6 @@ namespace jem1.Grammar
                         {
                             var wBefore = s.words[w.ID - 1];
                             RunLastWordRules(wBefore, posL, w, s);
-
                         }
 
                         //After the LAST pass through the rules, set the words that are still
@@ -374,7 +374,6 @@ namespace jem1.Grammar
                         {
                             w.pos = posL[0];
                         }
-
                     }
                     else
                     {
@@ -409,7 +408,7 @@ namespace jem1.Grammar
         private static void RunFirstWordRules(Word wAfter, List<string> posL, Word w, Sentence s)
         {
             //can safely check the word after
-            Rules.IngStartRule(posL, w);
+            if (U.EndsWith(w, "ing")) { Rules.IngStartRule(posL, w); }
         }
 
         private static void RunMiddleWordRules(Word wBefore, Word wAfter, List<string> posL, Word w, Sentence s)
@@ -507,7 +506,7 @@ namespace jem1.Grammar
                     abbr = "DT";
                     break;
                 default:
-                    abbr = "ERR";
+                    abbr = string.IsNullOrEmpty(w.pos) ? "ERR" : w.pos;
                     break;
             }
             return abbr;

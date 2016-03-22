@@ -90,31 +90,40 @@ namespace jem1
             return true;
         }
 
-        //Rewrite this!!! NothingButBetween has been edited, and this doesn't reflect changes
+        
         //Same as NothingButBetween except it looks forward not backwards
         public static bool NothingButBetweenForward(Word startWord, string endPOS, string[] okList, Sentence s)
         {
             for (int i = startWord.ID + 1; i < s.WordCount(); i++)
             {
+                var posL = s.words[i].pos.Contains(",") ? s.words[i].pos.Split(',') : new string[1] { s.words[i].pos };
+
                 for (int j = 0; j < okList.Length; j++)
                 {
-                    if (s.words[i].pos == endPOS)
+                    var flag = false;
+                    for (int k = 0; k < posL.Length; k++)
                     {
-                        return true;
-                    }
 
-                    if (s.words[i].pos == okList[j])
-                    {
-                        break;
+                        if (posL[k] == endPOS)
+                        {
+                            return true;
+                        }
+
+                        if (posL[k] == okList[j])
+                        {
+                            flag = true;
+                            break;
+                        }
+                        else if (j == okList.Length - 1)
+                        {
+                            return false;
+                        }
                     }
-                    else
-                    {
-                        return false;
-                    }
+                    if (flag) { break; }
                 }
             }
-
             return true;
         }
+       
     }
 }

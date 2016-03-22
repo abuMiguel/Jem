@@ -102,7 +102,26 @@ namespace jem1
                     case "subordinating conjunction":
                         divs.Add(w);
                         break;
-                }
+                    case "coordinating conjunction":
+                        //coordinating conjunctions don't always divide a sentence, but sometimes do
+                        //check whether there's a verb before and after it, if yes then it divides two clauses
+                        bool bVerb = false; bool aVerb = false;
+                        foreach(Word word in s.words)
+                        {
+                            if(word.pos == "verb" || word.pos == "linking verb" || word.pos == "helper verb")
+                            {
+                                if(word.ID < w.ID) { bVerb = true; }
+                                if(word.ID > w.ID) { aVerb = true; }
+                            }
+                        }
+                        if(aVerb == true && bVerb == true && 
+                            (U.NothingButBetween(w, "verb", new string[2]{"adverb", "verb"}, s) == false && 
+                            U.NothingButBetweenForward(w, "verb", new string[4]{"adverb", "linking verb", "helper verb", "verb"}, s) == false) )
+                        {
+                            divs.Add(w);
+                        }
+                        break;
+                }  
             }
 
             bool firstWordIsDiv = false;
