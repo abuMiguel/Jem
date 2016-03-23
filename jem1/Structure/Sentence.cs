@@ -104,16 +104,18 @@ namespace jem1
                         break;
                     case "coordinating conjunction":
                         //coordinating conjunctions don't always divide a sentence, but sometimes do
-                        //check whether there's a verb before and after it, if yes then it divides two clauses
                         bool bVerb = false; bool aVerb = false;
                         foreach(Word word in s.words)
                         {
+                            //check for verbs
                             if(word.pos == "verb" || word.pos == "linking verb" || word.pos == "helper verb")
                             {
+                                //is the verb before or after the CC
                                 if(word.ID < w.ID) { bVerb = true; }
                                 if(word.ID > w.ID) { aVerb = true; }
                             }
                         }
+                        //if there are verbs before and after AND it isn't just a compound verb then it is a divider
                         if(aVerb == true && bVerb == true && 
                             (U.NothingButBetween(w, "verb", new string[2]{"adverb", "verb"}, s) == false && 
                             U.NothingButBetweenForward(w, "verb", new string[4]{"adverb", "linking verb", "helper verb", "verb"}, s) == false) )
