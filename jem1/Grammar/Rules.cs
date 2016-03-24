@@ -42,6 +42,34 @@ namespace jem1.Grammar
             w.pos = ListToString(posL);
         }
 
+        //Infinitive rule, not last word
+        public static void InfinitiveRule(Word w, Word wAfter)
+        {
+            if(wAfter.pos.Contains("verb") && !wAfter.pos.Contains("adjective"))
+            {
+                w.pos = "infinitive";
+            }
+            else if (wAfter.pos == "noun" || wAfter.pos.Contains("determiner") || wAfter.pos == "adjective" || wAfter.pos == "pronoun")
+            {
+                w.pos = "preposition";
+            }
+        }
+
+        //NOT first word, any word after infinitive must be adverb or verb
+        public static void ToBeforeRule(List<string> posL, Word w, Word wBefore)
+        {
+            if(wBefore.pos == "infinitive")
+            {
+                posL.RemoveAll(x => x != "verb" || x != "adverb");
+                w.pos = ListToString(posL);
+
+            }
+            else if (wBefore.pos == "preposition")
+            {
+                posL.Remove("verb"); posL.Remove("adverb");
+            }
+        }
+
         //(middle word) any relative pronoun possibility meeting this requirement is a relative pronoun
         public static void RelativePronounRule(Word wBefore, Word w)
         {

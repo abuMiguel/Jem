@@ -15,6 +15,7 @@ namespace jem1
         public string role { get; set; }
         public bool inRelPhrase { get; set; }
         public bool inPrepPhrase { get; set; }
+        public bool inInfPhrase { get; set; }
         public bool isPlural { get; set; }
         public string possessiveTag { get; set; }
         public int ID { get; set; }

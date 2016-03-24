@@ -1,6 +1,5 @@
 ﻿{
   "to": {
-    "is": "preposition",
-    "pos": "preposition"
+    "pos": [ "preposition", "infinitive" ]
   }
 }

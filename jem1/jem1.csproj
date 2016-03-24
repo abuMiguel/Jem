@@ -162,6 +162,7 @@
     <None Include="Json\English\n\name.json" />
     <None Include="Json\English\n\new.json" />
     <None Include="Json\English\n\need.json" />
+    <None Include="Json\English\o\oops.json" />
     <None Include="Json\English\o\one.json" />
     <None Include="Json\English\o\of.json" />
     <None Include="Json\English\o\on.json" />
@@ -202,6 +203,7 @@
     <None Include="Json\English\u\until.json" />
     <None Include="Json\English\u\up.json" />
     <None Include="Json\English\v\very.json" />
+    <None Include="Json\English\w\wow.json" />
     <None Include="Json\English\w\would.json" />
     <None Include="Json\English\w\will.json" />
     <None Include="Json\English\w\went.json" />
@@ -222,6 +224,7 @@
     <None Include="Json\Templates\adverb.json" />
     <None Include="Json\Templates\determiner.json" />
     <None Include="Json\Templates\gerund.json" />
+    <None Include="Json\Templates\interjection.json" />
     <None Include="Json\Templates\noun.json" />
     <None Include="Json\Templates\preposition.json" />
     <None Include="Json\Templates\pronoun.json" />

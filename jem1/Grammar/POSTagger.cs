@@ -409,6 +409,7 @@ namespace jem1.Grammar
         {
             //can safely check the word after
             if (U.EndsWith(w, "ing")) { Rules.IngStartRule(posL, w); }
+            if (w.name == "to") { Rules.InfinitiveRule(w, wAfter); }
         }
 
         private static void RunMiddleWordRules(Word wBefore, Word wAfter, List<string> posL, Word w, Sentence s)
@@ -417,6 +418,8 @@ namespace jem1.Grammar
             Rules.DeterminerPrecedingRule(wBefore, posL, w, s);
             if (U.EndsWith(w, "ing") && posL.Contains("verb")) { Rules.IngVerbRule(wBefore, posL, w); }
             if (posL.Contains("relative pronoun") && posL.Count > 1) { Rules.RelativePronounRule(wBefore, w); }
+            if(w.name == "to") { Rules.InfinitiveRule(w, wAfter); }
+            if(wBefore.pos == "infinitive") { Rules.ToBeforeRule(posL, w, wBefore); }
 
         }
 
@@ -425,6 +428,8 @@ namespace jem1.Grammar
             //can safely check the word before
             Rules.DeterminerPrecedingRule(wBefore, posL, w, s);
             if (U.EndsWith(w, "ing") && posL.Contains("verb")) { Rules.IngVerbRule(wBefore, posL, w); }
+            if (w.name == "to") { w.pos = "preposition"; }
+            if (wBefore.pos == "infinitive") { Rules.ToBeforeRule(posL, w, wBefore); }
         }
         
         private static void RunUnknownMiddleRules(Word wBefore, Word wAfter, Word w, Sentence s)
@@ -496,6 +501,9 @@ namespace jem1.Grammar
                     break;
                 case "interjection":
                     abbr = "I";
+                    break;
+                case "infinitive":
+                    abbr = "INF";
                     break;
                 case "coordinating conjunction":
                     abbr = "CC";
