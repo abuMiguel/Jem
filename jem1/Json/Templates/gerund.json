@@ -1,6 +1,6 @@
 ﻿{
   "ingVerb": {
-    "pos": [ "verb", "noun" ],
+    "pos": [ "verb", "noun", "adjective" ],
     //noun
     "forms": [ "s", "ed" ],
     "doer": [ "who verbs" ],

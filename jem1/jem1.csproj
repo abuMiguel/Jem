@@ -143,6 +143,7 @@
     <None Include="Json\English\i\is.json" />
     <None Include="Json\English\i\its.json" />
     <None Include="Json\English\i\in.json" />
+    <None Include="Json\English\i\it.json" />
     <None Include="Json\English\j\Jem.json" />
     <None Include="Json\English\l\little.json" />
     <None Include="Json\English\l\leg.json" />
@@ -220,7 +221,7 @@
     <None Include="Json\Templates\adjective.json" />
     <None Include="Json\Templates\adverb.json" />
     <None Include="Json\Templates\determiner.json" />
-    <None Include="Json\Templates\ingVerb.json" />
+    <None Include="Json\Templates\gerund.json" />
     <None Include="Json\Templates\noun.json" />
     <None Include="Json\Templates\preposition.json" />
     <None Include="Json\Templates\pronoun.json" />

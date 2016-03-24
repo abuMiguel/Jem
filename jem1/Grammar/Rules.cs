@@ -22,19 +22,6 @@ namespace jem1.Grammar
             w.pos = ListToString(posL);
         }
 
-        //Does the word come after a determiner?  This is for middle words only.
-        public static void DeterminerPrecedingRule(Word wBefore, Word wAfter, List<string> posL, Word w, Sentence s)
-        {
-            string[] oklist = new string[3] { "adjective", "noun", "unknown" };
-            //Determiner preceding rule
-            if (wBefore.pos.Contains("determiner") || NothingButBetween(w, "determiner", oklist, s))
-            {
-                posL.RemoveAll(x => !x.Contains("noun") && !x.Contains("adjective"));
-            }
-
-            w.pos = ListToString(posL);
-        }
-
         //Is the ING word preceded by 
         public static void IngVerbRule(Word wBefore, List<string> posL, Word w)
         {

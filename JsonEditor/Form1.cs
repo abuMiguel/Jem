@@ -24,14 +24,22 @@ namespace JsonEditor
 
             var items = new[] {
                 new { Text = "All", Value = "All" },
-                new { Text = "Verbs", Value = "Verbs" },
-                new { Text = "Nouns", Value = "Nouns" },
-                new { Text = "Adjectives", Value = "Adjectives" },
-                new { Text = "Adverbs", Value = "Adverbs" },
-                new { Text = "Prepositions", Value = "Prepositions" },
-                new { Text = "Conjunctions", Value = "Conjunctions" },
-                new { Text = "Pronouns", Value = "Pronouns" },
-                new { Text = "Determiners", Value = "Determiners" }
+                new { Text = "Verbs", Value = "verb" },
+                new { Text = "Nouns", Value = "noun" },
+                new { Text = "Adjectives", Value = "adjective" },
+                new { Text = "Adverbs", Value = "adverb" },
+                new { Text = "Prepositions", Value = "preposition" },
+                new { Text = "Conjunctions", Value = "conjunction" },
+                new { Text = "Pronouns", Value = "pronoun" },
+                new { Text = "Determiners", Value = "determiner" },
+                new { Text = "Proper Nouns", Value = "proper noun" },
+                new { Text = "Linking Verbs", Value = "linking verb" },
+                new { Text = "Helper Verbs", Value = "helper verb" },
+                new { Text = "Subordinating Conjunctions", Value = "subordinating conjunction" },
+                new { Text = "Coordinating Conjunctions", Value = "coordinating conjunction" },
+                new { Text = "Possessive Determiners", Value = "possessive determiner" },
+                new { Text = "Interjections", Value = "interjection" },
+                new { Text = "Relative Pronouns", Value = "relative pronoun" }
                 };
 
             comboBox1.DataSource = items;
@@ -39,42 +47,135 @@ namespace JsonEditor
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            listView1.Items.Clear();
+            if (comboBox1.SelectedValue.ToString() != "All")
+            {
+                AddSelectedItemToListView(comboBox1.SelectedValue.ToString(), "pos");
+            }
+            else { AddAllItemsToListView(); }
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            richTextBox1.Text = "";
+            string filepath = ConfigurationManager.AppSettings["FilePath"];
+            string json;
+
+            var items = listView1.SelectedItems;
+
+            for (int i = 0; i < items.Count; i++ )
+            {
+                try {
+                    json = File.ReadAllText(filepath + items[i].Text[0].ToString() + @"\" + items[i].Text + ".json");
+                    richTextBox1.Text += json + "\r\n";
+                }
+                catch
+                {
+                    richTextBox1.Text += "File Not Found";
+                }
+                
+            }
 
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            AddItemsToListView();
+
         }
 
-        private void AddItemsToListView()
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddSelectedItemToListView(string val, string attr)
+        {
+            int cnt = 0;
+            var items = listView1.Items;
+            List<string> errList = new List<string>();
+
+            string filepath = ConfigurationManager.AppSettings["FilePath"];
+            var d = new DirectoryInfo(filepath);
+
+            foreach (DirectoryInfo dir in d.GetDirectories())
+            {
+                foreach (FileInfo fi in dir.GetFiles())
+                {
+                    var json = File.ReadAllText(filepath + fi.Name[0].ToString() + @"\" + fi.Name);
+                    try
+                    {
+                        var jo = JObject.Parse(json);
+
+                        //special case listing verbs in order to not pick up adverbs
+                        if (val == "verb")
+                        {
+                            var posList = CSVToList(GetVal(jo, attr));
+
+                            foreach (string pos in posList)
+                            {
+                                if (posList.Contains("verb") || posList.Contains("linking verb") || posList.Contains("helper verb"))
+                                {
+                                    cnt++;
+                                    items.Add(fi.Name.Remove(fi.Name.Length - 5));
+                                    break;
+                                }
+                            }
+                        }  //special case for nouns in order to not add pronouns
+                        else if (val == "noun")
+                        {
+                            var posList = CSVToList(GetVal(jo, attr));
+
+                            foreach (string pos in posList)
+                            {
+                                if (posList.Contains("noun") || posList.Contains("proper noun"))
+                                {
+                                    cnt++;
+                                    items.Add(fi.Name.Remove(fi.Name.Length - 5));
+                                    break;
+                                }
+                            }
+                        }
+                        else  //all other pos work best this way
+                        {
+                            var posCSV = GetVal(jo, attr);
+                            if (posCSV.Contains(val))
+                            {
+                                cnt++;
+                                items.Add(fi.Name.Remove(fi.Name.Length - 5));
+                            }
+                        }
+                    }
+                    catch
+                    {
+                        errList.Add(fi.Name);
+                    }
+
+                }
+            }
+            label1.Text = cnt.ToString();
+        }
+
+        private void AddAllItemsToListView()
         {
             string filepath = ConfigurationManager.AppSettings["FilePath"];
             List<string> wordList = new List<string>();
+            var items = listView1.Items;
+            int cnt = 0;
 
             var d = new DirectoryInfo(filepath);
             foreach (DirectoryInfo dir in d.GetDirectories())
             {
                 foreach (FileInfo fi in dir.GetFiles())
                 {
-                    wordList.Add(fi.Name.Remove(fi.Name.Length - 5));
+                    cnt++;
+                    items.Add(fi.Name.Remove(fi.Name.Length - 5));
                 }
             }
-
-            var items = listView1.Items;
-            foreach (var value in wordList)
-            {
-                items.Add(value);
-            }
+            label1.Text = cnt.ToString();
         }
 
         //Get value for one specified property in JSON Object
-        public static string GetVal(JObject jo, string prop)
+        private static string GetVal(JObject jo, string prop)
         {
             string name = GetFirst(jo);
 
@@ -90,17 +191,34 @@ namespace JsonEditor
             else { return ""; }
         }
 
-        public static bool HasProp(JObject jo, string prop)
+        private static bool HasProp(JObject jo, string prop)
         {
             string name = GetFirst(jo);
             var lst = jo[name].Select(jp => ((JProperty)jp).Name).ToList();
             return lst.Contains(prop);
         }
 
-        public static string GetFirst(JObject jo)
+        private static string GetFirst(JObject jo)
         {
             var prop = jo.Properties().First();
             return prop.Name;
         }
+
+        private static List<string> CSVToList(string csv)
+        {
+            List<string> x = new List<string>();
+            if (csv.Contains(","))
+            {
+                x = csv.Split(',').ToList();
+                return x;
+            }
+            else
+            {
+                x.Add(csv);
+                return x;
+            }
+        }
+
+
     }
 }

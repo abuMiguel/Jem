@@ -1,6 +1,6 @@
 ﻿{
   "climb": {
-    "pos": [ "verb", "noun" ]
+    "pos": [ "verb", "noun" ],
     "forms": [ "climbs", "climbed", "climbing" ],
     "doer": [  ],
     "tense": "present",
