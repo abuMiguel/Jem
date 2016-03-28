@@ -410,6 +410,7 @@ namespace jem1.Grammar
             //can safely check the word after
             if (U.EndsWith(w, "ing")) { Rules.IngStartRule(posL, w); }
             if (w.name == "to") { Rules.InfinitiveRule(w, wAfter); }
+            if (w.pos.Contains("determiner") && w.pos.Contains("pronoun")) { Rules.DetPronounRule(w, s, posL); }
         }
 
         private static void RunMiddleWordRules(Word wBefore, Word wAfter, List<string> posL, Word w, Sentence s)
@@ -418,8 +419,9 @@ namespace jem1.Grammar
             Rules.DeterminerPrecedingRule(wBefore, posL, w, s);
             if (U.EndsWith(w, "ing") && posL.Contains("verb")) { Rules.IngVerbRule(wBefore, posL, w); }
             if (posL.Contains("relative pronoun") && posL.Count > 1) { Rules.RelativePronounRule(wBefore, w); }
-            if(w.name == "to") { Rules.InfinitiveRule(w, wAfter); }
-            if(wBefore.pos == "infinitive") { Rules.ToBeforeRule(posL, w, wBefore); }
+            if (w.name == "to") { Rules.InfinitiveRule(w, wAfter); }
+            if (wBefore.pos == "infinitive") { Rules.ToBeforeRule(posL, w, wBefore); }
+            if (w.pos.Contains("determiner") && w.pos.Contains("pronoun")) { Rules.DetPronounRule(w, s, posL); }
 
         }
 
@@ -430,6 +432,7 @@ namespace jem1.Grammar
             if (U.EndsWith(w, "ing") && posL.Contains("verb")) { Rules.IngVerbRule(wBefore, posL, w); }
             if (w.name == "to") { w.pos = "preposition"; }
             if (wBefore.pos == "infinitive") { Rules.ToBeforeRule(posL, w, wBefore); }
+            if (w.pos.Contains("determiner") && w.pos.Contains("pronoun")) { Rules.DetPronounRule(w, posL); }
         }
         
         private static void RunUnknownMiddleRules(Word wBefore, Word wAfter, Word w, Sentence s)
@@ -484,6 +487,10 @@ namespace jem1.Grammar
                     if (w.role == "subject") { abbr = "SP"; }
                     else { abbr = "Pro"; }
                     break;
+                case "possessive pronoun":
+                    if (w.role == "subject") { abbr = "SP"; }
+                    else { abbr = "Pro"; }
+                    break;
                 case "conjunction":
                     abbr = "C";
                     break;
@@ -509,6 +516,9 @@ namespace jem1.Grammar
                     abbr = "CC";
                     break;
                 case "possessive determiner":
+                    abbr = "DT";
+                    break;
+                case "predeterminer":
                     abbr = "DT";
                     break;
                 default:

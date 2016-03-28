@@ -124,6 +124,40 @@ namespace jem1
             }
             return true;
         }
-       
+
+        //Same as NothingButBetweenForward except it uses contains instead of equals for endPOS
+        public static bool NothingButBetweenForwardContains(Word startWord, string endPOS, string[] okList, Sentence s)
+        {
+            for (int i = startWord.ID + 1; i < s.WordCount(); i++)
+            {
+                var posL = s.words[i].pos.Contains(",") ? s.words[i].pos.Split(',') : new string[1] { s.words[i].pos };
+
+                for (int j = 0; j < okList.Length; j++)
+                {
+                    var flag = false;
+                    for (int k = 0; k < posL.Length; k++)
+                    {
+
+                        if (endPOS.Contains(posL[k]))
+                        {
+                            return true;
+                        }
+
+                        if (posL[k] == okList[j])
+                        {
+                            flag = true;
+                            break;
+                        }
+                        else if (j == okList.Length - 1)
+                        {
+                            return false;
+                        }
+                    }
+                    if (flag) { break; }
+                }
+            }
+            return true;
+        }
+
     }
 }

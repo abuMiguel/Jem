@@ -1,4 +1,4 @@
-﻿{
+{
   "father": {
     "is": "person",
     "description": [ "male", "parent" ],

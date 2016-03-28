@@ -47,6 +47,7 @@ namespace JsonEditor
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            label4.Text = "";
             listView1.Items.Clear();
             if (comboBox1.SelectedValue.ToString() != "All")
             {
@@ -58,22 +59,26 @@ namespace JsonEditor
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             richTextBox1.Text = "";
+            textBox2.Text = "";
+            label4.Text = "";
+
             string filepath = ConfigurationManager.AppSettings["FilePath"];
             string json;
 
             var items = listView1.SelectedItems;
 
-            for (int i = 0; i < items.Count; i++ )
+            for (int i = 0; i < items.Count; i++)
             {
-                try {
+                try
+                {
                     json = File.ReadAllText(filepath + items[i].Text[0].ToString() + @"\" + items[i].Text + ".json");
+                    textBox2.Text += items[i].Text;
                     richTextBox1.Text += json + "\r\n";
                 }
                 catch
                 {
-                    richTextBox1.Text += "File Not Found";
+                    label4.Text += "File Not Found";
                 }
-                
             }
 
         }
@@ -219,6 +224,60 @@ namespace JsonEditor
             }
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            //Search Word text box
+        }
 
+        //Search Button
+        private void button1_Click(object sender, EventArgs e)
+        {
+            label4.Text = "";
+            richTextBox1.Text = "";
+            textBox2.Text = "";
+
+            string filepath = ConfigurationManager.AppSettings["FilePath"];
+            string json;
+
+            try
+            {
+                json = File.ReadAllText(filepath + textBox1.Text[0].ToString() + @"\" + textBox1.Text + ".json");
+                richTextBox1.Text = json + "\r\n";
+                textBox2.Text = textBox1.Text;
+            }
+            catch
+            {
+                label4.Text += textBox1.Text + Environment.NewLine + "NOT" + Environment.NewLine + "FOUND";
+            }
+
+        }
+
+        //Save Button
+        private void button2_Click(object sender, EventArgs e)
+        {
+            label4.Text = "";
+            textBox2.Text = textBox2.Text.Trim();
+
+            string json;
+            string filepath = ConfigurationManager.AppSettings["FilePath"] + textBox2.Text[0].ToString() + @"\" + textBox2.Text + ".json";
+            if (File.Exists(filepath))
+            {
+                json = richTextBox1.Text;
+                if (json.Contains(textBox2.Text))
+                {
+                    try
+                    {
+                        File.WriteAllText(filepath, json);
+                        label4.Text += textBox2.Text + Environment.NewLine + "save" + Environment.NewLine + "successful";
+                    }
+                    catch
+                    {
+                        label4.Text += textBox2.Text + Environment.NewLine + "could not" + Environment.NewLine + "be saved";
+                    }
+                }
+                else { label4.Text += textBox2.Text + Environment.NewLine + "is not" + Environment.NewLine + "a file"; }
+            }
+            else { label4.Text += textBox2.Text + Environment.NewLine + "NOT" + Environment.NewLine + "FOUND"; }
+        }
     }
 }

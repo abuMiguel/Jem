@@ -70,6 +70,25 @@ namespace jem1.Grammar
             }
         }
 
+        //Determiner pronoun disambiguation
+        public static void DetPronounRule(Word w, Sentence s, List<string> posL)
+        {
+            if(NothingButBetweenForwardContains(w, "noun,pronoun", new string[3] { "adjective", "determiner", "possessive determiner" }, s) == true)
+            {
+                w.pos = "determiner";
+            }
+            else
+            {
+                posL.RemoveAll(x => x.Contains("determiner"));
+            }
+        }
+
+        //Determiner pronoun at the end of a sentence
+        public static void DetPronounRule(Word w, List<string> posL)
+        {
+            posL.RemoveAll(x => x.Contains("determiner"));
+        }
+
         //(middle word) any relative pronoun possibility meeting this requirement is a relative pronoun
         public static void RelativePronounRule(Word wBefore, Word w)
         {

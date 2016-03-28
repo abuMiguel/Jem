@@ -1,9 +1,11 @@
-﻿{
+{
   "am": {
     "forms": [ "is", "are" ],
     "is": "verb",
     "pos": "linking verb",
     "tense": "present",
-    "root": "be"
+    "root": "be" 
   }
 }
+
+

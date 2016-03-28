@@ -1,5 +1,6 @@
-﻿{
+{
   "a": {
-    "pos": "determiner"
+    "pos": "determiner",
+    "is": "word"
   }
-}    
+}
