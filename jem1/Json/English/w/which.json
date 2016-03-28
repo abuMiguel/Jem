@@ -1,6 +1,6 @@
 ﻿{
   "which": {
     "is": "thing",
-    "pos": "relative pronoun"
+    "pos": ["relative pronoun", "pronoun", "interrogative determiner"]
   }
 }

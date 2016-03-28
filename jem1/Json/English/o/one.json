@@ -1,8 +1,8 @@
 ﻿{
   "one": {
-    "pos": "adjective",
+    "pos": [ "determiner", "noun", "pronoun" ],
     "sentiment": "neutral", 
     "root":  "one",
-    "synonyms": [ "1", "single" ]
+    "synonyms": [ "1", "single", "only" ]
   }
 }
