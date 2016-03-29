@@ -21,6 +21,8 @@ namespace JsonEditor
 
             comboBox1.DisplayMember = "Text";
             comboBox1.ValueMember = "Value";
+            comboBox2.DisplayMember = "Text";
+            comboBox2.ValueMember = "Value";
 
             var items = new[] {
                 new { Text = "All", Value = "All" },
@@ -42,7 +44,23 @@ namespace JsonEditor
                 new { Text = "Relative Pronouns", Value = "relative pronoun" }
                 };
 
+            var items2 = new[] {
+                new { Text = "Verb", Value = "verb" },
+                new { Text = "Noun", Value = "noun" },
+                new { Text = "Adjectives", Value = "adjective" },
+                new { Text = "Adverb", Value = "adverb" },
+                new { Text = "Preposition", Value = "preposition" },
+                new { Text = "Pronoun", Value = "pronoun" },
+                new { Text = "Determiner", Value = "determiner" },
+                new { Text = "Subordinating Conjunction", Value = "subordinatingConjunction" },
+                new { Text = "Interjection", Value = "interjection" },
+                new { Text = "Gerund", Value = "gerund" }
+                };
+
+            //pos
             comboBox1.DataSource = items;
+            //templates
+            comboBox2.DataSource = items2;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -73,6 +91,7 @@ namespace JsonEditor
                 {
                     json = File.ReadAllText(filepath + items[i].Text[0].ToString() + @"\" + items[i].Text + ".json");
                     textBox2.Text += items[i].Text;
+                    textBox2.ReadOnly = true;
                     richTextBox1.Text += json + "\r\n";
                 }
                 catch
@@ -244,6 +263,7 @@ namespace JsonEditor
                 json = File.ReadAllText(filepath + textBox1.Text[0].ToString() + @"\" + textBox1.Text + ".json");
                 richTextBox1.Text = json + "\r\n";
                 textBox2.Text = textBox1.Text;
+                textBox2.ReadOnly = true;
             }
             catch
             {
@@ -260,7 +280,7 @@ namespace JsonEditor
 
             string json;
             string filepath = ConfigurationManager.AppSettings["FilePath"] + textBox2.Text[0].ToString() + @"\" + textBox2.Text + ".json";
-            if (File.Exists(filepath))
+            if (File.Exists(filepath) || textBox2.ReadOnly == false)
             {
                 json = richTextBox1.Text;
                 if (json.Contains(textBox2.Text))
@@ -269,6 +289,7 @@ namespace JsonEditor
                     {
                         File.WriteAllText(filepath, json);
                         label4.Text += textBox2.Text + Environment.NewLine + "save" + Environment.NewLine + "successful";
+                        textBox2.ReadOnly = true;
                     }
                     catch
                     {
@@ -278,6 +299,28 @@ namespace JsonEditor
                 else { label4.Text += textBox2.Text + Environment.NewLine + "is not" + Environment.NewLine + "a file"; }
             }
             else { label4.Text += textBox2.Text + Environment.NewLine + "NOT" + Environment.NewLine + "FOUND"; }
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            label4.Text = "";
+            richTextBox1.Text = "";
+            textBox2.Text = "";
+
+            string filepath = ConfigurationManager.AppSettings["FilePathTemplates"];
+            string json;
+
+            try
+            {
+                json = File.ReadAllText(filepath + comboBox2.SelectedValue.ToString() + ".json");
+                richTextBox1.Text = json;
+                textBox2.Text = comboBox2.SelectedValue.ToString();
+                textBox2.ReadOnly = false;
+            }
+            catch
+            {
+                label4.Text += comboBox2.SelectedValue.ToString() + Environment.NewLine + "NOT" + Environment.NewLine + "FOUND";
+            }
         }
     }
 }
