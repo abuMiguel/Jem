@@ -26,6 +26,7 @@ namespace jem1.Grammar
             int verbPosition = -1;
             int verbCount = 0;
             int nounFlag = 0;
+            int pronounFlag = 0;
 
             foreach (Word w in c.words)
             {
@@ -140,7 +141,7 @@ namespace jem1.Grammar
                                 {   //all nouns before the last noun in a sequence become descriptors of the last noun
                                     if (id != ids[ids.Count - 1])
                                     {
-                                        c.words[id].descriptor.Add(c.words[id].name);
+                                        c.words[id + 1].descriptor.Add(c.words[id].name);
                                         if (c.words[id].role == "object of the preposition")
                                         {
                                             c.words[id + 1].role = "object of the preposition";
@@ -154,13 +155,13 @@ namespace jem1.Grammar
                         else { nounFlag--; }
                         break;
                     case "pronoun":
-                        if (cID > 0)
-                        {
-                            if (NothingButBetween(w, "preposition", new string[2] { "determiner", "predeterminer" }, c))
+                            if (cID > 0)
                             {
-                                w.role = "object of the preposition";
+                                if (NothingButBetween(w, "preposition", new string[2] { "determiner", "predeterminer" }, c))
+                                {
+                                    w.role = "object of the preposition";
+                                }
                             }
-                        }
                         break;
                 }
             }
@@ -426,7 +427,8 @@ namespace jem1.Grammar
         private static void RunMiddleWordRules(Word wBefore, Word wAfter, List<string> posL, Word w, Sentence s)
         {
             //can safely check the word before AND the word after
-            Rules.DeterminerPrecedingRule(wBefore, posL, w, s);
+            var posString = U.ListToString(posL);
+            if ( posString.Contains("noun") || posString.Contains("determiner") || posL.Contains("adjective")) { Rules.DeterminerPrecedingRule(wBefore, posL, w, s); }
             if (U.EndsWith(w, "ing") && posL.Contains("verb")) { Rules.IngVerbRule(wBefore, posL, w); }
             if (posL.Contains("relative pronoun") && posL.Count > 1) { Rules.RelativePronounRule(wBefore, w); }
             if (w.name == "to") { Rules.InfinitiveRule(w, wAfter); }
@@ -438,7 +440,8 @@ namespace jem1.Grammar
         private static void RunLastWordRules(Word wBefore, List<string> posL, Word w, Sentence s)
         {
             //can safely check the word before
-            Rules.DeterminerPrecedingRule(wBefore, posL, w, s);
+            var posString = U.ListToString(posL);
+            if (posString.Contains("noun") || posString.Contains("determiner") || posL.Contains("adjective")) { Rules.DeterminerPrecedingRule(wBefore, posL, w, s);  }
             if (U.EndsWith(w, "ing") && posL.Contains("verb")) { Rules.IngVerbRule(wBefore, posL, w); }
             if (w.name == "to") { w.pos = "preposition"; }
             if (wBefore.pos == "infinitive") { Rules.ToBeforeRule(posL, w, wBefore); }
@@ -447,18 +450,18 @@ namespace jem1.Grammar
 
         private static void RunUnknownFirstRules(Word wAfter, Word w, Sentence s)
         {
-            if( U.EndsWith(w, "s") ) { Rules.UnknownSRule(w); }
+            if( U.EndsWith(w, "s") ) { Rules.UnknownSRule(w, s); }
         }
 
         private static void RunUnknownMiddleRules(Word wBefore, Word wAfter, Word w, Sentence s)
         {
-            if (U.EndsWith(w, "s")) { Rules.UnknownSRule(w); }
+            if (U.EndsWith(w, "s")) { Rules.UnknownSRule(w, s); }
             //Rules.UnknownMiddleRules(wBefore, wAfter, w, s);
         }
 
         private static void RunUnknownLastRules(Word wBefore, Word w, Sentence s)
         {
-            if (U.EndsWith(w, "s")) { Rules.UnknownSRule(w); }
+            if (U.EndsWith(w, "s")) { Rules.UnknownSRule(w, s); }
             //Rules.UnknownLastRules(wBefore, w, s);
         }
      
@@ -538,6 +541,9 @@ namespace jem1.Grammar
                     break;
                 case "predeterminer":
                     abbr = "DT";
+                    break;
+                case "gerund":
+                    abbr = "GER";
                     break;
                 default:
                     abbr = string.IsNullOrEmpty(w.pos) ? "ERR" : w.pos;

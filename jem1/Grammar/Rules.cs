@@ -9,7 +9,7 @@ namespace jem1.Grammar
 {
     static class Rules
     {
-        //Determiner preceding rule overloaded for last word only.
+        //Determiner preceding rule 
         public static void DeterminerPrecedingRule(Word wBefore, List<string> posL, Word w, Sentence s)
         {
             string[] oklist = new string[2] { "adjective", "noun" };
@@ -105,10 +105,17 @@ namespace jem1.Grammar
         }
 
         //assume an unknown word ending in S is a plural noun
-        public static void UnknownSRule(Word w)
+        public static void UnknownSRule(Word w, Sentence s)
         {
-            w.pos = "noun";
-            w.isPlural = true;
+            if (HasPOS(s, new List<string> { "verb", "helper verb", "linking verb" }))
+            {
+                w.pos = "noun";
+                w.isPlural = true;
+            }
+            else
+            {
+                w.pos = "verb";
+            }
         }
 
         public static void UnknownMiddleRules(Word wBefore, Word wAfter, Word w, Sentence s)

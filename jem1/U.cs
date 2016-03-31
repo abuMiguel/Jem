@@ -54,6 +54,15 @@ namespace jem1
             return wordReverseEnding == new string(ending.Reverse().ToArray()) ? true : false;
         }
 
+        public static bool HasPOS(Sentence s, List<string> posL)
+        {
+            foreach(Word w in s.words)
+            {
+                if( posL.Contains(w.pos) ) { return true; }
+            }
+            return false;
+        }
+
         //Determine whether the words preceding a word up until a particular part of speech, are all
         //words listed in an OK list. This allows a rule to apply where there are an infinite number 
         //of words inbetween that don't disturb the rule
@@ -162,6 +171,7 @@ namespace jem1
         }
 
         //Same as NothingButBetweenForward except it uses contains instead of equals for endPOS
+        //Used for multiple possible endPOS, comma separated like: noun,pronoun
         public static bool NothingButBetweenForwardContains(Word startWord, string endPOS, string[] okList, Sentence s)
         {
             for (int i = startWord.ID + 1; i < s.WordCount(); i++)
