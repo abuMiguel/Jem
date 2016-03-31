@@ -76,6 +76,8 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="Json\English\a\air.json" />
+    <None Include="Json\English\a\airplane.json" />
+    <None Include="Json\English\a\America.json" />
     <None Include="Json\English\a\an.json" />
     <None Include="Json\English\a\a.json" />
     <None Include="Json\English\a\about.json" />
@@ -127,6 +129,7 @@
     <None Include="Json\English\f\fathers.json" />
     <None Include="Json\English\f\find.json" />
     <None Include="Json\English\f\five.json" />
+    <None Include="Json\English\f\flew.json" />
     <None Include="Json\English\f\for.json" />
     <None Include="Json\English\f\four.json" />
     <None Include="Json\English\f\from.json" />

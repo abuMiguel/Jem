@@ -153,6 +153,15 @@ namespace jem1.Grammar
                         }
                         else { nounFlag--; }
                         break;
+                    case "pronoun":
+                        if (cID > 0)
+                        {
+                            if (NothingButBetween(w, "preposition", new string[2] { "determiner", "predeterminer" }, c))
+                            {
+                                w.role = "object of the preposition";
+                            }
+                        }
+                        break;
                 }
             }
 
@@ -386,7 +395,8 @@ namespace jem1.Grammar
                             }
                             else if (w.ID == 0 && s.WordCount() > 1) //First word
                             {
-
+                                var wAfter = s.words[w.ID + 1];
+                                RunUnknownFirstRules(wAfter, w, s);
                             }
                             else if (w.ID > 0 && w.ID != s.WordCount() - 1) //NOT first word OR last word
                             {
@@ -434,14 +444,21 @@ namespace jem1.Grammar
             if (wBefore.pos == "infinitive") { Rules.ToBeforeRule(posL, w, wBefore); }
             if (w.pos.Contains("determiner") && w.pos.Contains("pronoun")) { Rules.DetPronounRule(w, posL); }
         }
-        
+
+        private static void RunUnknownFirstRules(Word wAfter, Word w, Sentence s)
+        {
+            if( U.EndsWith(w, "s") ) { Rules.UnknownSRule(w); }
+        }
+
         private static void RunUnknownMiddleRules(Word wBefore, Word wAfter, Word w, Sentence s)
         {
+            if (U.EndsWith(w, "s")) { Rules.UnknownSRule(w); }
             //Rules.UnknownMiddleRules(wBefore, wAfter, w, s);
         }
 
         private static void RunUnknownLastRules(Word wBefore, Word w, Sentence s)
         {
+            if (U.EndsWith(w, "s")) { Rules.UnknownSRule(w); }
             //Rules.UnknownLastRules(wBefore, w, s);
         }
      
@@ -485,6 +502,7 @@ namespace jem1.Grammar
                     break;
                 case "pronoun":
                     if (w.role == "subject") { abbr = "SP"; }
+                    else if (w.role == "object of the preposition") { abbr = "OP"; }
                     else { abbr = "Pro"; }
                     break;
                 case "possessive pronoun":

@@ -12,7 +12,7 @@ namespace jem1.Grammar
         //Determiner preceding rule overloaded for last word only.
         public static void DeterminerPrecedingRule(Word wBefore, List<string> posL, Word w, Sentence s)
         {
-            string[] oklist = new string[3] { "adjective", "noun", "unknown" };
+            string[] oklist = new string[2] { "adjective", "noun" };
             //Determiner preceding rule
             if (wBefore.pos.Contains("determiner") || NothingButBetween(w, "determiner", oklist, s))
             {
@@ -60,7 +60,7 @@ namespace jem1.Grammar
         {
             if(wBefore.pos == "infinitive")
             {
-                posL.RemoveAll(x => x != "verb" || x != "adverb");
+                posL.RemoveAll(x => x != "verb" && x != "adverb");
                 w.pos = ListToString(posL);
 
             }
@@ -102,6 +102,13 @@ namespace jem1.Grammar
         public static void LyAdverbRule(Word w)
         {
             if(EndsWith(w, "ly")) { w.pos = "adverb"; }
+        }
+
+        //assume an unknown word ending in S is a plural noun
+        public static void UnknownSRule(Word w)
+        {
+            w.pos = "noun";
+            w.isPlural = true;
         }
 
         public static void UnknownMiddleRules(Word wBefore, Word wAfter, Word w, Sentence s)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using jem1.Structure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -90,7 +91,42 @@ namespace jem1
             return true;
         }
 
-        
+        //override for clauses
+        public static bool NothingButBetween(Word startWord, string endPOS, string[] okList, Clause c)
+        {
+            for (int i = startWord.ID - 1; i >= 0; i--)
+            {
+                var posL = c.words[i].pos.Contains(",") ? c.words[i].pos.Split(',') : new string[1] { c.words[i].pos };
+
+                for (int j = 0; j < okList.Length; j++)
+                {
+                    var flag = false;
+                    for (int k = 0; k < posL.Length; k++)
+                    {
+
+                        if (posL[k] == endPOS)
+                        {
+                            return true;
+                        }
+
+                        if (posL[k] == okList[j])
+                        {
+                            flag = true;
+                            break;
+                        }
+                        else if (j == okList.Length - 1)
+                        {
+                            return false;
+                        }
+                    }
+                    if (flag) { break; }
+                }
+            }
+
+            return true;
+        }
+
+
         //Same as NothingButBetween except it looks forward not backwards
         public static bool NothingButBetweenForward(Word startWord, string endPOS, string[] okList, Sentence s)
         {

@@ -1,0 +1,10 @@
+{
+  "flew": {
+    "pos": "verb",
+    "forms": [ "fly", "flies", "flown", "flying" ],
+    "doer": [ "airplane", "helicopter", "drone", "superman" ],
+    "tense": "past",
+    "root": "fly",
+    "synonyms": [ "hover" ]
+  }
+}

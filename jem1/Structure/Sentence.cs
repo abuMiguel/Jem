@@ -144,6 +144,7 @@ namespace jem1
                     clauses.Add(new Clause(s.words));
                     if(divs.Count == 1)
                     {
+                        //Div is first word and there is only 1
                         //To Do: split clause using cIniRedo at appropriate place
                     }
                 }
