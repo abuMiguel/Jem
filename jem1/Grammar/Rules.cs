@@ -12,13 +12,21 @@ namespace jem1.Grammar
         //Determiner preceding rule 
         public static void DeterminerPrecedingRule(Word wBefore, List<string> posL, Word w, Sentence s)
         {
-            string[] oklist = new string[2] { "adjective", "noun" };
+            string[] oklist = new string[2] { "adjective", "adverb" };
             //Determiner preceding rule
             if (wBefore.pos.Contains("determiner") || NothingButBetween(w, "determiner", oklist, s))
             {
-                posL.RemoveAll(x => !x.Contains("noun") && !x.Contains("adjective"));
+                posL.RemoveAll(x => !x.Contains("noun") && !x.Contains("adjective") && !x.Contains("adverb"));
             }
 
+            w.pos = ListToString(posL);
+        }
+
+        //word at end of sentence with preceding determiner
+        public static void DeterminerPrecedingEndRule(Word wBefore, Word w, List<string> posL)
+        {
+            posL.RemoveAll(x => !x.Contains("noun"));
+            if(posL.Count == 0) { posL.Add("noun"); }
             w.pos = ListToString(posL);
         }
 
@@ -45,7 +53,7 @@ namespace jem1.Grammar
         //Infinitive rule, not last word
         public static void InfinitiveRule(Word w, Word wAfter)
         {
-            if(wAfter.pos.Contains("verb") && !wAfter.pos.Contains("adjective"))
+            if (wAfter.pos.Contains("verb") && !wAfter.pos.Contains("adjective"))
             {
                 w.pos = "infinitive";
             }
@@ -58,7 +66,7 @@ namespace jem1.Grammar
         //NOT first word, any word after infinitive must be adverb or verb
         public static void ToBeforeRule(List<string> posL, Word w, Word wBefore)
         {
-            if(wBefore.pos == "infinitive")
+            if (wBefore.pos == "infinitive")
             {
                 posL.RemoveAll(x => x != "verb" && x != "adverb");
                 w.pos = ListToString(posL);
@@ -73,7 +81,7 @@ namespace jem1.Grammar
         //Determiner pronoun disambiguation
         public static void DetPronounRule(Word w, Sentence s, List<string> posL)
         {
-            if(NothingButBetweenForwardContains(w, "noun,pronoun", new string[3] { "adjective", "determiner", "possessive determiner" }, s) == true)
+            if (NothingButBetweenForwardContains(w, "noun,pronoun", new string[3] { "adjective", "determiner", "possessive determiner" }, s) == true)
             {
                 w.pos = "determiner";
             }
@@ -92,16 +100,28 @@ namespace jem1.Grammar
         //(middle word) any relative pronoun possibility meeting this requirement is a relative pronoun
         public static void RelativePronounRule(Word wBefore, Word w)
         {
-            if(wBefore.pos == "noun" || wBefore.pos == "pronoun")
+            if (wBefore.pos == "noun" || wBefore.pos == "pronoun")
             {
                 w.pos = "relative pronoun";
+            }
+        }
+
+        //Middle word, adj adv disambiguation
+        public static void AdjAdvRule(Word w, Word wAfter, Sentence s)
+        {
+            if (wAfter.pos.Contains("adverb") || wAfter.pos.Contains("adjective") || wAfter.pos.Contains("determiner"))
+            {
+                if (U.NothingButBetweenForwardContains(w, "noun", new string[6] { "adverb", "adjective", "determiner", "predeterminer", "coordinating conjunction", "conjunction" }, s))
+                {
+                    w.pos = "adverb";
+                }
             }
         }
 
         //best guess for a word ending in 'ly' is adverb
         public static void LyAdverbRule(Word w)
         {
-            if(EndsWith(w, "ly")) { w.pos = "adverb"; }
+            if (EndsWith(w, "ly")) { w.pos = "adverb"; }
         }
 
         //assume an unknown word ending in S is a plural noun

@@ -26,7 +26,6 @@ namespace jem1.Grammar
             int verbPosition = -1;
             int verbCount = 0;
             int nounFlag = 0;
-            int pronounFlag = 0;
 
             foreach (Word w in c.words)
             {
@@ -427,25 +426,24 @@ namespace jem1.Grammar
         private static void RunMiddleWordRules(Word wBefore, Word wAfter, List<string> posL, Word w, Sentence s)
         {
             //can safely check the word before AND the word after
-            var posString = U.ListToString(posL);
-            if ( posString.Contains("noun") || posString.Contains("determiner") || posL.Contains("adjective")) { Rules.DeterminerPrecedingRule(wBefore, posL, w, s); }
+            if ((w.pos.Contains("noun") || posL.Contains("adjective")) && !w.pos.Contains("determiner")) { Rules.DeterminerPrecedingRule(wBefore, posL, w, s); }
             if (U.EndsWith(w, "ing") && posL.Contains("verb")) { Rules.IngVerbRule(wBefore, posL, w); }
             if (posL.Contains("relative pronoun") && posL.Count > 1) { Rules.RelativePronounRule(wBefore, w); }
             if (w.name == "to") { Rules.InfinitiveRule(w, wAfter); }
             if (wBefore.pos == "infinitive") { Rules.ToBeforeRule(posL, w, wBefore); }
             if (w.pos.Contains("determiner") && w.pos.Contains("pronoun")) { Rules.DetPronounRule(w, s, posL); }
-
+            if (w.pos.Contains("adjective") && w.pos.Contains("adverb")) { Rules.AdjAdvRule(w, wAfter, s); }
         }
 
         private static void RunLastWordRules(Word wBefore, List<string> posL, Word w, Sentence s)
         {
             //can safely check the word before
-            var posString = U.ListToString(posL);
-            if (posString.Contains("noun") || posString.Contains("determiner") || posL.Contains("adjective")) { Rules.DeterminerPrecedingRule(wBefore, posL, w, s);  }
+            if ((w.pos.Contains("noun") || posL.Contains("adjective")) && !w.pos.Contains("determiner")) { Rules.DeterminerPrecedingRule(wBefore, posL, w, s); }
             if (U.EndsWith(w, "ing") && posL.Contains("verb")) { Rules.IngVerbRule(wBefore, posL, w); }
             if (w.name == "to") { w.pos = "preposition"; }
             if (wBefore.pos == "infinitive") { Rules.ToBeforeRule(posL, w, wBefore); }
             if (w.pos.Contains("determiner") && w.pos.Contains("pronoun")) { Rules.DetPronounRule(w, posL); }
+            if (wBefore.pos == "determiner" || wBefore.pos == "predeterminer" || wBefore.pos == "possessive determiner") { Rules.DeterminerPrecedingEndRule(wBefore, w, posL); }
         }
 
         private static void RunUnknownFirstRules(Word wAfter, Word w, Sentence s)
