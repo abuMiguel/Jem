@@ -103,7 +103,9 @@ namespace jem1
         //override for clauses
         public static bool NothingButBetween(Word startWord, string endPOS, string[] okList, Clause c)
         {
-            for (int i = startWord.ID - 1; i >= 0; i--)
+            int cID = startWord.ID - c.words[0].ID;
+
+            for (int i = cID - 1; i >= 0; i--)
             {
                 var posL = c.words[i].pos.Contains(",") ? c.words[i].pos.Split(',') : new string[1] { c.words[i].pos };
 

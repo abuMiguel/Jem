@@ -57,6 +57,7 @@ namespace jem1
                             {
                                 var abb = POSTagger.GetAbbrev(w);
                                 var wLen = w.name.Length;
+                                if (!string.IsNullOrEmpty(w.possessiveTag)) { wLen += w.possessiveTag.Length; }
                                 //if there is punctuation on a word then increase its length
                                 if (s.punc.ContainsKey(w.ID) && s.punc[w.ID] != "none" ) { wLen++; }
                                 //force the word and POS Tag to be the same length to make it look nice

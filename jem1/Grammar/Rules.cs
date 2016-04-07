@@ -121,7 +121,7 @@ namespace jem1.Grammar
         //best guess for a word ending in 'ly' is adverb
         public static void LyAdverbRule(Word w)
         {
-            if (EndsWith(w, "ly")) { w.pos = "adverb"; }
+            w.pos = "adverb"; 
         }
 
         //assume an unknown word ending in S is a plural noun
@@ -138,27 +138,25 @@ namespace jem1.Grammar
             }
         }
 
-        public static void UnknownMiddleRules(Word wBefore, Word wAfter, Word w, Sentence s)
+        public static void UnknownMiddleWordAfterDetRule(Word wBefore, Word w, Sentence s)
         {
             //Determiner preceding rule
-            string[] oklist = new string[3] { "adjective", "noun", "unknown" };
+            string[] oklist = new string[4] { "adjective", "noun", "unknown", "adverb" };
             if (wBefore.pos.Contains("determiner"))
             {
                 w.pos = "noun,adjective";
             }
-            LyAdverbRule(w);
 
         }
 
-        public static void UnknownLastRules(Word wBefore, Word w, Sentence s)
+        public static void UnknownLastWordAfterDetRule(Word wBefore, Word w, Sentence s)
         {
             //Determiner preceding rule
-            string[] oklist = new string[3] { "adjective", "noun", "unknown" };
+            string[] oklist = new string[4] { "adjective", "noun", "unknown", "adverb" };
             if (wBefore.pos.Contains("determiner"))
             {
                 w.pos = "noun";
             }
-            LyAdverbRule(w);
         }
     }
 }

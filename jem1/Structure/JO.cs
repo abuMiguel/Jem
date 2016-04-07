@@ -205,10 +205,6 @@ namespace jem1.Structure
 
             foreach (Word word in c.words)
             {
-                if (!string.IsNullOrEmpty(word.possessiveTag))
-                {
-                    word.RemovePossessiveTag();
-                }
 
                 jsonfile = !string.IsNullOrEmpty(word.name) ? filepath + word.name[0].ToString() + @"\" + word.name + ".json" : " ";
 
