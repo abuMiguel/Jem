@@ -154,13 +154,13 @@ namespace jem1.Grammar
                         else { nounFlag--; }
                         break;
                     case "pronoun":
-                            if (cID > 0)
+                        if (cID > 0)
+                        {
+                            if (NothingButBetween(w, "preposition", new string[2] { "determiner", "predeterminer" }, c))
                             {
-                                if (NothingButBetween(w, "preposition", new string[2] { "determiner", "predeterminer" }, c))
-                                {
-                                    w.role = "object of the preposition";
-                                }
+                                w.role = "object of the preposition";
                             }
+                        }
                         break;
                 }
             }
@@ -311,32 +311,35 @@ namespace jem1.Grammar
 
             foreach (Word word in s.words)
             {
-                if (!string.IsNullOrEmpty(word.possessiveTag))
+                if (string.IsNullOrEmpty(word.pos))
                 {
-                    word.RemovePossessiveTag();
-                }
-
-                jsonfile = !string.IsNullOrEmpty(word.name) ? filepath + word.name[0].ToString() + @"\" + word.name + ".json" : " ";
-
-                if (File.Exists(jsonfile))
-                {
-                    var singularForm = JO.GetVal(word.name, "singular");
-                    //check whether word is plural or singular
-                    if (string.IsNullOrEmpty(singularForm))
+                    if (!string.IsNullOrEmpty(word.possessiveTag))
                     {
-                        pos = JO.GetVal(word.name, "pos");  //singular
+                        word.RemovePossessiveTag();
+                    }
+
+                    jsonfile = !string.IsNullOrEmpty(word.name) ? filepath + word.name[0].ToString() + @"\" + word.name + ".json" : " ";
+
+                    if (File.Exists(jsonfile))
+                    {
+                        var singularForm = JO.GetVal(word.name, "singular");
+                        //check whether word is plural or singular
+                        if (string.IsNullOrEmpty(singularForm))
+                        {
+                            pos = JO.GetVal(word.name, "pos");  //singular
+                        }
+                        else
+                        {
+                            pos = JO.GetVal(singularForm, "pos");  //plural
+                            word.isPlural = true;
+                        }
+
+                        word.pos = pos;
                     }
                     else
                     {
-                        pos = JO.GetVal(singularForm, "pos");  //plural
-                        word.isPlural = true;
+                        word.pos = "unknown";
                     }
-
-                    word.pos = pos;
-                }
-                else
-                {
-                    word.pos = "unknown";
                 }
             }
 
@@ -387,9 +390,9 @@ namespace jem1.Grammar
                     else
                     {
                         //The POS remains AS IS because there was only one choice, unless unknown
-                        if(w.pos == "unknown")
+                        if (w.pos == "unknown")
                         {
-                            if(s.WordCount() > 1) { RunGeneralUnknownRules(w, s); }
+                            if (s.WordCount() > 1) { RunGeneralUnknownRules(w, s); }
 
                             if (s.WordCount() == 1) //Only one word in sentence
                             {
@@ -473,7 +476,7 @@ namespace jem1.Grammar
         {
             Rules.UnknownLastWordAfterDetRule(wBefore, w, s);
         }
-     
+
         public static string GetAbbrev(Word w)
         {
             string abbr = "";
@@ -553,6 +556,9 @@ namespace jem1.Grammar
                     break;
                 case "gerund":
                     abbr = "GER";
+                    break;
+                case "participle":
+                    abbr = "PAR";
                     break;
                 default:
                     abbr = string.IsNullOrEmpty(w.pos) ? "ERR" : w.pos;

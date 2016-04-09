@@ -205,7 +205,6 @@ namespace jem1.Structure
 
             foreach (Word word in c.words)
             {
-
                 jsonfile = !string.IsNullOrEmpty(word.name) ? filepath + word.name[0].ToString() + @"\" + word.name + ".json" : " ";
 
                 if (File.Exists(jsonfile))
@@ -222,23 +221,37 @@ namespace jem1.Structure
                     unknown.Add(word.name);
                 }
             }
-            
         }
 
         //returns single json object for given string
         public static JObject GetJSONObject(string w)
         {
+            w = w.Trim();
             Word word = new Word(w, 0);
             JObject jo = new JObject();
             string json, jsonfile, filepath;
-            filepath = ConfigurationManager.AppSettings["FilePath"];
+            bool MWE = w.Any(x => Char.IsWhiteSpace(x));
+
+            if(MWE)
+            {
+                filepath = ConfigurationManager.AppSettings["MWEFilePath"];
+            }
+            else { filepath = ConfigurationManager.AppSettings["FilePath"]; }
 
             if (!string.IsNullOrEmpty(word.possessiveTag))
             {
                 word.RemovePossessiveTag();
             }
-
-            jsonfile = filepath + word.name[0].ToString() + @"\" + word.name + ".json";
+            
+            if(MWE)
+            {
+                int si = word.name.IndexOf(' ');
+                jsonfile = filepath + word.name[0].ToString() + @"\" + word.name.Substring(0, si) + @"\" + word.name.Replace(" ", "") + ".json";
+            }
+            else
+            {
+                jsonfile = filepath + word.name[0].ToString() + @"\" + word.name + ".json";
+            }
 
             if (File.Exists(jsonfile))
             {

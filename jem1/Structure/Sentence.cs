@@ -3,6 +3,7 @@ using jem1.Structure;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,19 +19,18 @@ namespace jem1
         public List<Word> words { get; set; }
         public Dictionary<int, string> punc { get; set; }
         public bool question { get; set; }
-        public List<Meaning> meanings { get; set; }
         public List<Clause> clauses { get; set; }
 
         public Sentence(string sent)
         {
             punc = new Dictionary<int, string>();
             words = new List<Word>();
-            meanings = new List<Meaning>();
             wordsString = sent;
             wordsArray = sent.Split(' ');
             question = false;
 
             PopulateWordsList();
+            FindMWEs();
             POSTagger.AssignPartsOfSpeech(this);
             clauses = GetClauses(this);
 
@@ -73,6 +73,46 @@ namespace jem1
             if (punc.Count == 0) { punc.Add(0, "none"); }
         }
 
+        //Find any Multiple Word Expression found in the sentence and tag the part of speech
+        private void FindMWEs()
+        {
+            var filepath = ConfigurationManager.AppSettings["MWEFilePath"];
+            string dir = "", filename = "";
+            string jsonfile = "", largest = "";
+            int sID = 0, eID = 0;
+
+            foreach (Word w in this.words)
+            {
+                //Do not check last word, it cannot begin a MWE
+                if (w.ID < this.words.Count() - 1)
+                {
+                    sID = w.ID;
+                    dir = w.name;
+                    filename = w.name;
+
+                    foreach(Word w2 in this.words)
+                    {
+                        if (w2.ID > w.ID)
+                        {
+                            filename += " " + w2.name;
+                            jsonfile = filepath + w.name[0].ToString() + @"\" + dir + @"\" + filename.Replace(" ", "") + ".json";
+
+                            if (File.Exists(jsonfile))
+                            {
+                                largest = filename;
+                                eID = w2.ID;
+                            }
+                        }
+                    }
+                    //if there is a MWE starting with this word
+                    if(!string.IsNullOrEmpty(largest))
+                    {
+                        w.pos = JO.GetVal(largest, "pos");
+                    }
+                    largest = "";
+                }
+            }
+        }
 
         public int WordCount()
         {
@@ -105,25 +145,25 @@ namespace jem1
                     case "coordinating conjunction":
                         //coordinating conjunctions don't always divide a sentence, but sometimes do
                         bool bVerb = false; bool aVerb = false;
-                        foreach(Word word in s.words)
+                        foreach (Word word in s.words)
                         {
                             //check for verbs
-                            if(word.pos == "verb" || word.pos == "linking verb" || word.pos == "helper verb")
+                            if (word.pos == "verb" || word.pos == "linking verb" || word.pos == "helper verb")
                             {
                                 //is the verb before or after the CC
-                                if(word.ID < w.ID) { bVerb = true; }
-                                if(word.ID > w.ID) { aVerb = true; }
+                                if (word.ID < w.ID) { bVerb = true; }
+                                if (word.ID > w.ID) { aVerb = true; }
                             }
                         }
                         //if there are verbs before and after AND it isn't just a compound verb then it is a divider
-                        if(aVerb == true && bVerb == true && 
-                            (U.NothingButBetween(w, "verb", new string[2]{"adverb", "verb"}, s) == false && 
-                            U.NothingButBetweenForward(w, "verb", new string[4]{"adverb", "linking verb", "helper verb", "verb"}, s) == false) )
+                        if (aVerb == true && bVerb == true &&
+                            (U.NothingButBetween(w, "verb", new string[2] { "adverb", "verb" }, s) == false &&
+                            U.NothingButBetweenForward(w, "verb", new string[4] { "adverb", "linking verb", "helper verb", "verb" }, s) == false))
                         {
                             divs.Add(w);
                         }
                         break;
-                }  
+                }
             }
 
             bool firstWordIsDiv = false;
@@ -142,7 +182,7 @@ namespace jem1
                 {
                     firstWordIsDiv = true;
                     clauses.Add(new Clause(s.words));
-                    if(divs.Count == 1)
+                    if (divs.Count == 1)
                     {
                         //Div is first word and there is only 1
                         //To Do: split clause using cIniRedo at appropriate place
