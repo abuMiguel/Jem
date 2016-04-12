@@ -1,6 +1,6 @@
 ﻿{
   "carry on": {
-    "pos": "verb",
+    "pos": [ "verb","participle" ],
     "words": [ "carry", "on" ],
     "doer": [ "person" ],
     "tense": "present",

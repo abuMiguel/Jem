@@ -1,6 +1,6 @@
 ﻿{
   "brought up": {
-    "pos": "verb",
+    "pos": ["verb","participle"],
     "forms": [ ],
     "doer": [ ],
     "tense": "past",

@@ -104,12 +104,28 @@ namespace jem1
                             }
                         }
                     }
+
                     //if there is a MWE starting with this word
                     if(!string.IsNullOrEmpty(largest))
                     {
-                        w.pos = JO.GetVal(largest, "pos");
+                        List<string> posL = new List<string>();
+                        posL = JO.GetValsList(largest, "pos");
+
+                        for (int i = sID, j = 0; i <= eID; i++, j++)
+                        {
+                            try
+                            {
+                                this.words[i].pos = posL[j];
+                            }
+                            catch
+                            {
+                                this.words[i].pos = posL[0];
+                            }
+                        }
                     }
+
                     largest = "";
+
                 }
             }
         }

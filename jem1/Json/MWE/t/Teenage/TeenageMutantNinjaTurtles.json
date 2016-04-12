@@ -1,0 +1,9 @@
+﻿{
+  "Teenage Mutant Ninja Turtles": {
+    "pos": [ "proper noun", "proper noun", "proper noun", "proper noun" ],
+    "words": [ "Teenage", "Mutant", "Ninja", "Turtles" ],
+    "is": [ "movie", "cartoon" ],
+    "abbreviation": "TMNT",
+    "synonyms": [ "ninja turtles" ]
+  }
+}
