@@ -557,7 +557,7 @@ namespace jem1.Grammar
                 case "gerund":
                     abbr = "GER";
                     break;
-                case "participle":
+                case "particle":
                     abbr = "PAR";
                     break;
                 default:
