@@ -1,0 +1,10 @@
+{
+  "mean": {
+    "pos": ["verb","adjective"],
+    "forms": [ "means", "meant", "meaning" ],
+    "doer": [ "person" ],
+    "tense": "present",
+    "root": "mean",
+    "synonyms": [  ]
+  }
+}

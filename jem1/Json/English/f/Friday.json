@@ -1,0 +1,12 @@
+{
+  "Friday": {
+    "pos": "noun",
+    "plural": "Fridays",
+    "is": [ "day" ],
+    "can": [  ],
+    "description": [ "sixth" ],
+    "in": [ "week" ],
+    "has": [  ],
+    "synonyms": [  ]
+  }
+}

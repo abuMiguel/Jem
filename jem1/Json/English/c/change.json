@@ -1,0 +1,10 @@
+{
+  "change": {
+    "pos": ["verb","noun"],
+    "forms": [ "changes", "changed", "changing" ],
+    "doer": [  ],
+    "tense": "present",
+    "root": "change",
+    "synonyms": [  ]
+  }
+}

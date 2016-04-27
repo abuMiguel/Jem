@@ -1,0 +1,12 @@
+{
+  "time": {
+    "pos": ["noun","verb"],
+    "plural": "times",
+    "is": [ "measurement" ],
+    "can": [ "pass" ],
+    "description": [  ],
+    "in": [ "clock" ],
+    "has": [ "hour", "minute", "second", "day", "month", "year" ],
+    "synonyms": [  ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "day": {
+    "pos": "noun",
+    "plural": "days",
+    "is": [ "time period" ],
+    "can": [  ],
+    "description": [ "24 hour" ],
+    "in": [ "week" ],
+    "has": [ "hour", 24 ],
+    "synonyms": [  ]
+  }
+}

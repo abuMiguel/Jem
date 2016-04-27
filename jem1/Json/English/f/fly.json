@@ -1,0 +1,11 @@
+{
+  "fly": {
+    "is": "insect",
+    "pos": ["verb", "noun"],
+    "forms": [ "flies", "flew", "flown", "flying" ],
+    "doer": [ "airplane", "helicopter", "drone", "superman", "bird", "bee", "fly" ],
+    "tense": "present",
+    "root": "fly",
+    "synonyms": [ "hover", "glide", "float" ]
+  }
+}

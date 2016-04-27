@@ -1,0 +1,11 @@
+{
+  "give": {
+    "pos": ["verb","noun"],
+    "forms": [ "gives", "gave", "given", "giving" ],
+    "doer": [  ],
+    "tense": "present",
+    "root": "give",
+    "synonyms": [  ],
+    "is": [ ] 
+  }
+}

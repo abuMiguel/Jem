@@ -1,0 +1,9 @@
+{
+  "Mama": {
+    "pos": "noun",
+    "is": "person",
+    "description": [ "female", "parent" ],
+    "plural": "mamas",
+    "synonyms": [ "mother", "momma", "ma", "mommy", "mom" ]
+  }
+}

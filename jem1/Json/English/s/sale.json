@@ -1,0 +1,12 @@
+{
+  "sale": {
+    "pos": "noun",
+    "plural": "sales",
+    "is": [  ],
+    "can": [  ],
+    "description": [  ],
+    "in": [ "store" ],
+    "has": [ "merchandise" ],
+    "synonyms": [  ]
+  }
+}

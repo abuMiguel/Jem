@@ -1,0 +1,12 @@
+{
+  "week": {
+    "pos": "noun",
+    "plural": "weeks",
+    "is": [ "time period" ],
+    "can": [  ],
+    "description": [ "7 days" ],
+    "in": [ "month" ],
+    "has": [ "days", 7 ],
+    "synonyms": [  ]
+  }
+}

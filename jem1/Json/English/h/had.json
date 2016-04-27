@@ -1,0 +1,8 @@
+{
+  "had": {
+    "pos": ["verb","helper verb"],
+    "forms": [ "has", "have", "having" ],
+    "tense": "past",
+    "root": "have"
+  }
+}

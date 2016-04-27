@@ -1,0 +1,8 @@
+{
+  "me": {
+    "pos": "pronoun",
+    "forms":  [ "I", "my", "mine" ],
+    "person": "first",
+    "plural": "no"
+  }
+}

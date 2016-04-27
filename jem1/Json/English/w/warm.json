@@ -1,0 +1,9 @@
+{
+  "warm": {
+    "pos": ["adjective","verb"],
+    "comparative": "warmer",
+    "superlative": "warmest", 
+    "root":  "warm",
+    "synonyms": [ "lukewarm" ]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "him": {
+    "pos": "pronoun",
+    "forms":  [ "he", "his" ],
+    "person": "third",
+    "sex": "male",
+    "plural": "no"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "hear": {
+    "pos": "verb",
+    "forms": [ "hears", "heard", "hearing" ],
+    "doer": [ "person", "animal" ],
+    "tense": "present",
+    "root": "hear",
+    "synonyms": [  ]
+  }
+}

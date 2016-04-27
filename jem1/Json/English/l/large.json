@@ -1,0 +1,11 @@
+{
+  "large": {
+    "pos": "adjective",
+    "comparative": "larger",
+    "superlative": "largest",
+    "sentiment": "neutral", 
+    "root":  "large",
+    "synonyms": [ "big", "enormous", "gigantic", "massive", "huge" ]
+  }
+}
+

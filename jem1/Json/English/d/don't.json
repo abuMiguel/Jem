@@ -1,0 +1,10 @@
+{
+  "don't": {
+    "pos": ["verb","helper verb"],
+    "forms": [ "didn't", "do not" ],
+    "doer": [  ],
+    "tense": "present",
+    "root": "do not",
+    "synonyms": [ ]
+  }
+}

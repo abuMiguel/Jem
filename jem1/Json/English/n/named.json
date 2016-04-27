@@ -1,0 +1,10 @@
+{
+  "named": {
+    "pos": ["verb","adjective"],
+    "forms": [ "name", "names", "naming" ],
+    "doer": [ "person" ],
+    "tense": "past",
+    "root": "name",
+    "synonyms": [ "called", "dubbed" ] 
+  }
+}

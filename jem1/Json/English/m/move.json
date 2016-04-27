@@ -1,0 +1,10 @@
+{
+  "move": {
+    "pos": ["verb","noun"],
+    "forms": [ "moves", "moved", "moving" ],
+    "doer": [ "animate object" ],
+    "tense": "present",
+    "root": "move",
+    "synonyms": [  ]
+  }
+}

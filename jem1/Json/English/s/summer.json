@@ -1,0 +1,12 @@
+{
+  "summer": {
+    "pos": "noun",
+    "plural": "summers",
+    "is": [ "season" ],
+    "can": [ ],
+    "description": [ "warm" ],
+    "in": [ "year" ],
+    "has": [  ],
+    "synonyms": [  ]
+  }
+}

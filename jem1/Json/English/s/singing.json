@@ -1,0 +1,13 @@
+{
+  "singing": {
+    "pos": [ "verb", "noun", "adjective" ],
+    //noun
+    "forms": [ "sing", "sings", "sang", "sung" ],
+    "doer": [ "person", "bird" ],
+    "root": "sing",
+    "synonyms": [  ],
+    //verb
+    "is": [ "action" ],
+    "description": [  ]
+  }
+}
