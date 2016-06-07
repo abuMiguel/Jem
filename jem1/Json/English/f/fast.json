@@ -1,7 +1,5 @@
 {
   "fast": {
-    "pos": ["adjective", "adverb"],
-    "root": "fast",
-    "synonyms": [ "quick", "rapid" ]
+    "pos": ["adjective", "adverb"]
   }
 }

@@ -1,10 +1,5 @@
 ﻿{
   "can": {
-    "pos": "helper verb",
-    "forms": [ "could" ],
-    "doer": [  ],
-    "tense": "present",
-    "root": "can",
-    "synonyms": [ "able" ]
+    "pos": "helper verb"
   }
 }

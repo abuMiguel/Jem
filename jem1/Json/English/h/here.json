@@ -1,8 +1,5 @@
 ﻿{
   "here": {
-    "pos": [ "adverb", "noun" ],
-    "sentiment": "neutral",
-    "root": "",
-    "synonyms": [  ]
+    "pos": [ "adverb", "noun" ]
   }
 }

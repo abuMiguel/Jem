@@ -1,8 +1,5 @@
 ﻿{
   "one": {
-    "pos": [ "determiner", "noun", "pronoun" ],
-    "sentiment": "neutral", 
-    "root":  "one",
-    "synonyms": [ "1", "single", "only" ]
+    "pos": [ "determiner", "noun", "pronoun" ]
   }
 }

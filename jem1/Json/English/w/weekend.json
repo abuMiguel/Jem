@@ -1,13 +1,5 @@
 {
   "weekend": {
-    "pos": "noun",
-    "plural": "weekends",
-    "is": [ "time period" ],
-    "can": [  ],
-    "description": [ "Saturday and Sunday" ],
-    "in": [ "week" ],
-    "has": [ "day", 2 ],
-    "synonyms": [  ]
-
+    "pos": "noun"
   }
 }

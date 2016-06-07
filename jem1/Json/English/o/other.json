@@ -1,7 +1,5 @@
 {
   "other": {
-    "pos": ["adjective","noun","adverb" ],
-    "root":  "other",
-    "synonyms": [ "synonyms" ]
+    "pos": ["adjective","noun","adverb" ]
   }
 }

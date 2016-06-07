@@ -1,8 +1,5 @@
 ﻿{
   "our": {
-    "forms": [ "we", "ours" ],
-    "role": "adjective",
-    "pos": "possessive determiner",
-    "person": "first"
+    "pos": "possessive determiner"
   }
 }

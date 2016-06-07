@@ -1,9 +1,5 @@
 ﻿{
   "hers": {
-    "forms": [ "she", "her" ],
-    "role": "pronoun",
-    "pos": "possessive pronoun",
-    "person": "third",
-    "root": "she"
+    "pos": "possessive pronoun"
   }
 }

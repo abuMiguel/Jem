@@ -1,6 +1,5 @@
 ﻿{
   "these": {
-    "pos": [ "pronoun", "determiner", "adverb" ],
-    "singular":  "this"
+    "pos": [ "pronoun", "determiner", "adverb" ]
   }
 }

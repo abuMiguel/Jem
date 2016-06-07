@@ -1,7 +1,5 @@
 {
   "just": {
-    "pos": ["adjective","adverb"],
-    "root": "just",
-    "synonyms": [  ]
+    "pos": ["adjective","adverb"]
   }
 }

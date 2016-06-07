@@ -1,0 +1,9 @@
+{
+  "weird": {
+    "pos": "adjective",
+    "comparative": "weirder",
+    "superlative": "weirdest",
+    "root":  "weirdo",
+    "synonyms": [ "strange","odd" ]
+  }
+}

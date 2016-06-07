@@ -1,12 +1,5 @@
 {
   "thing": {
-    "pos": "noun",
-    "plural": "things",
-    "is": [  ],
-    "can": [  ],
-    "description": [  ],
-    "in": [  ],
-    "has": [  ],
-    "synonyms": [ "thing-a-ma-bob", "object" ]
+    "pos": "noun"
   }
 }

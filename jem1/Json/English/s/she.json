@@ -1,9 +1,5 @@
 ﻿{
   "she": {
-    "pos": "pronoun",
-    "forms":  [ "her", "hers" ],
-    "person": "third",
-    "sex": "female",
-    "plural": "no"
+    "pos": "pronoun"
   }
 }

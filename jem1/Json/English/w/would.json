@@ -1,10 +1,5 @@
 ﻿{
   "would": {
-    "pos": "helper verb",
-    "forms": [ "will" ],
-    "doer": [  ],
-    "tense": "past",
-    "root": "will",
-    "synonyms": [  ]
+    "pos": "helper verb"
   }
 }

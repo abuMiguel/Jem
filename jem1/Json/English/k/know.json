@@ -1,10 +1,5 @@
 {
   "know": {
-    "pos": "verb",
-    "forms": [ "knows", "knew","known", "knowing" ],
-    "doer": [ "organism" ],
-    "tense": "present",
-    "root": "know",
-    "synonyms": [  ]
+    "pos": "verb"
   }
 }

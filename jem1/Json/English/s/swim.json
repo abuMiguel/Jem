@@ -1,10 +1,5 @@
 {
   "swim": {
-    "pos": ["verb","noun"],
-    "forms": [ "swims", "swam", "swum", "swimming" ],
-    "doer": [ "person", "duck", "fish" ],
-    "tense": "present",
-    "root": "swim",
-    "synonyms": [  ]
+    "pos": ["verb","noun"]
   }
 }

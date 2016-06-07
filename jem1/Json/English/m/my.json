@@ -1,9 +1,5 @@
 ﻿{
   "my": {
-    "pos": "possessive determiner",
-    "forms": [ "I", "me" ],
-    "role": "adjective",
-    "person": "first",
-    "root": "I"
+    "pos": "possessive determiner"
   }
 }

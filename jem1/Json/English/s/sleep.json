@@ -1,10 +1,5 @@
 {
   "sleep": {
-    "pos": ["verb","noun"],
-    "forms": [ "sleeps", "slept", "sleeping" ],
-    "doer": [ "mammal", "bird", "reptile", "amphibian", "fish", "nematode" ],
-    "tense": "present",
-    "root": "sleep",
-    "synonyms": [  ]
+    "pos": ["verb","noun"]
   }
 }

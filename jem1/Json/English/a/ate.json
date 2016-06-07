@@ -1,9 +1,5 @@
 ﻿{
   "ate": {
-    "pos": "verb",
-    "forms": [ "eats", "eat", "eaten", "eating" ],
-    "doer": [ "organism" ],
-    "tense": "past",
-    "root": "eat"
+    "pos": "verb"
   }
 }

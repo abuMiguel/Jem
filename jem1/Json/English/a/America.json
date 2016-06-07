@@ -1,13 +1,5 @@
 {
   "America": {
-    "pos": "proper noun",
-    "plural": "Americas",
-    "is": [ "country" ],
-    "can": [  ],
-    "description": [ "great", "free" ],
-    "in": [ "western hemisphere" ],
-    "has": [ "states", 50 ],
-    "synonyms": [ "U.S.", "US" ]
-
+    "pos": "proper noun"
   }
 }

@@ -1,8 +1,6 @@
 ﻿{
   "goodbye": {
-    "abbreviation": "bye",
-    "aka": "farewell",
-    "is": "expression of intent of departure",
+    "pos": "interjection",
     "synonyms": [
       "goodbye",
       "bye",
@@ -31,7 +29,7 @@
       "hasta la vista",
       "ta ta",
       "ta-ta"
-    ],
-    "pos": "interjection"
+    ]
+
   }
 }

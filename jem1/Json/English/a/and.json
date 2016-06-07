@@ -1,7 +1,5 @@
 {
   "and": {
-    "is": "word",
-    "pos": "coordinating conjunction",
-    "plural":  "ands"
+    "pos": "coordinating conjunction"
   }
 }

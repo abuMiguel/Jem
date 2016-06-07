@@ -427,6 +427,7 @@ namespace jem1.Grammar
             if (w.name == "to") { Rules.InfinitiveRule(w, wAfter); }
             if (w.pos.Contains("determiner") && w.pos.Contains("pronoun") && pass == 2) { Rules.DetPronounRule(w, s, posL); }
             if (!string.IsNullOrEmpty(w.possessiveTag)) { w.pos = "possessive determiner"; }
+            if (w.pos.Contains("relative pronoun")) { Rules.FirstRelPro(w, posL); }
         }
 
         private static void RunMiddleWordRules(Word wBefore, Word wAfter, List<string> posL, Word w, Sentence s, int pass)

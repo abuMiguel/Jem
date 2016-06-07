@@ -1,22 +1,5 @@
 ﻿{
   "doing": {
-    "pos": [ "verb", "noun" ],
-    //verb
-    "forms": [ "do", "did", "done" ],
-    "doer": [ ],
-    "tense": "progressive",
-    "root": "do",
-    //end verb
-
-    "synonyms": [  ],
-
-    //noun
-    "plural": "",
-    "is": [ "action" ],
-    "can": [  ],
-    "description": [  ],
-    "in": [  ],
-    "has": [  ]
-    //end noun
+    "pos": [ "verb", "noun" ]
   }
 }

@@ -1,10 +1,5 @@
 {
   "please": {
-    "pos": ["adverb","verb"],
-    "forms": [ "pleases", "pleased", "pleasing" ],
-    "doer": [  ],
-    "tense": "present",
-    "root": "please",
-    "synonyms": [  ]
+    "pos": ["adverb","verb"]
   }
 }

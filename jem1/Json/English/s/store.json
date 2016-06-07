@@ -1,13 +1,5 @@
 ﻿{
   "store": {
-    "pos": "noun",
-    "plural": "stores",
-    "is": [ "building" ],
-    "can": [ ],
-    "description": [ ],
-    "in": [ "building", "mall" ],
-    "has": [ "merchandise", "products" ],
-    "synonyms": [ "market", "shop" ]
-
+    "pos": "noun"
   }
 }

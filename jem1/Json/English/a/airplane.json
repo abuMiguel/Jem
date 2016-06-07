@@ -1,13 +1,5 @@
 {
   "airplane": {
-    "pos": "noun",
-    "plural": "airplanes",
-    "is": [ "vehicle" ],
-    "can": [ "fly" ],
-    "description": [ "flying" ],
-    "in": [ "air", "hangar" ],
-    "has": [ "passengers", "seating", "wings", "landing gear", "windows", "pilot", "cockpit" ],
-    "synonyms": [ "jet", "plane" ]
-
+    "pos": "noun"
   }
 }

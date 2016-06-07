@@ -1,0 +1,12 @@
+﻿{
+  "air": {
+    "pos": "noun",
+    "is": "",
+    "can": "",
+    "descriptors": [ "invisible", "gas mixture" ],
+    "has": [ "gas" ],
+    "in": [ "atmosphere", "room" ],
+    "synonymns": [ ],
+    "plural": "airs"
+  }
+}

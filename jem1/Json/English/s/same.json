@@ -1,7 +1,6 @@
 {
   "same": {
-    "pos": [ "pronoun", "determiner", "adverb" ],
-    "synonyms": [ "selfsame" ]
+    "pos": [ "pronoun", "determiner", "adverb" ]
   }
 }
 

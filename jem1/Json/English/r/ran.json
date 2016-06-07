@@ -1,9 +1,5 @@
 ﻿{
   "ran": {
-    "pos": "verb",
-    "forms": [ "run", "running", "runs" ],
-    "doer": [ "anything" ],
-    "tense": "past",
-    "root": "run"
+    "pos": "verb"
   }
 }

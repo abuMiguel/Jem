@@ -1,0 +1,12 @@
+{
+  "baseball": {
+    "pos": "noun",
+    "plural": "baseballs",
+    "is": [ "sport", "ball" ],
+    "can": [  ],
+    "description": [ "American" ],
+    "in": [  ],
+    "has": [  ],
+    "synonyms": [  ]
+  }
+}

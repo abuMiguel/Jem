@@ -1,10 +1,5 @@
 {
   "catch": {
-    "pos": ["verb","noun"],
-    "forms": [ "catches", "caught", "catching" ],
-    "doer": [ "person", "animal", "insect" ],
-    "tense": "present",
-    "root": "catch",
-    "synonyms": [  ]
+    "pos": ["verb","noun"]
   }
 }

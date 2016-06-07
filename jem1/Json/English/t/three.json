@@ -1,8 +1,5 @@
 ﻿{
   "three": {
-    "pos": [ "noun", "determiner" ],
-    "sentiment": "neutral",
-    "root": "three",
-    "synonyms": [ "tri", "3" ]
+    "pos": [ "noun", "determiner" ]
   }
 }

@@ -1,12 +1,5 @@
 {
   "mouse": {
-    "pos": "noun",
-    "plural": "mice",
-    "is": [ "rodent" ],
-    "can": [ "eat" ],
-    "description": [ "small" ],
-    "in": [ "house", "field", "hole" ],
-    "has": [ "ear", 2, "tail", 1, "legs", 4],
-    "synonyms": [ "rat" ]
+    "pos": "noun"
   }
 }

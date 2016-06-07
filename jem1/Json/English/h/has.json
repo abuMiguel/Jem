@@ -1,9 +1,5 @@
 ﻿{
   "has": {
-    "pos": "verb",
-    "forms": [ "had", "have" ],
-    "doer": [ "anything" ],
-    "tense": "present",
-    "root": "has"
+    "pos": "verb"
   }
 }

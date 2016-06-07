@@ -88,7 +88,6 @@
     <None Include="Json\English\a\angry.json" />
     <None Include="Json\English\a\are.json" />
     <None Include="Json\English\a\arm.json" />
-    <None Include="Json\English\a\arms.json" />
     <None Include="Json\English\a\as.json" />
     <None Include="Json\English\a\at.json" />
     <None Include="Json\English\a\ate.json" />
@@ -116,7 +115,6 @@
     <None Include="Json\English\c\climb.json" />
     <None Include="Json\English\c\climbed.json" />
     <None Include="Json\English\d\dad.json" />
-    <None Include="Json\English\d\dads.json" />
     <None Include="Json\English\d\day.json" />
     <None Include="Json\English\d\despite.json" />
     <None Include="Json\English\d\do.json" />
@@ -139,7 +137,6 @@
     <None Include="Json\English\f\few.json" />
     <None Include="Json\English\f\face.json" />
     <None Include="Json\English\f\father.json" />
-    <None Include="Json\English\f\fathers.json" />
     <None Include="Json\English\f\find.json" />
     <None Include="Json\English\f\five.json" />
     <None Include="Json\English\f\flew.json" />
@@ -185,7 +182,6 @@
     <None Include="Json\English\l\let.json" />
     <None Include="Json\English\l\little.json" />
     <None Include="Json\English\l\leg.json" />
-    <None Include="Json\English\l\legs.json" />
     <None Include="Json\English\l\look.json" />
     <None Include="Json\English\l\like.json" />
     <None Include="Json\English\m\Mama.json" />
@@ -193,12 +189,10 @@
     <None Include="Json\English\m\me.json" />
     <None Include="Json\English\m\mean.json" />
     <None Include="Json\English\m\mine.json" />
-    <None Include="Json\English\m\moms.json" />
     <None Include="Json\English\m\mom.json" />
     <None Include="Json\English\m\Monday.json" />
     <None Include="Json\English\m\more.json" />
     <None Include="Json\English\m\mother.json" />
-    <None Include="Json\English\m\mothers.json" />
     <None Include="Json\English\m\mouse.json" />
     <None Include="Json\English\m\move.json" />
     <None Include="Json\English\m\my.json" />
@@ -207,7 +201,6 @@
     <None Include="Json\English\n\nine.json" />
     <None Include="Json\English\n\nor.json" />
     <None Include="Json\English\n\not.json" />
-    <None Include="Json\English\n\names.json" />
     <None Include="Json\English\n\name.json" />
     <None Include="Json\English\n\new.json" />
     <None Include="Json\English\n\need.json" />
@@ -321,7 +314,9 @@
     <None Include="Json\MWE\b\back\backto.json" />
     <None Include="Json\MWE\b\because\becauseof.json" />
     <None Include="Json\MWE\b\break\breakdown.json" />
+    <None Include="Json\MWE\b\break\breakup.json" />
     <None Include="Json\MWE\b\brought\broughtup.json" />
+    <None Include="Json\MWE\c\comes\comesfrom.json" />
     <None Include="Json\MWE\c\come\comeupagainst.json" />
     <None Include="Json\MWE\c\came\cameout.json" />
     <None Include="Json\MWE\c\carry\carryon.json" />
@@ -377,6 +372,19 @@
     <None Include="Json\MWE\w\wake\wakeup.json" />
     <None Include="Json\MWE\w\watch\watchoutfor.json" />
     <None Include="Json\MWE\w\went\wenton.json" />
+    <None Include="Json\noun\a\air.json" />
+    <None Include="Json\noun\a\airplane.json" />
+    <None Include="Json\noun\a\America.json" />
+    <None Include="Json\noun\a\arm.json" />
+    <None Include="Json\noun\b\book.json" />
+    <None Include="Json\noun\c\carrot.json" />
+    <None Include="Json\noun\c\cat.json" />
+    <None Include="Json\noun\c\change.json" />
+    <None Include="Json\noun\d\dad.json" />
+    <None Include="Json\noun\d\day.json" />
+    <None Include="Json\noun\f\face.json" />
+    <None Include="Json\noun\f\father.json" />
+    <None Include="Json\noun\h\hotel.json" />
     <None Include="Json\Templates\adjective.json" />
     <None Include="Json\Templates\adverb.json" />
     <None Include="Json\Templates\determiner.json" />
@@ -387,6 +395,7 @@
     <None Include="Json\Templates\pronoun.json" />
     <None Include="Json\Templates\subordinatingConjunction.json" />
     <None Include="Json\Templates\verb.json" />
+    <None Include="Json\verb\c\change.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -398,6 +407,10 @@
     <Folder Include="Json\MWE\x\" />
     <Folder Include="Json\MWE\y\" />
     <Folder Include="Json\MWE\z\" />
+    <Folder Include="Json\noun\e\" />
+    <Folder Include="Json\noun\g\" />
+    <Folder Include="Json\verb\a\" />
+    <Folder Include="Json\verb\b\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

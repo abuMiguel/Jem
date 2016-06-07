@@ -9,6 +9,13 @@ namespace jem1.Grammar
 {
     static class Rules
     {
+        //first word is not a rel pro
+        public static void FirstRelPro(Word w, List<string> posL)
+        {
+            posL.Remove("relative pronoun");
+            w.pos = ListToString(posL);
+        }
+
         //Determiner preceding rule 
         public static void DeterminerPrecedingRule(Word wBefore, List<string> posL, Word w, Sentence s)
         {

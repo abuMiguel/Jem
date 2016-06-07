@@ -1,10 +1,5 @@
 {
   "let": {
-    "pos": "verb",
-    "forms": [ "lets", "letting" ],
-    "doer": [  ],
-    "tense": "present",
-    "root": "let",
-    "synonyms": [ "allow", "permit" ]
+    "pos": "verb"
   }
 }

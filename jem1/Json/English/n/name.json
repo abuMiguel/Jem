@@ -1,8 +1,5 @@
 ﻿{
   "name": {
-    "is": "word",
-    "attr": "identifying",
-    "pos": "noun",
-    "plural": "names"
+    "pos": "noun"
   }
 }

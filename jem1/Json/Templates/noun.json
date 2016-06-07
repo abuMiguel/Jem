@@ -1,13 +1,12 @@
 ﻿{
   "noun": {
     "pos": "noun",
-    "plural": "nouns",
-    "is": [ "inheritance" ],
-    "can": [ "implementation" ],
-    "description": [ "adj" ],
-    "in": [ "had by" ],
-    "has": [ "has" ],
-    "synonyms": [ "synonym" ]
-
+    "plural": "s",
+    "is": [  ],
+    "can": [  ],
+    "description": [  ],
+    "in": [  ],
+    "has": [  ],
+    "synonyms": [  ]
   }
 }

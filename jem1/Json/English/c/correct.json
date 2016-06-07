@@ -1,0 +1,10 @@
+{
+  "correct": {
+    "pos": ["verb","adjective"],
+    "forms": [ "corrects", "corrected",  "correcting" ],
+    "doer": [ ],
+    "tense": "present",
+    "root": "correct",
+    "synonyms": [  ]
+  }
+}

@@ -1,7 +1,5 @@
 ﻿{
   "four": {
-    "pos": [ "noun", "determiner" ],
-    "root": "four",
-    "synonyms": [ "quad", "4" ]
+    "pos": [ "noun", "determiner" ]
   }
 }

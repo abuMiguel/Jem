@@ -1,9 +1,5 @@
 ﻿{
   "yours": {
-    "forms": [ "you", "your" ],
-    "role": "pronoun",
-    "pos": "possessive pronoun",
-    "person": "second",
-    "root": "you"
+    "pos": "possessive pronoun"
   }
 }

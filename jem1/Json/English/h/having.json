@@ -1,7 +1,5 @@
 {
   "having": {
-    "pos": ["gerund","helper verb","verb"],
-    "root": "have",
-    "synonyms": [  ]
+    "pos": ["gerund","helper verb","verb"]
   }
 }

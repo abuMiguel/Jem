@@ -1,6 +1,5 @@
 ﻿{
   "if": {
-    "is": "word",
     "pos": "subordinating conjunction"
   }
 }

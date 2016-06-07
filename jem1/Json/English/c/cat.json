@@ -1,12 +1,5 @@
 {
   "cat": {
-    "pos": "noun",
-    "plural": "cats",
-    "is": [ "animal", "pet", "mammal" ],
-    "can": [ "purr", "scratch", "meow", "play", "eat", "bite", "shed hair", "hiss" ],
-    "description": [ "furry" ],
-    "in": [ "house", "lap" ],
-    "has": [ "ear", 2, "eye", 2, "tail", 1, "leg", 4, "teeth", 30 ],
-    "synonyms": [  ]
+    "pos": "noun"
   }
 }

@@ -1,16 +1,5 @@
 ﻿{
   "need": {
-    "pos": [ "verb", "noun" ],
-    //noun
-    "forms": [ "needs", "needed", "needing" ],
-    "doer": [  ],
-    "tense": "present",
-    "root": "need",
-    "synonyms": [ "require" ],
-    //verb
-    "plural": "needs",
-    "is": [ "action" ],
-    "description": [  ]
-
+    "pos": [ "verb", "noun" ]
   }
 }

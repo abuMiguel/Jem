@@ -1,8 +1,5 @@
 ﻿{
   "their": {
-    "forms": [ "they", "theirs" ],
-    "role": "adjective",
-    "pos": "possessive determiner",
-    "person": "third"
+    "pos": "possessive determiner"
   }
 }

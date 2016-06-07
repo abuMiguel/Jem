@@ -1,12 +1,5 @@
 {
   "Sunday": {
-    "pos": "noun",
-    "plural": "Sundays",
-    "is": [ "day" ],
-    "can": [  ],
-    "description": [ "first" ],
-    "in": [ "week", "weekend" ],
-    "has": [  ],
-    "synonyms": [  ]
+    "pos": "noun"
   }
 }

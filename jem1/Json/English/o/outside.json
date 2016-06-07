@@ -1,11 +1,5 @@
 {
   "outside": {
-    "pos": ["noun","adverb","preposition"],
-    "is": [ "location" ],
-    "can": [  ],
-    "description": [ "not inside" ],
-    "in": [  ],
-    "has": [  ],
-    "synonyms": [  ]
+    "pos": ["noun","adverb","preposition"]
   }
 }

@@ -1,11 +1,6 @@
 {
   "including": {
-    "pos": [ "verb", "gerund" ],
-    "forms": [ "include", "includes", "included" ],
-    "doer": [ ],
-    "tense": "progressive",
-    "root": "include",
-    "synonyms": [  ]
+    "pos": [ "verb", "gerund" ]
   }
 }
 

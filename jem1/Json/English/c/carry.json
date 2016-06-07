@@ -1,10 +1,5 @@
 {
   "carry": {
-    "pos": "verb",
-    "forms": [ "carries", "carried", "carrying" ],
-    "doer": [  ],
-    "tense": "present",
-    "root": "carry",
-    "synonyms": [  ]
+    "pos": "verb"
   }
 }

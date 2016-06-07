@@ -1,10 +1,5 @@
 {
   "tell": {
-    "pos": "verb",
-    "forms": [ "tells", "told", "telling" ],
-    "doer": [ "person", "little bird" ],
-    "tense": "present",
-    "root": "tell",
-    "synonyms": [  ]
+    "pos": "verb"
   }
 }

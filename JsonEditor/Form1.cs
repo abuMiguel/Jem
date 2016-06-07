@@ -15,34 +15,32 @@ namespace JsonEditor
 {
     public partial class Form1 : Form
     {
+        List<string> checkedItems = new List<string>();
         public Form1()
         {
             InitializeComponent();
 
-            comboBox1.DisplayMember = "Text";
-            comboBox1.ValueMember = "Value";
             comboBox2.DisplayMember = "Text";
             comboBox2.ValueMember = "Value";
 
-            var items = new[] {
-                new { Text = "All", Value = "All" },
-                new { Text = "Verbs", Value = "verb" },
-                new { Text = "Nouns", Value = "noun" },
-                new { Text = "Adjectives", Value = "adjective" },
-                new { Text = "Adverbs", Value = "adverb" },
-                new { Text = "Prepositions", Value = "preposition" },
-                new { Text = "Conjunctions", Value = "conjunction" },
-                new { Text = "Pronouns", Value = "pronoun" },
-                new { Text = "Determiners", Value = "determiner" },
-                new { Text = "Proper Nouns", Value = "proper noun" },
-                new { Text = "Linking Verbs", Value = "linking verb" },
-                new { Text = "Helper Verbs", Value = "helper verb" },
-                new { Text = "Subordinating Conjunctions", Value = "subordinating conjunction" },
-                new { Text = "Coordinating Conjunctions", Value = "coordinating conjunction" },
-                new { Text = "Possessive Determiners", Value = "possessive determiner" },
-                new { Text = "Interjections", Value = "interjection" },
-                new { Text = "Relative Pronouns", Value = "relative pronoun" }
-                };
+            //pos
+            listView2.Items.Add(new ListViewItem("All"));
+            listView2.Items.Add(new ListViewItem("verb"));
+            listView2.Items.Add(new ListViewItem("noun"));
+            listView2.Items.Add(new ListViewItem("adjective"));
+            listView2.Items.Add(new ListViewItem("adverb"));
+            listView2.Items.Add(new ListViewItem("preposition"));
+            listView2.Items.Add(new ListViewItem("conjunction"));
+            listView2.Items.Add(new ListViewItem("pronoun"));
+            listView2.Items.Add(new ListViewItem("determiner"));
+            listView2.Items.Add(new ListViewItem("proper noun"));
+            listView2.Items.Add(new ListViewItem("linking verb"));
+            listView2.Items.Add(new ListViewItem("helper verb"));
+            listView2.Items.Add(new ListViewItem("subordinating conjunction"));
+            listView2.Items.Add(new ListViewItem("coordinating conjunction"));
+            listView2.Items.Add(new ListViewItem("possessive determiner"));
+            listView2.Items.Add(new ListViewItem("interjection"));
+            listView2.Items.Add(new ListViewItem("relative pronoun"));
 
             var items2 = new[] {
                 new { Text = "Verb", Value = "verb" },
@@ -57,21 +55,39 @@ namespace JsonEditor
                 new { Text = "Gerund", Value = "gerund" }
                 };
 
-            //pos
-            comboBox1.DataSource = items;
             //templates
             comboBox2.DataSource = items2;
+
+
         }
 
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void listView2_ItemCheck(object sender, ItemCheckEventArgs e)
         {
             label4.Text = "";
             listView1.Items.Clear();
-            if (comboBox1.SelectedValue.ToString() != "All")
+            if (e.NewValue == CheckState.Checked)
             {
-                AddSelectedItemToListView(comboBox1.SelectedValue.ToString(), "pos");
+                checkedItems.Add(listView2.Items[e.Index].Text);
             }
-            else { AddAllItemsToListView(); }
+            else
+            {
+                checkedItems.Remove(listView2.Items[e.Index].Text);
+            }
+
+            if (checkedItems.Contains("All"))
+            {
+                AddAllItemsToListView();
+            }
+            else
+            {
+                AddMultipleItemsToListView(checkedItems, "pos");
+            }
+
+        }
+
+        private void listView2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -168,6 +184,49 @@ namespace JsonEditor
                                 items.Add(fi.Name.Remove(fi.Name.Length - 5));
                             }
                         }
+                    }
+                    catch
+                    {
+                        errList.Add(fi.Name);
+                    }
+
+                }
+            }
+            label1.Text = cnt.ToString();
+        }
+
+        //TO DO: Make this work
+        private void AddMultipleItemsToListView(List<string> val, string attr)
+        {
+            int cnt = 0;
+            var items = listView1.Items;
+            List<string> errList = new List<string>();
+
+            string filepath = ConfigurationManager.AppSettings["FilePath"];
+            var d = new DirectoryInfo(filepath);
+
+            foreach (DirectoryInfo dir in d.GetDirectories())
+            {
+                foreach (FileInfo fi in dir.GetFiles())
+                {
+                    var json = File.ReadAllText(filepath + fi.Name[0].ToString() + @"\" + fi.Name);
+                    try
+                    {
+                        var jo = JObject.Parse(json);
+                        var posList = CSVToList(GetVal(jo, attr));
+                        bool listIt = true;
+
+                        foreach (var pos in val)
+                        {
+                            if(posList.Contains(pos))
+                            {
+                                listIt = true;
+                            }
+                            else { listIt = false; break; }
+                            
+                        }
+                        if (listIt) { cnt++; items.Add(fi.Name.Remove(fi.Name.Length - 5)); }
+
                     }
                     catch
                     {
@@ -322,5 +381,7 @@ namespace JsonEditor
                 label4.Text += comboBox2.SelectedValue.ToString() + Environment.NewLine + "NOT" + Environment.NewLine + "FOUND";
             }
         }
+
+
     }
 }

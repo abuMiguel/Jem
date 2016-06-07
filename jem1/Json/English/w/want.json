@@ -1,10 +1,5 @@
 {
   "want": {
-    "pos": "verb",
-    "forms": [ "wants", "wanted", "wanting" ],
-    "doer": [  ],
-    "tense": "present",
-    "root": "want",
-    "synonyms": [ "desire" ]
+    "pos": "verb"
   }
 }

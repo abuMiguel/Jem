@@ -1,7 +1,5 @@
 ﻿{
   "seven": {
-    "pos": [ "noun", "determiner" ],
-    "root": "seven",
-    "synonyms": [ "7" ]
+    "pos": [ "noun", "determiner" ]
   }
 }

@@ -1,0 +1,12 @@
+{
+  "carrot": {
+    "pos": "noun",
+    "plural": "carrots",
+    "is": [ "vegetable", "plant", "root" ],
+    "can": [ "grow" ],
+    "description": [ "orange" ],
+    "in": [ "person", "rabbit", "ground" ],
+    "has": [ "vitamin A" ],
+    "synonyms": [  ]
+  }
+}

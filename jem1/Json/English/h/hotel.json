@@ -1,12 +1,5 @@
 {
   "hotel": {
-    "pos": "noun",
-    "plural": "hotels",
-    "is": [ "building" ],
-    "can": [ "provide housing" ],
-    "description": [  ],
-    "in": [ "city" ],
-    "has": [ "rooms", "housekeeping" ],
-    "synonyms": [ "inn", "motel" ]
+    "pos": "noun"
   }
 }

@@ -1,6 +1,5 @@
 {
   "enough": {
-    "pos": ["adjective", "adverb", "pronoun", "interjection" ], 
-    "synonyms": [ "sufficient" ]
+    "pos": ["adjective", "adverb", "pronoun", "interjection" ]
   }
 }

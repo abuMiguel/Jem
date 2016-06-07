@@ -1,10 +1,5 @@
 ﻿{
   "going": {
-    "pos": [ "verb", "noun" ],
-    "forms": [ "go", "goes", "went", "gone" ],
-    "doer": [ ],
-    "tense": "future",
-    "root": "go",
-    "synonyms": [ ]
+    "pos": [ "verb", "noun" ]
   }
 }

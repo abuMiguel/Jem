@@ -1,12 +1,5 @@
 {
   "story": {
-    "pos": "noun",
-    "plural": "stories",
-    "is": [ "report", "communication", "art" ],
-    "can": [ "entertain", "inform" ],
-    "description": [ "written or spoken" ],
-    "in": [ "person" ],
-    "has": [ "words" ],
-    "synonyms": [ "narrative" ]
+    "pos": "noun"
   }
 }

@@ -1,11 +1,5 @@
 ﻿{
   "climb": {
-    "pos": [ "verb", "noun" ],
-    "forms": [ "climbs", "climbed", "climbing" ],
-    "doer": [  ],
-    "tense": "present",
-    "root": "climb",
-    "synonyms": [ ],
-    "is": "action"
+    "pos": [ "verb", "noun" ]
   }
 }

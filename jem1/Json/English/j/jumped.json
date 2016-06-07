@@ -1,0 +1,10 @@
+{
+  "jumped": {
+    "pos": "verb",
+    "forms": [ "jump", "jumps", "jumping" ],
+    "doer": [  ],
+    "tense": "past",
+    "root": "jump",
+    "synonyms": [ "lept", "hopped" ]
+  }
+}

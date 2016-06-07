@@ -1,8 +1,8 @@
 ﻿{
   "his": {
-    "forms": [ "he", "him" ],
     "pos": [ "possessive determiner", "pronoun" ],
     "person": "third",
-    "root": "he"
+    "root": "he",
+    "plural": "no"
   }
 }

@@ -1,7 +1,5 @@
 ﻿{
   "nine": {
-    "pos": [ "noun", "determiner" ],
-    "root": "nine",
-    "synonyms": [ "9" ]
+    "pos": [ "noun", "determiner" ]
   }
 }

@@ -1,9 +1,5 @@
 ﻿{
   "mine": {
-    "forms": [ "I", "my" ],
-    "role": "pronoun",
-    "pos": "possessive pronoun",
-    "person": "first",
-    "root": "I"
+    "pos": "possessive pronoun"
   }
 }

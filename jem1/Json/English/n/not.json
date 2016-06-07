@@ -1,8 +1,5 @@
 ﻿{
   "not": {
-    "pos": "adverb",
-    "sentiment": "neutral",
-    "root": "not",
-    "synonyms": [  ]
+    "pos": "adverb"
   }
 }

@@ -1,10 +1,10 @@
 ﻿{
-  "verb": {
+  "word": {
     "pos": "verb",
-    "forms": [ "looks", "looked", "looking" ],
-    "doer": [ "who verbs" ],
-    "tense": "present",
-    "root": "root",
-    "synonyms": [ "synonym" ]
+    "present": [ "change", "changes" ],
+    "past": "changed",
+    "future": "changing",
+    "doer": [ ],
+    "synonyms": [ ]
   }
 }

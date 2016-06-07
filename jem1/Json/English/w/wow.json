@@ -1,8 +1,5 @@
 ﻿{
   "wow": {
-    "pos": "interjection",
-    "description": "expression of amazement",
-    "synonyms": [ "holy cow", "wowee", "amazing", "incredible" ]
-
+    "pos": "interjection"
   }
 }

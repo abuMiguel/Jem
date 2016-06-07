@@ -1,9 +1,5 @@
 ﻿{
   "happy": {
-    "pos": "adjective",
-    "comparative": "happier",
-    "superlative": "happiest"
-
-
+    "pos": "adjective"
   }
 }

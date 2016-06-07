@@ -1,10 +1,5 @@
 {
   "cannot": {
-    "pos": "helper verb",
-    "forms": [ "could not" ],
-    "doer": [  ],
-    "tense": "present",
-    "root": "cannot",
-    "synonyms": [ "unable" ]
+    "pos": "helper verb"
   }
 }

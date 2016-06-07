@@ -1,8 +1,5 @@
 ﻿{
   "two": {
-    "pos": [ "noun", "determiner" ],
-    "sentiment": "neutral", 
-    "root":  "two",
-    "synonyms": [ "2", "dual", "couple", "both" ]
+    "pos": [ "noun", "determiner" ]
   }
 }

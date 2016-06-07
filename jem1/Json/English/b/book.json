@@ -1,12 +1,5 @@
 {
   "book": {
-    "pos": ["noun","verb"],
-    "plural": "books",
-    "is": [ "object" ],
-    "can": [  ],
-    "description": [ "paper" ],
-    "in": [ "person", "shelf", "library" ],
-    "has": [ "pages", "cover", "title", "author", "publisher" ],
-    "synonyms": [  ]
+    "pos": ["noun","verb"]
   }
 }
