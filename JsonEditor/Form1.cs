@@ -43,6 +43,7 @@ namespace JsonEditor
             listView2.Items.Add(new ListViewItem("relative pronoun"));
 
             var items2 = new[] {
+                new { Text = "Tagger", Value = "taggertemplate" },
                 new { Text = "Verb", Value = "verb" },
                 new { Text = "Noun", Value = "noun" },
                 new { Text = "Adjectives", Value = "adjective" },
@@ -373,7 +374,7 @@ namespace JsonEditor
             {
                 json = File.ReadAllText(filepath + comboBox2.SelectedValue.ToString() + ".json");
                 richTextBox1.Text = json;
-                textBox2.Text = comboBox2.SelectedValue.ToString();
+                textBox2.Text = "word";
                 textBox2.ReadOnly = false;
             }
             catch

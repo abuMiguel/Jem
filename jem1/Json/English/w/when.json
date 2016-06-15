@@ -1,5 +1,5 @@
 {
   "when": {
-    "pos": ["adverb", "subordinating conjunction", "pronoun"]
+    "pos": [ "subordinating conjunction", "adverb", "pronoun" ]
   }
 }

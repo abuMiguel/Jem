@@ -196,7 +196,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1419, 817);
+            this.ClientSize = new System.Drawing.Size(1428, 817);
             this.Controls.Add(this.listView2);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBox2);
@@ -212,6 +212,7 @@
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.listView1);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MinimumSize = new System.Drawing.Size(1450, 873);
             this.Name = "Form1";
             this.Text = "JSON Editor for JEM1";
             this.Load += new System.EventHandler(this.Form1_Load);

@@ -52,7 +52,6 @@ namespace jem1.Grammar
         //Is the ING word the first word 
         public static void IngStartRule(List<string> posL, Word w)
         {
-            //ING first word rule
             posL.Remove("verb");
             w.pos = ListToString(posL);
         }

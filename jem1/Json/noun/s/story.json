@@ -1,0 +1,28 @@
+{
+  "story": {
+    "meanings": [
+      {
+        "pos":  "noun",
+        "is": [ "narrative" ],
+        "can": [ ],
+        "in": [ "book" ],
+        "has": [ "storyline" ],
+        "synonyms": [ "tale", "anecdote" ],
+        "similar": [ ],
+        "possibly": [ { } ],
+        "probably": [ { } ]
+      },
+      {
+        "pos": "noun",
+        "is": [ "level" ],
+        "can": [ ],
+        "in": [ "building" ],
+        "has": [ "rooms" ],
+        "synonyms": [ "level", "floor" ],
+        "similar": [ ],
+        "possibly": [ { } ],
+        "probably": [ { } ]
+      }
+    ]
+  }
+}

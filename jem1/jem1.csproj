@@ -93,6 +93,7 @@
     <None Include="Json\English\a\ate.json" />
     <None Include="Json\English\a\all.json" />
     <None Include="Json\English\a\any.json" />
+    <None Include="Json\English\b\brought.json" />
     <None Include="Json\English\b\book.json" />
     <None Include="Json\English\b\both.json" />
     <None Include="Json\English\b\big.json" />
@@ -152,6 +153,7 @@
     <None Include="Json\English\g\good.json" />
     <None Include="Json\English\g\go.json" />
     <None Include="Json\English\g\going.json" />
+    <None Include="Json\English\h\house.json" />
     <None Include="Json\English\h\had.json" />
     <None Include="Json\English\h\half.json" />
     <None Include="Json\English\h\having.json" />
@@ -385,8 +387,10 @@
     <None Include="Json\noun\f\face.json" />
     <None Include="Json\noun\f\father.json" />
     <None Include="Json\noun\h\hotel.json" />
+    <None Include="Json\noun\s\story.json" />
     <None Include="Json\Templates\adjective.json" />
     <None Include="Json\Templates\adverb.json" />
+    <None Include="Json\Templates\taggertemplate.json" />
     <None Include="Json\Templates\determiner.json" />
     <None Include="Json\Templates\gerund.json" />
     <None Include="Json\Templates\interjection.json" />
@@ -409,6 +413,23 @@
     <Folder Include="Json\MWE\z\" />
     <Folder Include="Json\noun\e\" />
     <Folder Include="Json\noun\g\" />
+    <Folder Include="Json\noun\i\" />
+    <Folder Include="Json\noun\j\" />
+    <Folder Include="Json\noun\k\" />
+    <Folder Include="Json\noun\l\" />
+    <Folder Include="Json\noun\m\" />
+    <Folder Include="Json\noun\n\" />
+    <Folder Include="Json\noun\o\" />
+    <Folder Include="Json\noun\p\" />
+    <Folder Include="Json\noun\q\" />
+    <Folder Include="Json\noun\r\" />
+    <Folder Include="Json\noun\t\" />
+    <Folder Include="Json\noun\u\" />
+    <Folder Include="Json\noun\v\" />
+    <Folder Include="Json\noun\w\" />
+    <Folder Include="Json\noun\x\" />
+    <Folder Include="Json\noun\y\" />
+    <Folder Include="Json\noun\z\" />
     <Folder Include="Json\verb\a\" />
     <Folder Include="Json\verb\b\" />
   </ItemGroup>
