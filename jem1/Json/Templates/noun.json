@@ -1,12 +1,28 @@
 ﻿{
-  "noun": {
-    "pos": "noun",
-    "plural": "s",
-    "is": [  ],
-    "can": [  ],
-    "description": [  ],
-    "in": [  ],
-    "has": [  ],
-    "synonyms": [  ]
+  "word": {
+    "meanings": [
+      {
+        "pos": "noun",
+        "is": [ ],
+        "can": [ ],
+        "in": [ ],
+        "has": [ ],
+        "synonyms": [ ],
+        "similar": [ ],
+        "possibly": [ { } ],
+        "probably": [ { } ]
+      },
+      {
+        "pos": "noun",
+        "is": [ ],
+        "can": [ ],
+        "in": [ ],
+        "has": [ ],
+        "synonyms": [ ],
+        "similar": [ ],
+        "possibly": [ { } ],
+        "probably": [ { } ]
+      }
+    ]
   }
 }

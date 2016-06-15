@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Answer.cs" />
+    <Compile Include="API\MW.cs" />
     <Compile Include="Grammar\Determiner.cs" />
     <Compile Include="Grammar\POSTagger.cs" />
     <Compile Include="Grammar\PrepPhrase.cs" />

@@ -1,14 +1,38 @@
 ﻿using jem1.Structure;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace jem1
 {
     static class U
     {
+        public static string GetCSVFromXML(string xmlString, string element)
+        {
+            List<string> posL = new List<string>();
+            string pos = string.Empty;
+
+            using (XmlReader reader = XmlReader.Create(new StringReader(xmlString)))
+            {
+                var doc = XDocument.Load(reader);
+                var xmlpos = doc.Root.Elements().Select(x => x.Element(element));
+                foreach(string p in xmlpos)
+                {
+                    if (!posL.Contains(p))
+                    {
+                        posL.Add(p);
+                    }
+                }
+            }
+            pos = ListToString(posL);
+            return pos;
+        }
+
         public static List<string> CSVToList(string csv)
         {
             List<string> x = new List<string>();
@@ -50,15 +74,15 @@ namespace jem1
             {
                 wordReverseEnding = new string(w.name.Reverse().Take(num).ToArray());
             }
-           
+
             return wordReverseEnding == new string(ending.Reverse().ToArray()) ? true : false;
         }
 
         public static bool HasPOS(Sentence s, List<string> posL)
         {
-            foreach(Word w in s.words)
+            foreach (Word w in s.words)
             {
-                if( posL.Contains(w.pos) ) { return true; }
+                if (posL.Contains(w.pos)) { return true; }
             }
             return false;
         }

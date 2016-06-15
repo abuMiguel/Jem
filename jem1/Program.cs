@@ -23,23 +23,16 @@ namespace jem1
             string usertext = "";
             Session sess = new Session();
             WriteLine("Jem: Hi, what can I do for you?");
-            
+
             while (!exit)
             {
                 Write("User: ");
                 usertext = ReadLine();
-                
+
                 if (!exit && !string.IsNullOrEmpty(usertext))
-                {   
-                    //get first 4 chars to see if user wants POS
-                    //Type "pos:" to begin the text if you want to tag the sentence
-                    string f4 = new string(usertext.Take(4).ToArray());
-                    if (f4 == "pos:")
-                    {
-                        showPOS = true;
-                        usertext = usertext.Remove(0, 4);
-                        usertext = usertext.TrimStart();
-                    }
+                {
+                    //This makes Jem give you the parts of speech
+                    showPOS = true;
 
                     Sentence s = new Sentence(usertext);
                     sess.stm.Add(s);
@@ -49,7 +42,7 @@ namespace jem1
                         exit = true;
                     }
                     else
-                    {   //if user typed pos:, then show the parts of speech for given sentence
+                    {   //show the parts of speech for given sentence
                         if (showPOS)
                         {
                             showPOS = false;
@@ -60,7 +53,7 @@ namespace jem1
                                 var wLen = w.name.Length;
                                 if (!string.IsNullOrEmpty(w.possessiveTag)) { wLen += w.possessiveTag.Length; }
                                 //if there is punctuation on a word then increase its length
-                                if (s.punc.ContainsKey(w.ID) && s.punc[w.ID] != "none" ) { wLen++; }
+                                if (s.punc.ContainsKey(w.ID) && s.punc[w.ID] != "none") { wLen++; }
                                 //force the word and POS Tag to be the same length to make it look nice
                                 while (wLen > abb.Length) { abb = abb + " "; }
                                 while (abb.Length > wLen) { wordsOutput[w.ID] = wordsOutput[w.ID] + " "; wLen++; }
@@ -71,13 +64,13 @@ namespace jem1
                             WriteLine(string.Join(" ", wordsOutput));
                         }
                         WriteLine("Jem: " + Answer.Find(sess));
-                    }                   
+                    }
                 }
             }
             WriteLine("Jem: " + usertext);
             ReadKey();
         }
 
-        
+
     }
 }

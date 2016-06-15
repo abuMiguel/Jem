@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static jem1.U;
 using jem1.Grammar;
+using jem1.API;
 
 namespace jem1.Grammar
 {
@@ -392,27 +393,37 @@ namespace jem1.Grammar
                         //The POS remains AS IS because there was only one choice, unless unknown
                         if (w.pos == "unknown")
                         {
-                            if (s.WordCount() > 1) { RunGeneralUnknownRules(w, s); }
+                            string url = ConfigurationManager.AppSettings["MWDictUrl"] + w.name + ConfigurationManager.AppSettings["MWDictUrlKey"];
+                            string details = MW.CallRestMethod(url);
+                            //fl is merriam webster's element for pos
+                            string pos = U.GetCSVFromXML(details, "fl");
+                            w.pos = pos;
+                            //TO DO normalize for Jem's use. make noun/adj possibilities not possible
 
-                            if (s.WordCount() == 1) //Only one word in sentence
+                            if (String.IsNullOrEmpty(w.pos))
                             {
+                                if (s.WordCount() > 1) { RunGeneralUnknownRules(w, s); }
 
-                            }
-                            else if (w.ID == 0 && s.WordCount() > 1) //First word
-                            {
-                                var wAfter = s.words[w.ID + 1];
-                                RunUnknownFirstRules(wAfter, w, s);
-                            }
-                            else if (w.ID > 0 && w.ID != s.WordCount() - 1) //NOT first word OR last word
-                            {
-                                var wBefore = s.words[w.ID - 1];
-                                var wAfter = s.words[w.ID + 1];
-                                RunUnknownMiddleRules(wBefore, wAfter, w, s);
-                            }
-                            else if (w.ID == s.WordCount() - 1)  //Last word
-                            {
-                                var wBefore = s.words[w.ID - 1];
-                                RunUnknownLastRules(wBefore, w, s);
+                                if (s.WordCount() == 1) //Only one word in sentence
+                                {
+
+                                }
+                                else if (w.ID == 0 && s.WordCount() > 1) //First word
+                                {
+                                    var wAfter = s.words[w.ID + 1];
+                                    RunUnknownFirstRules(wAfter, w, s);
+                                }
+                                else if (w.ID > 0 && w.ID != s.WordCount() - 1) //NOT first word OR last word
+                                {
+                                    var wBefore = s.words[w.ID - 1];
+                                    var wAfter = s.words[w.ID + 1];
+                                    RunUnknownMiddleRules(wBefore, wAfter, w, s);
+                                }
+                                else if (w.ID == s.WordCount() - 1)  //Last word
+                                {
+                                    var wBefore = s.words[w.ID - 1];
+                                    RunUnknownLastRules(wBefore, w, s);
+                                }
                             }
                         }
                     }
