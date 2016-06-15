@@ -426,7 +426,7 @@ namespace jem1.Grammar
             if (U.EndsWith(w, "ing")) { Rules.IngStartRule(posL, w); }
             if (w.name == "to") { Rules.InfinitiveRule(w, wAfter); }
             if (w.pos.Contains("determiner") && w.pos.Contains("pronoun") && pass == 2) { Rules.DetPronounRule(w, s, posL); }
-            if (!string.IsNullOrEmpty(w.possessiveTag)) { w.pos = "possessive determiner"; }
+            if (!string.IsNullOrEmpty(w.possessiveTag)) { w.pos = "possessive determiner"; } //Why did I do this?
             if (w.pos.Contains("relative pronoun")) { Rules.FirstRelPro(w, posL); }
         }
 
@@ -478,6 +478,7 @@ namespace jem1.Grammar
             Rules.UnknownLastWordAfterDetRule(wBefore, w, s);
         }
 
+        //Get the abbreviation for the POS of a given word
         public static string GetAbbrev(Word w)
         {
             string abbr = "";

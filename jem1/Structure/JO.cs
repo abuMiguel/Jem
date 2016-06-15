@@ -10,6 +10,7 @@ using System.Configuration;
 
 namespace jem1.Structure
 {
+    //This class is to facilitate retrieval of JSON properties and values from a JSON Object using JSON.NET
     static class JO
     {
         //Get all properties in JSON Object
@@ -266,6 +267,7 @@ namespace jem1.Structure
             return jo;
         }
 
+        //currently not in use
         public static void EditSubjectJson(Clause c)
         {
             int ID = c.subjects[0].ID;

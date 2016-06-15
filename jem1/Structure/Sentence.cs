@@ -30,6 +30,7 @@ namespace jem1
             question = false;
 
             PopulateWordsList();
+            //MWE is Multiple Word Expression
             FindMWEs();
             POSTagger.AssignPartsOfSpeech(this);
             clauses = GetClauses(this);

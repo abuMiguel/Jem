@@ -32,6 +32,7 @@ namespace jem1
                 if (!exit && !string.IsNullOrEmpty(usertext))
                 {   
                     //get first 4 chars to see if user wants POS
+                    //Type "pos:" to begin the text if you want to tag the sentence
                     string f4 = new string(usertext.Take(4).ToArray());
                     if (f4 == "pos:")
                     {

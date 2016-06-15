@@ -13,15 +13,18 @@ namespace jem1.Structure
         public string[] wordsArray { get; set; }
         public string wordsString { get; set; }
         public List<Word> words { get; set; }
+        //json object list
         public List<JObject> jol { get; set; }
         public List<Word> subjects { get; set; }
         public List<Word> verbs { get; set; }
         public string hVerb { get; set; }
         public List<Word> predicate { get; set; }
+        //predicate nominative/noun
         public List<Word> pN { get; set; }
+        //predicate adjective
         public List<Word> pA { get; set; }
         public List<PrepPhrase> preps { get; set; }
-        public List<Meaning> meanings { get; set; }
+        //important words
         public Word i1 { get; set; }
         public Word i2 { get; set; }
         public Word i3 { get; set; }
@@ -34,7 +37,6 @@ namespace jem1.Structure
             jol = new List<JObject>();
             predicate = new List<Word>();
             preps = new List<PrepPhrase>();
-            meanings = new List<Meaning>();
             pN = new List<Word>();
             pA = new List<Word>();
 
@@ -52,7 +54,6 @@ namespace jem1.Structure
             jol = new List<JObject>();
             predicate = new List<Word>();
             preps = new List<PrepPhrase>();
-            meanings = new List<Meaning>();
             pN = new List<Word>();
             pA = new List<Word>();
 
@@ -78,6 +79,8 @@ namespace jem1.Structure
             return wordsArray.Length;
         }
 
+        //UNFINISHED
+        //is complete is incomplete (ironic?), but will be used to tell whether it is a complete independent thought
         public bool IsComplete()
         {
             if(i1 != null && i2 != null)

@@ -20,7 +20,7 @@ namespace jem1.Grammar
         public static void DeterminerPrecedingRule(Word wBefore, List<string> posL, Word w, Sentence s)
         {
             string[] oklist = new string[2] { "adjective", "adverb" };
-            //Determiner preceding rule
+
             if (wBefore.pos.Contains("determiner") || NothingButBetween(w, "determiner", oklist, s))
             {
                 posL.RemoveAll(x => !x.Contains("noun") && !x.Contains("adjective") && !x.Contains("adverb"));
