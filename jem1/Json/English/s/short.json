@@ -1,9 +1,5 @@
 {
   "short": {
-    "pos": ["adjective","verb"],
-    "comparative": "shorter",
-    "superlative": "shortest", 
-    "root": "short",
-    "synonyms": [ ]
+    "pos": ["adjective","verb"]
   }
 }

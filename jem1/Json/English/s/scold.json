@@ -1,10 +1,5 @@
 {
   "scold": {
-    "pos": "verb",
-    "forms": [ "scolds", "scolded", "scolding" ],
-    "doer": [  ],
-    "tense": "",
-    "root": "",
-    "synonyms": [  ]
+    "pos": "verb"
   }
 }

@@ -1,9 +1,5 @@
 {
   "wondered": {
-    "pos": "verb",
-    "forms": [ "wonder", "wonders", "wondering" ],
-    "tense": "past",
-    "root": "wonder",
-    "synonyms": [  ]
+    "pos": "verb"
   }
 }

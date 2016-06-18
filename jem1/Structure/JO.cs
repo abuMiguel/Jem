@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Configuration;
+using Newtonsoft.Json;
 
 namespace jem1.Structure
 {
@@ -105,7 +106,7 @@ namespace jem1.Structure
                     {
                         if (vArray[i] == val || vArray.Length == 1)
                         {
-                            answer = vArray.Length > 1 ?  vArray[i + 1].ToString() : vArray[0].ToString();
+                            answer = vArray.Length > 1 ? vArray[i + 1].ToString() : vArray[0].ToString();
                             if (vArray.Length > 1)
                             {
                                 double num = 0;
@@ -165,7 +166,7 @@ namespace jem1.Structure
             List<string> anc = new List<string>();
             //don't allow an infinite loop
             int x = 0;
-            while(!string.IsNullOrEmpty(GetVal(word, "is")) || x > 50)
+            while (!string.IsNullOrEmpty(GetVal(word, "is")) || x > 50)
             {
                 string val = GetVal(word, "is");
                 anc.Add(val);
@@ -176,7 +177,7 @@ namespace jem1.Structure
             return anc;
         }
 
-       
+
         public static bool HasProp(JObject jo, string prop)
         {
             string name = JO.GetFirst(jo);
@@ -233,7 +234,7 @@ namespace jem1.Structure
             string json, jsonfile, filepath;
             bool MWE = w.Any(x => Char.IsWhiteSpace(x));
 
-            if(MWE)
+            if (MWE)
             {
                 filepath = ConfigurationManager.AppSettings["MWEFilePath"];
             }
@@ -243,8 +244,8 @@ namespace jem1.Structure
             {
                 word.RemovePossessiveTag();
             }
-            
-            if(MWE)
+
+            if (MWE)
             {
                 int si = word.name.IndexOf(' ');
                 jsonfile = filepath + word.name[0].ToString() + @"\" + word.name.Substring(0, si) + @"\" + word.name.Replace(" ", "") + ".json";
@@ -265,6 +266,25 @@ namespace jem1.Structure
                 jo = JObject.Parse(json);
             }
             return jo;
+        }
+
+        public static void CreateNewWord(string word, string pos)
+        {
+            if (!string.IsNullOrEmpty(pos))
+            {
+                var filepath = ConfigurationManager.AppSettings["FilePath"] + word[0].ToString() + @"\" + word + ".json";
+
+                StringBuilder sb = new StringBuilder("{").AppendLine();
+                sb.AppendLine("  \"" + word + "\": {");
+                sb.AppendLine("    \"pos\": [\"" + pos + "\"]");
+                sb.AppendLine("  }");
+                sb.AppendLine("}");
+
+                if (!File.Exists(filepath))
+                {
+                    File.WriteAllText(filepath, sb.ToString());
+                }
+            }
         }
 
         //currently not in use

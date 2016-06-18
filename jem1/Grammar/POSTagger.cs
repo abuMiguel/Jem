@@ -395,10 +395,14 @@ namespace jem1.Grammar
                         {
                             string url = ConfigurationManager.AppSettings["MWDictUrl"] + w.name + ConfigurationManager.AppSettings["MWDictUrlKey"];
                             string details = MW.CallRestMethod(url);
-                            //fl is merriam webster's element for pos
+                            //fl is merriam webster's element for pos 
                             string pos = U.GetCSVFromXML(details, "fl");
-                            w.pos = pos;
-                            //TO DO normalize for Jem's use. make noun/adj possibilities not possible
+                            if (!string.IsNullOrEmpty(pos))
+                            {
+                                w.pos = pos;
+
+                                JO.CreateNewWord(w.name, w.pos);
+                            }
 
                             if (String.IsNullOrEmpty(w.pos))
                             {

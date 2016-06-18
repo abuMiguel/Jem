@@ -1,9 +1,5 @@
 {
   "crappy": {
-    "pos": "adjective",
-    "comparative": "crappier",
-    "superlative": "crappiest",
-    "root":  "crap",
-    "synonyms": [  ]
+    "pos": "adjective"
   }
 }

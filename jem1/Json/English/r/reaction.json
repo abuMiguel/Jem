@@ -1,13 +1,5 @@
 {
   "reaction": {
-    "pos": "noun",
-    "plural": "reactions",
-    "is": [  ],
-    "can": [  ],
-    "description": [  ],
-    "in": [  ],
-    "has": [  ],
-    "synonyms": [  ]
-
+    "pos": "noun"
   }
 }

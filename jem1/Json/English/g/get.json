@@ -1,10 +1,5 @@
 {
   "get": {
-    "pos": "verb",
-    "forms": [ "gets", "got", "getting", "gotten" ],
-    "doer": [  ],
-    "tense": "",
-    "root": "",
-    "synonyms": [  ]
+    "pos": "verb"
   }
 }

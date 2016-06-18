@@ -1,8 +1,5 @@
 {
   "them": {
-    "pos": "pronoun",
-    "forms":  [ "they", "their" ],
-    "person": "third",
-    "plural": "yes"
+    "pos": "pronoun"
   }
 }

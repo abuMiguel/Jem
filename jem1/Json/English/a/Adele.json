@@ -1,10 +1,5 @@
 {
   "Adele": {
-    "pos": "proper noun",
-    "is": [ "singer" ],
-    "can": [ "sing" ],
-    "description": [  ],
-    "in": [  ],
-    "has": [  ]
+    "pos": "proper noun"
   }
 }

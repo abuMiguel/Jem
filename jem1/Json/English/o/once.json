@@ -1,6 +1,5 @@
 {
   "once": {
-    "pos": ["adverb","adjective","conjunction","noun"],
-    "synonyms": [  ]
+    "pos": ["adverb","adjective","conjunction","noun"]
   }
 }

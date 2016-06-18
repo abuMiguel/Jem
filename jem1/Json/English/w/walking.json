@@ -1,13 +1,5 @@
 {
   "walking": {
-    "pos": [ "noun", "verb", "adjective" ],
-    "forms": [ "walk", "walks", "walked" ],
-    "doer": [ "person", "animal" ],
-    "tense": "progressive",
-    "root": "walk",
-    "is": [ "action" ],
-    "can": [  ],
-    "description": [ "slow" ],
-    "synonyms": [ "strolling" ]
+    "pos": [ "noun", "verb", "adjective" ]
   }
 }

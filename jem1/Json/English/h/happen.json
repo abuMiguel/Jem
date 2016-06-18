@@ -1,10 +1,5 @@
 {
   "happen": {
-    "pos": "verb",
-    "forms": [ "happens", "happened", "happening" ],
-    "doer": [  ],
-    "tense": "present",
-    "root": "happen",
-    "synonyms": [ "occur" ]
+    "pos": "verb"
   }
 }

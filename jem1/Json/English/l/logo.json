@@ -1,12 +1,5 @@
 {
   "logo": {
-    "pos": "noun",
-    "plural": "logos",
-    "is": [  ],
-    "can": [  ],
-    "description": [  ],
-    "in": [ "company" ],
-    "has": [  ],
-    "synonyms": [  ]
+    "pos": "noun"
   }
 }

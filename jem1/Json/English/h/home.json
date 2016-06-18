@@ -1,13 +1,5 @@
 {
   "home": {
-    "pos": "noun",
-    "plural": "homes",
-    "is": [ "building" ],
-    "can": [ ],
-    "description": [  ],
-    "in": [  ],
-    "has": [ "door", "windows" ],
-    "synonyms": [ "house" ]
-
+    "pos": "noun"
   }
 }

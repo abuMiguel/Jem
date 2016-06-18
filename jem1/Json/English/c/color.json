@@ -1,13 +1,5 @@
 {
   "color": {
-    "pos": "noun",
-    "plural": "colors",
-    "is": [ ],
-    "can": [ "fade" ],
-    "description": [  ],
-    "in": [ "everything" ],
-    "has": [ "tint", "shade" ],
-    "synonyms": [  ]
-
+    "pos": "noun"
   }
 }
