@@ -181,7 +181,7 @@ namespace jem1
         //Same as NothingButBetween except it looks forward not backwards
         public static bool NothingButBetweenForward(Word startWord, string endPOS, string[] okList, Sentence s)
         {
-            for (int i = startWord.ID + 1; i < s.WordCount(); i++)
+            for (int i = startWord.ID + 1; i < s.wordCount; i++)
             {
                 var posL = s.words[i].pos.Contains(",") ? s.words[i].pos.Split(',') : new string[1] { s.words[i].pos };
 
@@ -216,7 +216,7 @@ namespace jem1
         //Used for multiple possible endPOS, comma separated like: noun,pronoun
         public static bool NothingButBetweenForwardContains(Word startWord, string endPOS, string[] okList, Sentence s)
         {
-            for (int i = startWord.ID + 1; i < s.WordCount(); i++)
+            for (int i = startWord.ID + 1; i < s.wordCount; i++)
             {
                 var posL = s.words[i].pos.Contains(",") ? s.words[i].pos.Split(',') : new string[1] { s.words[i].pos };
 

@@ -1,5 +1,5 @@
 ﻿{
   "name": {
-    "pos": "noun"
+    "pos": [ "noun", "verb" ]
   }
 }

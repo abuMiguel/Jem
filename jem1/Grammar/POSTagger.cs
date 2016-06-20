@@ -70,7 +70,7 @@ namespace jem1.Grammar
                         break;
                     case "preposition":
                         List<Word> ppwords = new List<Word>();
-                        for (int i = cID; i < c.WordCount(); i++)
+                        for (int i = cID; i < c.wordCount; i++)
                         {
                             c.words[i].inPrepPhrase = true;
                             ppwords.Add(c.words[i]);
@@ -87,7 +87,7 @@ namespace jem1.Grammar
                         List<string> vrbs = new List<string>();
                         // when to end the relative phrase
                         bool end = false;
-                        for (int i = cID; i < c.WordCount(); i++)
+                        for (int i = cID; i < c.wordCount; i++)
                         {
                             if (c.words[i].pos == "verb")
                             {
@@ -127,7 +127,7 @@ namespace jem1.Grammar
                         if (nounFlag == 0)
                         {
                             List<int> ids = new List<int>();
-                            for (int i = cID; i < c.WordCount(); i++)
+                            for (int i = cID; i < c.wordCount; i++)
                             {
                                 if (c.words[i].pos == "noun")
                                 {
@@ -175,7 +175,7 @@ namespace jem1.Grammar
             if (verbPosition >= 0)
             {
 
-                int wordCnt = c.WordCount();
+                int wordCnt = c.wordCount;
 
                 for (int i = 0; i < wordCnt; i++)
                 {
@@ -247,7 +247,7 @@ namespace jem1.Grammar
                             if (adjFlag == 0)
                             {
                                 List<int> ids = new List<int>();
-                                for (int i = cID; i < c.WordCount(); i++)
+                                for (int i = cID; i < c.wordCount; i++)
                                 {
                                     if (c.words[i].pos == "adjective" && c.words[i].role != "predicate adjective")
                                     {
@@ -274,7 +274,7 @@ namespace jem1.Grammar
                             break;
                         case "adverb":
                             // not the last word in the sentence
-                            if (cID != c.WordCount() - 1)
+                            if (cID != c.wordCount - 1)
                             {
                                 // wa = word after the adverb
                                 var wa = c.words[cID + 1].pos;
@@ -360,22 +360,22 @@ namespace jem1.Grammar
 
                     if (w.pos.Contains(","))  //has more than one choice for POS
                     {
-                        if (s.WordCount() == 1) //Only one word in sentence
+                        if (s.wordCount == 1) //Only one word in sentence
                         {
                             w.pos = CSVToList(w.pos)[0];
                         }
-                        else if (w.ID == 0 && s.WordCount() > 1) //First word
+                        else if (w.ID == 0 && s.wordCount > 1) //First word
                         {
                             var wAfter = s.words[w.ID + 1];
                             RunFirstWordRules(wAfter, posL, w, s, pass);
                         }
-                        else if (w.ID > 0 && w.ID != s.WordCount() - 1) //NOT first word OR last word
+                        else if (w.ID > 0 && w.ID != s.wordCount - 1) //NOT first word OR last word
                         {
                             var wBefore = s.words[w.ID - 1];
                             var wAfter = s.words[w.ID + 1];
                             RunMiddleWordRules(wBefore, wAfter, posL, w, s, pass);
                         }
-                        else if (w.ID == s.WordCount() - 1)  //Last word
+                        else if (w.ID == s.wordCount - 1)  //Last word
                         {
                             var wBefore = s.words[w.ID - 1];
                             RunLastWordRules(wBefore, posL, w, s);
@@ -406,24 +406,24 @@ namespace jem1.Grammar
 
                             if (String.IsNullOrEmpty(w.pos))
                             {
-                                if (s.WordCount() > 1) { RunGeneralUnknownRules(w, s); }
+                                if (s.wordCount > 1) { RunGeneralUnknownRules(w, s); }
 
-                                if (s.WordCount() == 1) //Only one word in sentence
+                                if (s.wordCount == 1) //Only one word in sentence
                                 {
 
                                 }
-                                else if (w.ID == 0 && s.WordCount() > 1) //First word
+                                else if (w.ID == 0 && s.wordCount > 1) //First word
                                 {
                                     var wAfter = s.words[w.ID + 1];
                                     RunUnknownFirstRules(wAfter, w, s);
                                 }
-                                else if (w.ID > 0 && w.ID != s.WordCount() - 1) //NOT first word OR last word
+                                else if (w.ID > 0 && w.ID != s.wordCount - 1) //NOT first word OR last word
                                 {
                                     var wBefore = s.words[w.ID - 1];
                                     var wAfter = s.words[w.ID + 1];
                                     RunUnknownMiddleRules(wBefore, wAfter, w, s);
                                 }
-                                else if (w.ID == s.WordCount() - 1)  //Last word
+                                else if (w.ID == s.wordCount - 1)  //Last word
                                 {
                                     var wBefore = s.words[w.ID - 1];
                                     RunUnknownLastRules(wBefore, w, s);

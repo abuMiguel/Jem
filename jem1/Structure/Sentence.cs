@@ -20,6 +20,7 @@ namespace jem1
         public Dictionary<int, string> punc { get; set; }
         public bool question { get; set; }
         public List<Clause> clauses { get; set; }
+        public int wordCount { get; set; }
 
         public Sentence(string sent)
         {
@@ -27,6 +28,7 @@ namespace jem1
             words = new List<Word>();
             wordsString = sent;
             wordsArray = sent.Split(' ');
+            wordCount = wordsArray.Length;
             question = false;
 
             PopulateWordsList();
@@ -44,7 +46,8 @@ namespace jem1
 
         private void PopulateWordsList()
         {
-            for (int i = 0; i < wordsArray.Length; i++)
+            int numCon = 0;
+            for (int i = 0; i < wordCount - numCon; i++)
             {
                 string name = Punctuation.Strip(wordsArray[i]);
                 int id = i;
@@ -52,8 +55,26 @@ namespace jem1
                 if (!string.IsNullOrEmpty(name))
                 {
                     words.Add(new Word(name, id));
+                    //insert contraction word into list if word is a contraction
+                    if(this.words[id].contraction == true)
+                    {
+                        //change original word to it's root by removing contraction ending
+                        if(words[i].name == "won't")
+                        {
+                            words[i].name = "will";
+                        }
+                        else
+                        {
+                            var cL = words[id].GetContractionEnding().Length;
+                            words[i].name = words[i].name.Remove(words[id].name.Length - cL);
+                        }
 
-                    switch (wordsArray[i][wordsArray[i].Length - 1])
+                        words.Insert(id + 1, new Word(this.words[id].conWord, id + 1));
+                        wordCount++;
+                        numCon++;
+                    }
+
+                    switch (words[i].name[words[i].name.Length - 1])
                     {
                         case ',':
                             punc.Add(i, ",");
@@ -63,7 +84,7 @@ namespace jem1
                             break;
                         case '?':
                             punc.Add(i, "?");
-                            if (i == wordsArray.Length - 1) { question = true; }
+                            if (i == wordCount - 1) { question = true; }
                             break;
                         case '!':
                             punc.Add(i, "!");
@@ -129,11 +150,6 @@ namespace jem1
 
                 }
             }
-        }
-
-        public int WordCount()
-        {
-            return wordsArray.Length;
         }
 
         public string GetPuncAll()

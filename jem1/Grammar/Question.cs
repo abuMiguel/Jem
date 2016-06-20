@@ -23,9 +23,9 @@ namespace jem1.Grammar
             if (qwords.Contains(s.words[0].name.ToLower()))
             {
                 q1 = s.words[0].name;
-                q2 = s.WordCount() > 1 ? s.words[1].name : null;
-                q3 = s.WordCount() > 2 ? s.words[2].name : null;
-                q4 = s.WordCount() > 3 ? s.words[3].name : null;
+                q2 = s.wordCount > 1 ? s.words[1].name : null;
+                q3 = s.wordCount > 2 ? s.words[2].name : null;
+                q4 = s.wordCount > 3 ? s.words[3].name : null;
             }
 
             switch (q1.ToLower())

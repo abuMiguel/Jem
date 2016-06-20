@@ -268,15 +268,30 @@ namespace jem1.Structure
             return jo;
         }
 
+        //Adds words from Merriam Webster dictionary to JSON dictionary in English folder
         public static void CreateNewWord(string word, string pos)
         {
+            var posL = U.CSVToList(pos);
+
             if (!string.IsNullOrEmpty(pos))
             {
                 var filepath = ConfigurationManager.AppSettings["FilePath"] + word[0].ToString() + @"\" + word + ".json";
 
                 StringBuilder sb = new StringBuilder("{").AppendLine();
                 sb.AppendLine("  \"" + word + "\": {");
-                sb.AppendLine("    \"pos\": [\"" + pos + "\"]");
+                sb.Append("    \"pos\": [");
+                foreach (string p in posL)
+                {
+                    if (posL.Count > 1 && p != posL[posL.Count - 1])
+                    {
+                        sb.Append("\"" + p + "\",");
+                    }
+                    else if(p != posL[0] || posL.Count == 15)
+                    {
+                        sb.Append("\"" + p + "\"");
+                    }
+                }
+                sb.AppendLine("]");
                 sb.AppendLine("  }");
                 sb.AppendLine("}");
 

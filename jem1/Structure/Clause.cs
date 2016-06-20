@@ -13,6 +13,7 @@ namespace jem1.Structure
         public string[] wordsArray { get; set; }
         public string wordsString { get; set; }
         public List<Word> words { get; set; }
+        public int wordCount { get; set; }
         //json object list
         public List<JObject> jol { get; set; }
         public List<Word> subjects { get; set; }
@@ -42,6 +43,7 @@ namespace jem1.Structure
 
             wordsString = c;
             wordsArray = c.Split(' ');
+            wordCount = wordsArray.Length; 
 
             PopulateWordsList();
         }
@@ -63,20 +65,16 @@ namespace jem1.Structure
                 wordsArray[i] = c[i].name;
             }
             wordsString = string.Join(" ", wordsArray);
+            wordCount = wordsArray.Length;
 
         }
 
         private void PopulateWordsList()
         {
-            for (int i = 0; i < wordsArray.Length; i++)
+            for (int i = 0; i < wordCount; i++)
             {
                 words.Add(new Word(Punctuation.Strip(wordsArray[i]), i));   
             }     
-        }
-
-        public int WordCount()
-        {
-            return wordsArray.Length;
         }
 
         //UNFINISHED

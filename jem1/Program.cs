@@ -46,7 +46,7 @@ namespace jem1
                         if (showPOS)
                         {
                             showPOS = false;
-                            var wordsOutput = s.wordsArray;
+                            var output = s.words;
                             foreach (Word w in s.words)
                             {
                                 var abb = POSTagger.GetAbbrev(w);
@@ -56,12 +56,16 @@ namespace jem1
                                 if (s.punc.ContainsKey(w.ID) && s.punc[w.ID] != "none") { wLen++; }
                                 //force the word and POS Tag to be the same length to make it look nice
                                 while (wLen > abb.Length) { abb = abb + " "; }
-                                while (abb.Length > wLen) { wordsOutput[w.ID] = wordsOutput[w.ID] + " "; wLen++; }
+                                while (abb.Length > wLen) { output[w.ID].name = output[w.ID].name + " "; wLen++; }
 
                                 Write(abb + " ");
                             }
                             WriteLine("");
-                            WriteLine(string.Join(" ", wordsOutput));
+                            foreach(Word w in output)
+                            {
+                                Write(w.name + " ");
+                            }
+                            WriteLine("");
                         }
                         WriteLine("Jem: " + Answer.Find(sess));
                     }
