@@ -80,6 +80,7 @@ namespace jem1
                             punc.Add(i, ",");
                             break;
                         case '.':
+                            //to do: check for ... (ellipsis)
                             punc.Add(i, ".");
                             break;
                         case '?':

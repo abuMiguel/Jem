@@ -22,7 +22,7 @@ namespace jem1
             bool showPOS = false;
             string usertext = "";
             Session sess = new Session();
-            WriteLine("Jem: Hi, what can I do for you?");
+            WriteLine("Jem: Input a sentence and I will tag it for you.");
 
             while (!exit)
             {
@@ -67,7 +67,7 @@ namespace jem1
                             }
                             WriteLine("");
                         }
-                        WriteLine("Jem: " + Answer.Find(sess));
+                        //WriteLine("Jem: " + Answer.Find(sess));
                     }
                 }
             }

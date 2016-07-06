@@ -286,7 +286,7 @@ namespace jem1.Structure
                     {
                         sb.Append("\"" + p + "\",");
                     }
-                    else if(p != posL[0] || posL.Count == 15)
+                    else if(p != posL[0] || posL.Count == 1)
                     {
                         sb.Append("\"" + p + "\"");
                     }

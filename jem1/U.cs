@@ -44,6 +44,10 @@ namespace jem1
             {
                 posL.Remove("geographical name"); posL.Add("proper noun");
             }
+            if(!posL.Contains("proper noun"))
+            {
+
+            }
 
             pos = ListToString(posL);
             return pos;
@@ -112,6 +116,11 @@ namespace jem1
             {
                 var posL = s.words[i].pos.Contains(",") ? s.words[i].pos.Split(',') : new string[1] { s.words[i].pos };
 
+                if(posL.Contains(endPOS) && posL.Count() > 1)
+                {
+                    return false;
+                }
+
                 for (int j = 0; j < okList.Length; j++)
                 {
                     var flag = false;
@@ -136,8 +145,7 @@ namespace jem1
                     if (flag) { break; }
                 }
             }
-
-            return true;
+            return false;
         }
 
         //override for clauses
@@ -149,6 +157,11 @@ namespace jem1
             {
                 var posL = c.words[i].pos.Contains(",") ? c.words[i].pos.Split(',') : new string[1] { c.words[i].pos };
 
+                if (posL.Contains(endPOS) && posL.Count() > 1)
+                {
+                    return false;
+                }
+
                 for (int j = 0; j < okList.Length; j++)
                 {
                     var flag = false;
@@ -174,16 +187,21 @@ namespace jem1
                 }
             }
 
-            return true;
+            return false;
         }
 
 
         //Same as NothingButBetween except it looks forward not backwards
         public static bool NothingButBetweenForward(Word startWord, string endPOS, string[] okList, Sentence s)
         {
-            for (int i = startWord.ID + 1; i < s.wordCount; i++)
+            for (int i = startWord.ID + 2; i < s.wordCount; i++)
             {
                 var posL = s.words[i].pos.Contains(",") ? s.words[i].pos.Split(',') : new string[1] { s.words[i].pos };
+
+                if (posL.Contains(endPOS) && posL.Count() > 1)
+                {
+                    return false;
+                }
 
                 for (int j = 0; j < okList.Length; j++)
                 {
@@ -209,14 +227,14 @@ namespace jem1
                     if (flag) { break; }
                 }
             }
-            return true;
+            return false;
         }
 
         //Same as NothingButBetweenForward except it uses contains instead of equals for endPOS
         //Used for multiple possible endPOS, comma separated like: noun,pronoun
         public static bool NothingButBetweenForwardContains(Word startWord, string endPOS, string[] okList, Sentence s)
         {
-            for (int i = startWord.ID + 1; i < s.wordCount; i++)
+            for (int i = startWord.ID + 2; i < s.wordCount; i++)
             {
                 var posL = s.words[i].pos.Contains(",") ? s.words[i].pos.Split(',') : new string[1] { s.words[i].pos };
 
@@ -244,7 +262,7 @@ namespace jem1
                     if (flag) { break; }
                 }
             }
-            return true;
+            return false;
         }
 
     }

@@ -350,7 +350,7 @@ namespace jem1.Grammar
         public static void Deconflict(Sentence s)
         {
             //Amount of times Sentence should pass through the deconfliction rules
-            int pass = 2;
+            int pass = 3;
 
             for (int i = 1; i <= pass; i++)
             {
@@ -362,7 +362,8 @@ namespace jem1.Grammar
                     {
                         if (s.wordCount == 1) //Only one word in sentence
                         {
-                            w.pos = CSVToList(w.pos)[0];
+                            //just give it the default most commonly used pos because there is no context
+                            w.pos = posL[0];
                         }
                         else if (w.ID == 0 && s.wordCount > 1) //First word
                         {
@@ -378,7 +379,7 @@ namespace jem1.Grammar
                         else if (w.ID == s.wordCount - 1)  //Last word
                         {
                             var wBefore = s.words[w.ID - 1];
-                            RunLastWordRules(wBefore, posL, w, s);
+                            RunLastWordRules(wBefore, posL, w, s, pass);
                         }
 
                         //After the LAST pass through the rules, set the words that are still
@@ -392,19 +393,36 @@ namespace jem1.Grammar
                     {
                         //The POS remains AS IS because there was only one choice, unless unknown
                         if (w.pos == "unknown")
-                        {
-                            string url = ConfigurationManager.AppSettings["MWDictUrl"] + w.name + ConfigurationManager.AppSettings["MWDictUrlKey"];
-                            string details = MW.CallRestMethod(url);
-                            //fl is merriam webster's element for pos 
-                            string pos = U.GetCSVFromXML(details, "fl");
-                            if (!string.IsNullOrEmpty(pos))
+                        {   
+                            //Check word in dictionary API
+                            //only run the API once and the first time to get the word
+                            if (i == 1)
                             {
-                                w.pos = pos;
-
-                                JO.CreateNewWord(w.name, w.pos);
+                                string url = ConfigurationManager.AppSettings["MWDictUrl"] + w.name + ConfigurationManager.AppSettings["MWDictUrlKey"];
+                                string details = MW.CallRestMethod(url);
+                                //fl is merriam webster's element for pos 
+                                string pos = U.GetCSVFromXML(details, "fl");
+                                if (!string.IsNullOrEmpty(pos))
+                                {
+                                    w.pos = pos;
+                                    //make word lower case if it's not a proper noun
+                                    if(!w.pos.Contains("proper noun")) { w.name = w.name.ToLower(); }
+                                    JO.CreateNewWord(w.name, w.pos);
+                                }
+                                else
+                                {
+                                    //word starting with uppercase letter that is not the first word of a sentence
+                                    //and whose pos could not be found in the dictionary API, is likely a Proper Noun
+                                    if(w.ID != 0 && Char.IsUpper(w.name[0]))
+                                    {
+                                        w.pos = "proper noun";
+                                        JO.CreateNewWord(w.name, w.pos);
+                                    }
+                                    Console.WriteLine("Merriam-Webster does not know the word " + w.name);
+                                }
                             }
 
-                            if (String.IsNullOrEmpty(w.pos))
+                            if (string.IsNullOrEmpty(w.pos))
                             {
                                 if (s.wordCount > 1) { RunGeneralUnknownRules(w, s); }
 
@@ -459,7 +477,7 @@ namespace jem1.Grammar
 
         }
 
-        private static void RunLastWordRules(Word wBefore, List<string> posL, Word w, Sentence s)
+        private static void RunLastWordRules(Word wBefore, List<string> posL, Word w, Sentence s, int pass)
         {
             //can safely check the word before
             if ((w.pos.Contains("noun") || posL.Contains("adjective")) && !w.pos.Contains("determiner")) { Rules.DeterminerPrecedingRule(wBefore, posL, w, s); }
