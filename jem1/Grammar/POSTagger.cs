@@ -368,18 +368,18 @@ namespace jem1.Grammar
                         else if (w.ID == 0 && s.wordCount > 1) //First word
                         {
                             var wAfter = s.words[w.ID + 1];
-                            RunFirstWordRules(wAfter, posL, w, s, pass);
+                            RunFirstWordRules(wAfter, posL, w, s, i);
                         }
                         else if (w.ID > 0 && w.ID != s.wordCount - 1) //NOT first word OR last word
                         {
                             var wBefore = s.words[w.ID - 1];
                             var wAfter = s.words[w.ID + 1];
-                            RunMiddleWordRules(wBefore, wAfter, posL, w, s, pass);
+                            RunMiddleWordRules(wBefore, wAfter, posL, w, s, i);
                         }
                         else if (w.ID == s.wordCount - 1)  //Last word
                         {
                             var wBefore = s.words[w.ID - 1];
-                            RunLastWordRules(wBefore, posL, w, s, pass);
+                            RunLastWordRules(wBefore, posL, w, s, i);
                         }
 
                         //After the LAST pass through the rules, set the words that are still
@@ -398,6 +398,10 @@ namespace jem1.Grammar
                             //only run the API once and the first time to get the word
                             if (i == 1)
                             {
+                                //test
+                                var dcomPos = DCom.Scrape(w.name);
+                                //test
+
                                 string url = ConfigurationManager.AppSettings["MWDictUrl"] + w.name + ConfigurationManager.AppSettings["MWDictUrlKey"];
                                 string details = MW.CallRestMethod(url);
                                 //fl is merriam webster's element for pos 

@@ -89,7 +89,8 @@ namespace jem1.Grammar
         {
             if (NothingButBetweenForwardContains(w, "noun,pronoun", new string[3] { "adjective", "determiner", "possessive determiner" }, s) == true)
             {
-                w.pos = "determiner";
+                if(posL.Contains("predeterminer")){  w.pos = "predeterminer";  }
+                else { w.pos = "determiner"; }
             }
             else
             {

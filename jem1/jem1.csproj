@@ -33,6 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FSharp.Core, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\net40\FSharp.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.4, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9.4\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ImpromptuInterface, Version=6.2.2.0, Culture=neutral, PublicKeyToken=0b1781c923b2975b, processorArchitecture=MSIL">
       <HintPath>..\packages\ImpromptuInterface.6.2.2\lib\net40\ImpromptuInterface.dll</HintPath>
       <Private>True</Private>
@@ -41,9 +49,19 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ScrapySharp.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ScrapySharp.2.6.2\lib\net45\ScrapySharp.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ScrapySharpAsync, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ScrapySharp.2.6.2\lib\net45\ScrapySharpAsync.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Answer.cs" />
+    <Compile Include="API\DCom.cs" />
     <Compile Include="API\MW.cs" />
     <Compile Include="Grammar\Determiner.cs" />
     <Compile Include="Grammar\POSTagger.cs" />
@@ -89,6 +108,7 @@
     <None Include="Json\English\a\are.json" />
     <None Include="Json\English\a\arm.json" />
     <None Include="Json\English\a\as.json" />
+    <None Include="Json\English\a\Ashley.json" />
     <None Include="Json\English\a\at.json" />
     <None Include="Json\English\a\ate.json" />
     <None Include="Json\English\a\all.json" />
@@ -98,7 +118,9 @@
     <None Include="Json\English\b\baseball.json" />
     <None Include="Json\English\b\become.json" />
     <None Include="Json\English\b\Ben.json" />
+    <None Include="Json\English\b\biggest.json" />
     <None Include="Json\English\b\bind.json" />
+    <None Include="Json\English\b\boring.json" />
     <None Include="Json\English\b\brought.json" />
     <None Include="Json\English\b\book.json" />
     <None Include="Json\English\b\both.json" />
@@ -125,9 +147,12 @@
     <None Include="Json\English\c\cat.json" />
     <None Include="Json\English\c\catch.json" />
     <None Include="Json\English\c\change.json" />
+    <None Include="Json\English\c\chills.json" />
     <None Include="Json\English\c\classic.json" />
+    <None Include="Json\English\c\Clinton.json" />
     <None Include="Json\English\c\coast.json" />
     <None Include="Json\English\c\color.json" />
+    <None Include="Json\English\c\colors.json" />
     <None Include="Json\English\c\concert.json" />
     <None Include="Json\English\c\contraction.json" />
     <None Include="Json\English\c\cool.json" />
@@ -136,6 +161,7 @@
     <None Include="Json\English\c\climb.json" />
     <None Include="Json\English\c\climbed.json" />
     <None Include="Json\English\c\country.json" />
+    <None Include="Json\English\c\covers.json" />
     <None Include="Json\English\c\crappy.json" />
     <None Include="Json\English\c\crazy.json" />
     <None Include="Json\English\c\crocodiles.json" />
@@ -146,6 +172,7 @@
     <None Include="Json\English\d\decades.json" />
     <None Include="Json\English\d\despite.json" />
     <None Include="Json\English\d\destined.json" />
+    <None Include="Json\English\d\different.json" />
     <None Include="Json\English\d\dishes.json" />
     <None Include="Json\English\d\do.json" />
     <None Include="Json\English\d\does.json" />
@@ -168,6 +195,7 @@
     <None Include="Json\English\e\European.json" />
     <None Include="Json\English\e\even.json" />
     <None Include="Json\English\e\every.json" />
+    <None Include="Json\English\e\everything.json" />
     <None Include="Json\English\e\exactly.json" />
     <None Include="Json\English\e\example.json" />
     <None Include="Json\English\e\except.json" />
@@ -188,6 +216,7 @@
     <None Include="Json\English\f\flew.json" />
     <None Include="Json\English\f\fly.json" />
     <None Include="Json\English\f\for.json" />
+    <None Include="Json\English\f\found.json" />
     <None Include="Json\English\f\four.json" />
     <None Include="Json\English\f\fox.json" />
     <None Include="Json\English\f\Friday.json" />
@@ -245,17 +274,25 @@
     <None Include="Json\English\j\juice.json" />
     <None Include="Json\English\j\jumped.json" />
     <None Include="Json\English\j\just.json" />
+    <None Include="Json\English\k\kebab.json" />
     <None Include="Json\English\k\know.json" />
+    <None Include="Json\English\k\kinda.json" />
     <None Include="Json\English\l\lab.json" />
+    <None Include="Json\English\l\lacks.json" />
     <None Include="Json\English\l\large.json" />
     <None Include="Json\English\l\last.json" />
+    <None Include="Json\English\l\late.json" />
     <None Include="Json\English\l\later.json" />
+    <None Include="Json\English\l\leaders.json" />
     <None Include="Json\English\l\let.json" />
     <None Include="Json\English\l\little.json" />
     <None Include="Json\English\l\leg.json" />
     <None Include="Json\English\l\logo.json" />
+    <None Include="Json\English\l\longest.json" />
     <None Include="Json\English\l\look.json" />
     <None Include="Json\English\l\like.json" />
+    <None Include="Json\English\m\made.json" />
+    <None Include="Json\English\m\major.json" />
     <None Include="Json\English\m\make.json" />
     <None Include="Json\English\m\Mama.json" />
     <None Include="Json\English\m\man.json" />
@@ -263,6 +300,7 @@
     <None Include="Json\English\m\me.json" />
     <None Include="Json\English\m\meadow.json" />
     <None Include="Json\English\m\mean.json" />
+    <None Include="Json\English\m\meat.json" />
     <None Include="Json\English\m\met.json" />
     <None Include="Json\English\m\midnight.json" />
     <None Include="Json\English\m\mine.json" />
@@ -273,6 +311,8 @@
     <None Include="Json\English\m\mother.json" />
     <None Include="Json\English\m\mouse.json" />
     <None Include="Json\English\m\move.json" />
+    <None Include="Json\English\m\movie.json" />
+    <None Include="Json\English\m\mural.json" />
     <None Include="Json\English\m\my.json" />
     <None Include="Json\English\n\named.json" />
     <None Include="Json\English\n\neither.json" />
@@ -285,6 +325,9 @@
     <None Include="Json\English\n\name.json" />
     <None Include="Json\English\n\new.json" />
     <None Include="Json\English\n\need.json" />
+    <None Include="Json\English\n\now.json" />
+    <None Include="Json\English\o\Obama.json" />
+    <None Include="Json\English\o\office.json" />
     <None Include="Json\English\o\old.json" />
     <None Include="Json\English\o\once.json" />
     <None Include="Json\English\o\oops.json" />
@@ -303,16 +346,25 @@
     <None Include="Json\English\p\person.json" />
     <None Include="Json\English\p\play.json" />
     <None Include="Json\English\p\please.json" />
+    <None Include="Json\English\p\Pokemon.json" />
     <None Include="Json\English\p\pond.json" />
+    <None Include="Json\English\p\post.json" />
+    <None Include="Json\English\p\pretty.json" />
+    <None Include="Json\English\p\probably.json" />
     <None Include="Json\English\q\quick.json" />
     <None Include="Json\English\q\quickly.json" />
     <None Include="Json\English\q\quite.json" />
     <None Include="Json\English\q\quitting.json" />
+    <None Include="Json\English\r\rare.json" />
+    <None Include="Json\English\r\reached.json" />
     <None Include="Json\English\r\reaction.json" />
     <None Include="Json\English\r\really.json" />
+    <None Include="Json\English\r\reason.json" />
     <None Include="Json\English\r\red.json" />
     <None Include="Json\English\r\request.json" />
+    <None Include="Json\English\r\result.json" />
     <None Include="Json\English\r\right.json" />
+    <None Include="Json\English\r\roots.json" />
     <None Include="Json\English\r\roster.json" />
     <None Include="Json\English\r\route.json" />
     <None Include="Json\English\r\runs.json" />
@@ -326,6 +378,7 @@
     <None Include="Json\English\s\Scotland.json" />
     <None Include="Json\English\s\seals.json" />
     <None Include="Json\English\s\secured.json" />
+    <None Include="Json\English\s\semifinal.json" />
     <None Include="Json\English\s\send.json" />
     <None Include="Json\English\s\set.json" />
     <None Include="Json\English\s\sale.json" />
@@ -341,7 +394,11 @@
     <None Include="Json\English\s\sneaky.json" />
     <None Include="Json\English\s\software.json" />
     <None Include="Json\English\s\some.json" />
+    <None Include="Json\English\s\something.json" />
+    <None Include="Json\English\s\sorry.json" />
     <None Include="Json\English\s\sound.json" />
+    <None Include="Json\English\s\staff.json" />
+    <None Include="Json\English\s\stop.json" />
     <None Include="Json\English\s\story.json" />
     <None Include="Json\English\s\strong.json" />
     <None Include="Json\English\s\stupid.json" />
@@ -362,10 +419,13 @@
     <None Include="Json\English\s\should.json" />
     <None Include="Json\English\s\swim.json" />
     <None Include="Json\English\t\table.json" />
+    <None Include="Json\English\t\take.json" />
     <None Include="Json\English\t\taught.json" />
+    <None Include="Json\English\t\team.json" />
     <None Include="Json\English\t\tell.json" />
     <None Include="Json\English\t\ten.json" />
     <None Include="Json\English\t\them.json" />
+    <None Include="Json\English\t\then.json" />
     <None Include="Json\English\t\there.json" />
     <None Include="Json\English\t\these.json" />
     <None Include="Json\English\t\thing.json" />
@@ -377,6 +437,7 @@
     <None Include="Json\English\t\together.json" />
     <None Include="Json\English\t\Tommy.json" />
     <None Include="Json\English\t\too.json" />
+    <None Include="Json\English\t\tournament.json" />
     <None Include="Json\English\t\train.json" />
     <None Include="Json\English\t\trash.json" />
     <None Include="Json\English\t\truck.json" />
@@ -393,8 +454,11 @@
     <None Include="Json\English\t\to.json" />
     <None Include="Json\English\t\trees.json" />
     <None Include="Json\English\t\tree.json" />
+    <None Include="Json\English\u\UK.json" />
+    <None Include="Json\English\u\uncannily.json" />
     <None Include="Json\English\u\under.json" />
     <None Include="Json\English\u\unfortunately.json" />
+    <None Include="Json\English\u\union.json" />
     <None Include="Json\English\u\until.json" />
     <None Include="Json\English\u\up.json" />
     <None Include="Json\English\u\used.json" />
@@ -420,6 +484,7 @@
     <None Include="Json\English\w\wondered.json" />
     <None Include="Json\English\w\word.json" />
     <None Include="Json\English\w\worked.json" />
+    <None Include="Json\English\w\world.json" />
     <None Include="Json\English\w\wow.json" />
     <None Include="Json\English\w\would.json" />
     <None Include="Json\English\w\will.json" />

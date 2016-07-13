@@ -194,8 +194,7 @@ namespace jem1.Structure
 
         public static string GetFirst(JObject jo)
         {
-            var prop = jo.Properties().First();
-            return prop.Name;
+            return jo.Properties().First().Name;
         }
 
         public static void PopulateJsonObjectList(Clause c)
