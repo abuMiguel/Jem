@@ -13,8 +13,18 @@ namespace jem1.Grammar
             var sb = new StringBuilder();
             foreach (char c in s)
             {
-                if (!char.IsPunctuation(c) || c == '\'')
-                    sb.Append(c);
+                switch(c)
+                { 
+                    case ',': 
+                    case '.': 
+                    case '!': 
+                    case '?':
+                    case ':':
+                    case ';': 
+                        break;
+                    default: sb.Append(c);
+                        break;
+                }
             }
             return sb.ToString();
         }

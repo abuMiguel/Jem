@@ -270,33 +270,39 @@ namespace jem1.Structure
         //Adds words from Merriam Webster dictionary to JSON dictionary in English folder
         public static void CreateNewWord(string word, string pos)
         {
-            var posL = U.CSVToList(pos);
-
-            if (!string.IsNullOrEmpty(pos))
+            //only create the JSON if the word starts with a letter
+            Regex regex = new Regex("^[a-zA-Z]");
+            if (regex.IsMatch(word))
             {
-                var filepath = ConfigurationManager.AppSettings["FilePath"] + word[0].ToString() + @"\" + word + ".json";
 
-                StringBuilder sb = new StringBuilder("{").AppendLine();
-                sb.AppendLine("  \"" + word + "\": {");
-                sb.Append("    \"pos\": [");
-                foreach (string p in posL)
-                {
-                    if (posL.Count > 1 && p != posL[posL.Count - 1])
-                    {
-                        sb.Append("\"" + p + "\",");
-                    }
-                    else if(p != posL[0] || posL.Count == 1)
-                    {
-                        sb.Append("\"" + p + "\"");
-                    }
-                }
-                sb.AppendLine("]");
-                sb.AppendLine("  }");
-                sb.AppendLine("}");
+                var posL = U.CSVToList(pos);
 
-                if (!File.Exists(filepath))
+                if (!string.IsNullOrEmpty(pos))
                 {
-                    File.WriteAllText(filepath, sb.ToString());
+                    var filepath = ConfigurationManager.AppSettings["FilePath"] + word[0].ToString() + @"\" + word + ".json";
+
+                    StringBuilder sb = new StringBuilder("{").AppendLine();
+                    sb.AppendLine("  \"" + word + "\": {");
+                    sb.Append("    \"pos\": [");
+                    foreach (string p in posL)
+                    {
+                        if (posL.Count > 1 && p != posL[posL.Count - 1])
+                        {
+                            sb.Append("\"" + p + "\",");
+                        }
+                        else if (p != posL[0] || posL.Count == 1)
+                        {
+                            sb.Append("\"" + p + "\"");
+                        }
+                    }
+                    sb.AppendLine("]");
+                    sb.AppendLine("  }");
+                    sb.AppendLine("}");
+
+                    if (!File.Exists(filepath))
+                    {
+                        File.WriteAllText(filepath, sb.ToString());
+                    }
                 }
             }
         }

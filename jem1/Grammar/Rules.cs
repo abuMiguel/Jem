@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static jem1.U;
+using static jem1.Grammar.SpecChars;
 
 namespace jem1.Grammar
 {
@@ -164,6 +165,46 @@ namespace jem1.Grammar
             {
                 w.pos = "noun";
             }
+        }
+
+        public static void UnknownSpecialCharactersRule(Word w, Sentence s)
+        {
+            //find what special chars are being used
+            Dictionary<int, char> sc = SpecChars.GetSpecialCharacters(w.name);
+
+            foreach (int id in sc.Keys)
+            {
+                switch (sc[id])
+                {
+                    case '@': w.pos = At(sc, w.name);
+                        break;
+                    case '#': w.pos = HashTag(sc, w);
+                        break;
+                    case '$':
+                    case '(':
+                    case ')':
+                    case '<':
+                    case '>':
+                    case '/':
+                    case '\\':
+                    case '+':
+                    case '-':
+                    case '&': w.pos = Ampersand(sc, w.name);
+                        break;
+                    case '*':
+                    case '=': w.pos = SpecChars.Equals(sc, w.name);
+                        break;
+                    case '~':
+                    case '[':
+                    case ']':
+                    case '{':
+                    case '}':
+                    case '_':
+                    case '^':
+                        break;
+                    default: break;
+                }
+            }           
         }
     }
 }

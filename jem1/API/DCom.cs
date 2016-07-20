@@ -17,44 +17,47 @@ namespace jem1.API
             List<string> posL = new List<string>();
 
             ScrapingBrowser browser = new ScrapingBrowser();
-
-            WebPage pageResult = browser.NavigateToPage(new Uri("http://dictionary.com/browse/" + word + "?s=t"));
-            var def = pageResult.Html.CssSelect("div.source-box").First();
-            var htmlNodes = def.CssSelect("header.luna-data-header");
-            //var htmlNodes = pageResult.Html.CssSelect("header.luna-data-header");
-            foreach (HtmlNode node in htmlNodes)
+            try
             {
-                if (node.InnerText.Trim().ToLower() == "verb phrases" || node.InnerText.Trim().ToLower().Contains("idioms")) { return ListToString(posL); }
-                if (node.InnerText.Trim().ToLower().StartsWith("verb ("))
+                WebPage pageResult = browser.NavigateToPage(new Uri("http://dictionary.com/browse/" + word + "?s=t"));
+                var def = pageResult.Html.CssSelect("div.source-box").First();
+                var htmlNodes = def.CssSelect("header.luna-data-header");
+                //var htmlNodes = pageResult.Html.CssSelect("header.luna-data-header");
+                foreach (HtmlNode node in htmlNodes)
                 {
-                    if (!posL.Contains("verb"))
+                    if (node.InnerText.Trim().ToLower() == "verb phrases" || node.InnerText.Trim().ToLower().Contains("idioms")) { return ListToString(posL); }
+                    if (node.InnerText.Trim().ToLower().StartsWith("verb ("))
                     {
-                        posL.Add("verb");
+                        if (!posL.Contains("verb"))
+                        {
+                            posL.Add("verb");
+                        }
+                    }
+                    else if (node.InnerText.Trim().Contains("noun") && node.InnerText.Trim().Contains(","))
+                    {
+                        if (!posL.Contains("noun"))
+                        {
+                            posL.Add("noun");
+                        }
+                    }
+                    else if (node.InnerText.Trim().ToLower().Contains("adjective"))
+                    {
+                        if (!posL.Contains("adjective"))
+                        {
+                            posL.Add("adjective");
+                        }
+                    }
+                    else
+                    {
+                        if (!posL.Contains(node.InnerText.Trim().ToLower()))
+                        {
+                            posL.Add(node.InnerText.Trim().ToLower());
+                        }
                     }
                 }
-                else if(node.InnerText.Trim().Contains("noun") && node.InnerText.Trim().Contains(","))
-                {
-                    if (!posL.Contains("noun"))
-                    {
-                        posL.Add("noun");
-                    }
-                }
-                else if(node.InnerText.Trim().ToLower().Contains("adjective"))
-                {
-                    if (!posL.Contains("adjective"))
-                    {
-                        posL.Add("adjective");
-                    }
-                }
-                else
-                {
-                    if (!posL.Contains(node.InnerText.Trim().ToLower()))
-                    {
-                        posL.Add(node.InnerText.Trim().ToLower());
-                    }
-                }
+                return ListToString(posL);
             }
-            return ListToString(posL);
+            catch { return ""; }
         }
     }
 }

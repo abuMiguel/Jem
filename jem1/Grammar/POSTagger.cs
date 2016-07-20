@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using static jem1.U;
 using jem1.Grammar;
 using jem1.API;
+using System.Text.RegularExpressions;
 
 namespace jem1.Grammar
 {
@@ -394,21 +395,21 @@ namespace jem1.Grammar
                         //The POS remains AS IS because there was only one choice, unless unknown
                         if (w.pos == "unknown")
                         {   
-                            //Check word in dictionary API
-                            //only run the API once and the first time to get the word
+                            //Check word on dictionary.com
+                            //only run the once and the first time to get the word
                             if (i == 1)
                             {
-                                //test
-                                var dcomPos = DCom.Scrape(w.name);
+                                string dcomPos = string.Empty;
+
+                                if (!SpecChars.ContainsSpecChar(w.name))
+                                {
+                                    dcomPos = DCom.Scrape(w.name);
+                                }
                                 //test
 
-                                string url = ConfigurationManager.AppSettings["MWDictUrl"] + w.name + ConfigurationManager.AppSettings["MWDictUrlKey"];
-                                string details = MW.CallRestMethod(url);
-                                //fl is merriam webster's element for pos 
-                                string pos = U.GetCSVFromXML(details, "fl");
-                                if (!string.IsNullOrEmpty(pos))
+                                if (!string.IsNullOrEmpty(dcomPos))
                                 {
-                                    w.pos = pos;
+                                    w.pos = dcomPos;
                                     //make word lower case if it's not a proper noun
                                     if(!w.pos.Contains("proper noun")) { w.name = w.name.ToLower(); }
                                     JO.CreateNewWord(w.name, w.pos);
@@ -422,11 +423,11 @@ namespace jem1.Grammar
                                         w.pos = "proper noun";
                                         JO.CreateNewWord(w.name, w.pos);
                                     }
-                                    Console.WriteLine("Merriam-Webster does not know the word " + w.name);
+                                    Console.WriteLine("Dictionary.com has no entry for " + w.name);
                                 }
                             }
 
-                            if (string.IsNullOrEmpty(w.pos))
+                            if (string.IsNullOrEmpty(w.pos) || w.pos == "unknown")
                             {
                                 if (s.wordCount > 1) { RunGeneralUnknownRules(w, s); }
 
@@ -498,6 +499,15 @@ namespace jem1.Grammar
             if (U.EndsWith(w, "s")) { Rules.UnknownSRule(w, s); }
             if (U.EndsWith(w, "ly")) { Rules.LyAdverbRule(w); }
             if (!string.IsNullOrEmpty(w.possessiveTag)) { w.pos = "possessive determiner"; }
+            if (SpecChars.ContainsSpecChar(w.name)) { Rules.UnknownSpecialCharactersRule(w, s); }
+
+            //if the pos is still unknown, check if it is a number
+            if (w.pos == "unknown" || string.IsNullOrEmpty(w.pos))
+            {
+                Regex regex = new Regex(@"^[0-9]+$");
+                if(regex.IsMatch(w.name)) { w.pos = "noun,determiner"; }
+            }
+            
         }
 
         private static void RunUnknownFirstRules(Word wAfter, Word w, Sentence s)

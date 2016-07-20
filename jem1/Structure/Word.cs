@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace jem1
 {
-    class Word
+    public class Word
     {
         public string name { get; set; }
         public string pos { get; set; }

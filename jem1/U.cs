@@ -12,47 +12,6 @@ namespace jem1
 {
     static class U
     {
-        //gets part of speech from xml from Merriam Webster dictionary API and normalizes it for Jem
-        public static string GetCSVFromXML(string xmlString, string element)
-        {
-            List<string> posL = new List<string>();
-            string pos = string.Empty;
-
-            using (XmlReader reader = XmlReader.Create(new StringReader(xmlString)))
-            {
-                var doc = XDocument.Load(reader);
-                var xmlpos = doc.Root.Elements().Select(x => x.Element(element));
-                char[] trim = new char[2] { ' ', ',' };
-
-                foreach (string p in xmlpos)
-                {
-                    if (!string.IsNullOrEmpty(p))
-                    {
-                        if (!posL.Contains(p.Trim(trim)))
-                        {
-                            posL.Add(p.Trim(trim));
-                        }
-                    }
-                }
-            }
-            //cleanup MW XML
-            if (posL.Contains("adjective") && posL.Contains("noun"))
-            {
-                posL.Remove("adjective");
-            }
-            if (posL.Contains("geographical name"))
-            {
-                posL.Remove("geographical name"); posL.Add("proper noun");
-            }
-            if(!posL.Contains("proper noun"))
-            {
-
-            }
-
-            pos = ListToString(posL);
-            return pos;
-        }
-
         public static List<string> CSVToList(string csv)
         {
             List<string> x = new List<string>();
