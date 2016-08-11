@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\SQLite.Native.3.12.2\build\net45\SQLite.Native.props" Condition="Exists('..\packages\SQLite.Native.3.12.2\build\net45\SQLite.Native.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,6 +13,8 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,20 +36,28 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="FSharp.Core, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\FSharp.Core.4.0.0.1\lib\net40\FSharp.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.4.9.4, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.4.9.4\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ImpromptuInterface, Version=6.2.2.0, Culture=neutral, PublicKeyToken=0b1781c923b2975b, processorArchitecture=MSIL">
       <HintPath>..\packages\ImpromptuInterface.6.2.2\lib\net40\ImpromptuInterface.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ScrapySharp.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -58,8 +69,21 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.SQLite, Version=1.0.102.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.102.0\lib\net451\System.Data.SQLite.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.EF6, Version=1.0.102.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.102.0\lib\net451\System.Data.SQLite.EF6.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.102.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.102.0\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -72,7 +96,8 @@
   <ItemGroup>
     <Compile Include="Answer.cs" />
     <Compile Include="API\DCom.cs" />
-    <Compile Include="API\MW.cs" />
+    <Compile Include="API\Wiki.cs" />
+    <Compile Include="DB\DBConn.cs" />
     <Compile Include="Grammar\Determiner.cs" />
     <Compile Include="Grammar\POSTagger.cs" />
     <Compile Include="Grammar\PrepPhrase.cs" />
@@ -91,6 +116,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="DB\jem.sqlite" />
+    <None Include="DB\jem.sqlite-journal" />
     <None Include="Json\English\a\Adele.json" />
     <None Include="Json\English\a\again.json" />
     <None Include="Json\English\a\air.json" />
@@ -106,22 +133,30 @@
     <None Include="Json\English\a\Andy.json" />
     <None Include="Json\English\a\angry.json" />
     <None Include="Json\English\a\annoying.json" />
+    <None Include="Json\English\a\arabic.json" />
     <None Include="Json\English\a\are.json" />
+    <None Include="Json\English\a\areas.json" />
     <None Include="Json\English\a\arm.json" />
     <None Include="Json\English\a\as.json" />
+    <None Include="Json\English\a\ashe.json" />
     <None Include="Json\English\a\Ashley.json" />
     <None Include="Json\English\a\at.json" />
     <None Include="Json\English\a\ate.json" />
     <None Include="Json\English\a\all.json" />
     <None Include="Json\English\a\any.json" />
+    <None Include="Json\English\a\august.json" />
     <None Include="Json\English\a\away.json" />
     <None Include="Json\English\a\awesome.json" />
+    <None Include="Json\English\b\bad.json" />
     <None Include="Json\English\b\baseball.json" />
+    <None Include="Json\English\b\beaches.json" />
     <None Include="Json\English\b\become.json" />
     <None Include="Json\English\b\beef.json" />
     <None Include="Json\English\b\Ben.json" />
+    <None Include="Json\English\b\better.json" />
     <None Include="Json\English\b\biggest.json" />
     <None Include="Json\English\b\bind.json" />
+    <None Include="Json\English\b\bit.json" />
     <None Include="Json\English\b\blind.json" />
     <None Include="Json\English\b\boring.json" />
     <None Include="Json\English\b\brought.json" />
@@ -135,6 +170,7 @@
     <None Include="Json\English\b\brown.json" />
     <None Include="Json\English\b\bus.json" />
     <None Include="Json\English\b\but.json" />
+    <None Include="Json\English\b\butt.json" />
     <None Include="Json\English\b\butter.json" />
     <None Include="Json\English\b\buy.json" />
     <None Include="Json\English\b\by.json" />
@@ -152,11 +188,13 @@
     <None Include="Json\English\c\catch.json" />
     <None Include="Json\English\c\change.json" />
     <None Include="Json\English\c\chills.json" />
+    <None Include="Json\English\c\chimney.json" />
     <None Include="Json\English\c\classic.json" />
     <None Include="Json\English\c\Clinton.json" />
     <None Include="Json\English\c\coast.json" />
     <None Include="Json\English\c\color.json" />
     <None Include="Json\English\c\colors.json" />
+    <None Include="Json\English\c\common.json" />
     <None Include="Json\English\c\competent.json" />
     <None Include="Json\English\c\concert.json" />
     <None Include="Json\English\c\contraction.json" />
@@ -193,12 +231,15 @@
     <None Include="Json\English\d\drove.json" />
     <None Include="Json\English\d\during.json" />
     <None Include="Json\English\d\did.json" />
+    <None Include="Json\English\d\dust.json" />
     <None Include="Json\English\e\easy.json" />
     <None Include="Json\English\e\eight.json" />
     <None Include="Json\English\e\either.json" />
     <None Include="Json\English\e\elephant.json" />
+    <None Include="Json\English\e\elite.json" />
     <None Include="Json\English\e\enjoyed.json" />
     <None Include="Json\English\e\enough.json" />
+    <None Include="Json\English\e\equipment.json" />
     <None Include="Json\English\e\escape.json" />
     <None Include="Json\English\e\European.json" />
     <None Include="Json\English\e\even.json" />
@@ -212,6 +253,7 @@
     <None Include="Json\English\e\each.json" />
     <None Include="Json\English\f\farmer.json" />
     <None Include="Json\English\f\fast.json" />
+    <None Include="Json\English\f\fat.json" />
     <None Include="Json\English\f\favorite.json" />
     <None Include="Json\English\f\fence.json" />
     <None Include="Json\English\f\few.json" />
@@ -223,6 +265,7 @@
     <None Include="Json\English\f\five.json" />
     <None Include="Json\English\f\flew.json" />
     <None Include="Json\English\f\fly.json" />
+    <None Include="Json\English\f\flying.json" />
     <None Include="Json\English\f\for.json" />
     <None Include="Json\English\f\found.json" />
     <None Include="Json\English\f\four.json" />
@@ -237,12 +280,17 @@
     <None Include="Json\English\g\get.json" />
     <None Include="Json\English\g\giggling.json" />
     <None Include="Json\English\g\give.json" />
+    <None Include="Json\English\g\goes.json" />
     <None Include="Json\English\g\good.json" />
     <None Include="Json\English\g\go.json" />
     <None Include="Json\English\g\going.json" />
     <None Include="Json\English\g\great.json" />
     <None Include="Json\English\g\green.json" />
+    <None Include="Json\English\g\guy.json" />
     <None Include="Json\English\h\happen.json" />
+    <None Include="Json\English\h\hard.json" />
+    <None Include="Json\English\h\hat.json" />
+    <None Include="Json\English\h\head.json" />
     <None Include="Json\English\h\hi.json" />
     <None Include="Json\English\h\himself.json" />
     <None Include="Json\English\h\home.json" />
@@ -277,6 +325,7 @@
     <None Include="Json\English\i\in.json" />
     <None Include="Json\English\i\it.json" />
     <None Include="Json\English\j\Jem.json" />
+    <None Include="Json\English\j\jerky.json" />
     <None Include="Json\English\j\job.json" />
     <None Include="Json\English\j\Joe.json" />
     <None Include="Json\English\j\juice.json" />
@@ -287,14 +336,17 @@
     <None Include="Json\English\k\kinda.json" />
     <None Include="Json\English\l\lab.json" />
     <None Include="Json\English\l\lacks.json" />
+    <None Include="Json\English\l\language.json" />
     <None Include="Json\English\l\large.json" />
     <None Include="Json\English\l\last.json" />
     <None Include="Json\English\l\late.json" />
     <None Include="Json\English\l\later.json" />
     <None Include="Json\English\l\leaders.json" />
+    <None Include="Json\English\l\learn.json" />
     <None Include="Json\English\l\let.json" />
     <None Include="Json\English\l\little.json" />
     <None Include="Json\English\l\leg.json" />
+    <None Include="Json\English\l\live.json" />
     <None Include="Json\English\l\logo.json" />
     <None Include="Json\English\l\longest.json" />
     <None Include="Json\English\l\look.json" />
@@ -310,6 +362,7 @@
     <None Include="Json\English\m\mean.json" />
     <None Include="Json\English\m\meat.json" />
     <None Include="Json\English\m\met.json" />
+    <None Include="Json\English\m\mice.json" />
     <None Include="Json\English\m\midnight.json" />
     <None Include="Json\English\m\mine.json" />
     <None Include="Json\English\m\mom.json" />
@@ -321,12 +374,14 @@
     <None Include="Json\English\m\move.json" />
     <None Include="Json\English\m\movie.json" />
     <None Include="Json\English\m\mural.json" />
+    <None Include="Json\English\m\mutant.json" />
     <None Include="Json\English\m\my.json" />
     <None Include="Json\English\n\named.json" />
     <None Include="Json\English\n\neither.json" />
     <None Include="Json\English\n\nice.json" />
     <None Include="Json\English\n\night.json" />
     <None Include="Json\English\n\nine.json" />
+    <None Include="Json\English\n\ninja.json" />
     <None Include="Json\English\n\nor.json" />
     <None Include="Json\English\n\north.json" />
     <None Include="Json\English\n\not.json" />
@@ -355,10 +410,12 @@
     <None Include="Json\English\p\peed.json" />
     <None Include="Json\English\p\people.json" />
     <None Include="Json\English\p\person.json" />
+    <None Include="Json\English\p\physics.json" />
     <None Include="Json\English\p\play.json" />
     <None Include="Json\English\p\please.json" />
     <None Include="Json\English\p\Pokemon.json" />
     <None Include="Json\English\p\pond.json" />
+    <None Include="Json\English\p\pools.json" />
     <None Include="Json\English\p\post.json" />
     <None Include="Json\English\p\pretty.json" />
     <None Include="Json\English\p\probably.json" />
@@ -383,12 +440,14 @@
     <None Include="Json\English\r\ran.json" />
     <None Include="Json\English\r\running.json" />
     <None Include="Json\English\s\Sam.json" />
+    <None Include="Json\English\s\sandwiches.json" />
     <None Include="Json\English\s\sat.json" />
     <None Include="Json\English\s\scenery.json" />
     <None Include="Json\English\s\scold.json" />
     <None Include="Json\English\s\Scotland.json" />
     <None Include="Json\English\s\seals.json" />
     <None Include="Json\English\s\secured.json" />
+    <None Include="Json\English\s\select.json" />
     <None Include="Json\English\s\semifinal.json" />
     <None Include="Json\English\s\send.json" />
     <None Include="Json\English\s\set.json" />
@@ -404,6 +463,7 @@
     <None Include="Json\English\s\slithered.json" />
     <None Include="Json\English\s\sneaky.json" />
     <None Include="Json\English\s\software.json" />
+    <None Include="Json\English\s\soldiers.json" />
     <None Include="Json\English\s\some.json" />
     <None Include="Json\English\s\something.json" />
     <None Include="Json\English\s\sorry.json" />
@@ -433,6 +493,7 @@
     <None Include="Json\English\t\take.json" />
     <None Include="Json\English\t\taught.json" />
     <None Include="Json\English\t\team.json" />
+    <None Include="Json\English\t\teenage.json" />
     <None Include="Json\English\t\tell.json" />
     <None Include="Json\English\t\ten.json" />
     <None Include="Json\English\t\them.json" />
@@ -454,6 +515,7 @@
     <None Include="Json\English\t\tractor.json" />
     <None Include="Json\English\t\train.json" />
     <None Include="Json\English\t\trash.json" />
+    <None Include="Json\English\t\trickle.json" />
     <None Include="Json\English\t\truck.json" />
     <None Include="Json\English\t\true.json" />
     <None Include="Json\English\t\Tuesday.json" />
@@ -469,6 +531,7 @@
     <None Include="Json\English\t\to.json" />
     <None Include="Json\English\t\trees.json" />
     <None Include="Json\English\t\tree.json" />
+    <None Include="Json\English\u\U.S.A..json" />
     <None Include="Json\English\u\UK.json" />
     <None Include="Json\English\u\uncannily.json" />
     <None Include="Json\English\u\under.json" />
@@ -476,15 +539,19 @@
     <None Include="Json\English\u\union.json" />
     <None Include="Json\English\u\until.json" />
     <None Include="Json\English\u\up.json" />
+    <None Include="Json\English\u\USA.json" />
     <None Include="Json\English\u\used.json" />
     <None Include="Json\English\v\value.json" />
     <None Include="Json\English\v\verb.json" />
     <None Include="Json\English\v\very.json" />
+    <None Include="Json\English\v\video.json" />
     <None Include="Json\English\w\walking.json" />
     <None Include="Json\English\w\want.json" />
     <None Include="Json\English\w\wanted.json" />
     <None Include="Json\English\w\wants.json" />
     <None Include="Json\English\w\warm.json" />
+    <None Include="Json\English\w\warriors.json" />
+    <None Include="Json\English\w\waves.json" />
     <None Include="Json\English\w\way.json" />
     <None Include="Json\English\w\we.json" />
     <None Include="Json\English\w\weasel.json" />
@@ -511,11 +578,13 @@
     <None Include="Json\English\w\who.json" />
     <None Include="Json\English\w\with.json" />
     <None Include="Json\English\w\without.json" />
+    <None Include="Json\English\y\ya.json" />
     <None Include="Json\English\y\yet.json" />
     <None Include="Json\English\y\you.json" />
     <None Include="Json\English\y\your.json" />
     <None Include="Json\English\y\yours.json" />
     <None Include="Json\English\g\goodbye.json" />
+    <None Include="Json\English\y\yummy.json" />
     <None Include="Json\MWE\a\according\accordingto.json" />
     <None Include="Json\MWE\a\adjacent\adjacentto.json" />
     <None Include="Json\MWE\a\ahead\aheadof.json" />
@@ -646,6 +715,14 @@
     <Folder Include="Json\MWE\z\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\SQLite.Native.3.12.2\build\net45\SQLite.Native.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SQLite.Native.3.12.2\build\net45\SQLite.Native.props'))" />
+    <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.102.0\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.102.0\build\net451\System.Data.SQLite.Core.targets'))" />
+  </Target>
+  <Import Project="..\packages\System.Data.SQLite.Core.1.0.102.0\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.102.0\build\net451\System.Data.SQLite.Core.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

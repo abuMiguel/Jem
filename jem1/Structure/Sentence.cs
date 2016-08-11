@@ -16,20 +16,18 @@ namespace jem1
     {
         public string[] wordsArray { get; set; }
         public string wordsString { get; set; }
-        public List<Word> words { get; set; }
-        public Dictionary<int, string> punc { get; set; }
-        public bool question { get; set; }
+        public List<Word> words { get; set; } = new List<Word>();
+        public Dictionary<int, string> punc { get; set; } = new Dictionary<int, string>();
+        public bool question { get; set; } = false;
         public List<Clause> clauses { get; set; }
         public int wordCount { get; set; }
 
         public Sentence(string sent)
         {
-            punc = new Dictionary<int, string>();
-            words = new List<Word>();
+            sent = sent.Trim();
             wordsString = sent;
             wordsArray = sent.Split(' ');
             wordCount = wordsArray.Length;
-            question = false;
 
             PopulateWordsList();
             //MWE is Multiple Word Expression
@@ -47,29 +45,37 @@ namespace jem1
         private void PopulateWordsList()
         {
             int numCon = 0;
+            string name = string.Empty;
+
             for (int i = 0; i < wordCount - numCon; i++)
             {
-                string name = Punctuation.Strip(wordsArray[i]);
-                int id = i;
+                name = wordsArray[i];
 
                 if (!string.IsNullOrEmpty(name))
                 {
-                    words.Add(new Word(name, id));
+                    //check if it's the last word in the sentence or a word with a comma
+                    if (Punctuation.HasComma(wordsArray[i]) || i == wordCount - numCon - 1)
+                    {
+                        name = Punctuation.Strip(wordsArray[i], this, i);
+                    }
+
+                    words.Add(new Word(name, i));
+
                     //insert contraction word into list if word is a contraction
-                    if(this.words[id].contraction == true)
+                    if (this.words[i].contraction == true)
                     {
                         //change original word to it's root by removing contraction ending
-                        if(words[i].name == "won't")
+                        if (words[i].name == "won't")
                         {
                             words[i].name = "will";
                         }
                         else
                         {
-                            var cL = words[id].GetContractionEnding().Length;
-                            words[i].name = words[i].name.Remove(words[id].name.Length - cL);
+                            var cL = words[i].GetContractionEnding().Length;
+                            words[i].name = words[i].name.Remove(words[i].name.Length - cL);
                         }
 
-                        words.Insert(id + 1, new Word(this.words[id].conWord, id + 1));
+                        words.Insert(i + 1, new Word(this.words[i].conWord, i + 1));
                         wordCount++;
                         numCon++;
                     }
@@ -113,7 +119,7 @@ namespace jem1
                     dir = w.name;
                     filename = w.name;
 
-                    foreach(Word w2 in this.words)
+                    foreach (Word w2 in this.words)
                     {
                         if (w2.ID > w.ID)
                         {
@@ -129,7 +135,7 @@ namespace jem1
                     }
 
                     //if there is a MWE starting with this word
-                    if(!string.IsNullOrEmpty(largest))
+                    if (!string.IsNullOrEmpty(largest))
                     {
                         List<string> posL = new List<string>();
                         posL = JO.GetValsList(largest, "pos");

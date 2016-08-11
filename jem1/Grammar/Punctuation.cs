@@ -8,25 +8,77 @@ namespace jem1.Grammar
 {
     static class Punctuation
     {
-        public static string Strip(string s)
+        public static string Strip(string s, Sentence sent, int i)
         {
-            var sb = new StringBuilder();
-            foreach (char c in s)
+            string p = string.Empty, sw = string.Empty;
+
+            switch (s.Last<char>())
             {
-                switch(c)
-                { 
-                    case ',': 
-                    case '.': 
-                    case '!': 
-                    case '?':
-                    case ':':
-                    case ';': 
-                        break;
-                    default: sb.Append(c);
-                        break;
-                }
+                case ',':
+                case '!':
+                case '?':
+                case ':':
+                case ';':
+                    sw = s.TrimEnd(new char[6] { ',', '.', '!', ':', ';', '?' });
+                    p = s.Remove(0, sw.Length);
+                    sent.punc.Add(i, p);
+                    return sw;
+                case '.':
+                    sw = s.TrimEnd(new char[6] { ',', '.', '!', ':', ';', '?' });
+                    sw = sw.Replace(".", "");
+                    p = s.Remove(0, sw.Length);
+                    sent.punc.Add(i, p);
+                    return sw;
+                default:
+                    return s;
             }
-            return sb.ToString();
+
+        }
+
+        public static string GetPunc(string s)
+        {
+            string p = string.Empty, sw = string.Empty;
+
+            switch (s.Last<char>())
+            {
+                case ',':
+                case '.':
+                case '!':
+                case '?':
+                case ':':
+                case ';':
+                    sw = s.TrimEnd(new char[6] { ',', '.', '!', ':', ';', '?' });
+                    p = s.Remove(0, sw.Length);
+                    return sw;
+                default:
+                    return null;
+            }
+
+        }
+
+        public static bool HasPunc(string s)
+        {
+            switch (s.Last<char>())
+            {
+                case ',':
+                case '.':
+                case '!':
+                case '?':
+                case ':':
+                case ';':
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        public static bool HasComma(string s)
+        {
+            if (s.Last<char>() == ',')
+            {
+                return true;
+            }
+            else { return false; }
         }
     }
 }

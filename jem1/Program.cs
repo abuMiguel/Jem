@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using jem1.Structure;
 using static jem1.Structure.JO;
+using static jem1.DB.DBConn;
 using static System.Console;
 using jem1.Grammar;
 
@@ -22,6 +23,12 @@ namespace jem1
             bool showPOS = false;
             string usertext = "";
             Session sess = new Session();
+
+            //test
+            //var thepos = GetPOS("tree");
+            //test
+
+
             WriteLine("Jem: Input a sentence and I will tag it for you.");
 
             while (!exit)

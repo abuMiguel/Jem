@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using jem1;
+using System.Text.RegularExpressions;
 
 namespace jem1.Grammar
 {
@@ -38,6 +39,7 @@ namespace jem1.Grammar
                     case '}':
                     case '_':
                     case '^':
+                    case '.':
                         sc.Add(i, s[i]);
                         break;
                     default: break;
@@ -73,8 +75,9 @@ namespace jem1.Grammar
                     case '}':
                     case '_':
                     case '^':
+                    case '.':
                         return true;
-                    default: return false;
+                    default: break;
                 }
             }
             return false;
@@ -92,7 +95,6 @@ namespace jem1.Grammar
         {
             //Need to look up word without hashtag, possibly split word into MWE or sentence
 
-
             return "unknown";
         }
 
@@ -106,6 +108,14 @@ namespace jem1.Grammar
         public static string Equals(Dictionary<int, char> sc, string w)
         {
             if(w.Length == 1) { return "linking verb"; }
+
+            return "unknown";
+        }
+
+        public static string URL(Dictionary<int,char> sc, Word w)
+        {
+            Regex regex = new Regex(@"^((ht|f)tp(s?)\:\/\/)?[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?$");
+            if (regex.IsMatch(w.name)) { w.role = "URL"; return "particle"; }
 
             return "unknown";
         }

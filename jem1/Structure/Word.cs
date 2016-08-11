@@ -11,14 +11,14 @@ namespace jem1
     public class Word
     {
         public string name { get; set; }
-        public string pos { get; set; }
-        public bool contraction { get; set; }
-        public string conWord { get; set;  }
-        public string role { get; set; }
-        public bool inRelPhrase { get; set; }
-        public bool inPrepPhrase { get; set; }
-        public bool inInfPhrase { get; set; }
-        public bool isPlural { get; set; }
+        public string pos { get; set; } = null;
+        public bool contraction { get; set; } = false;
+        public string conWord { get; set;  } = null;
+        public string role { get; set; } = null;
+        public bool inRelPhrase { get; set; } = false;
+        public bool inPrepPhrase { get; set; } = false;
+        public bool inInfPhrase { get; set; } = false;
+        public bool isPlural { get; set; } = false;
         public string possessiveTag { get; set; }
         public int ID { get; set; }
         public List<string> descriptor { get; set; }
@@ -27,8 +27,7 @@ namespace jem1
         {
             this.name = name;
             this.ID = ID;
-            this.contraction = false;
-            this.conWord = null;
+
             if (name.Contains("'"))
             {
                 if(IsContraction())
@@ -38,11 +37,6 @@ namespace jem1
                 }
             }
 
-            this.pos = null;
-            this.role = null;
-            this.inPrepPhrase = false;
-            this.inRelPhrase = false;
-            this.isPlural = false;
             if(name.Contains("'") && this.contraction == false)
             {
                 this.possessiveTag = GetPossessiveTag(name);

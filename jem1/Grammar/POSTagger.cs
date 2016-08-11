@@ -394,31 +394,33 @@ namespace jem1.Grammar
                     {
                         //The POS remains AS IS because there was only one choice, unless unknown
                         if (w.pos == "unknown")
-                        {   
+                        {
                             //Check word on dictionary.com
                             //only run the once and the first time to get the word
                             if (i == 1)
                             {
                                 string dcomPos = string.Empty;
 
-                                if (!SpecChars.ContainsSpecChar(w.name))
-                                {
-                                    dcomPos = DCom.Scrape(w.name);
-                                }
+                                dcomPos = DCom.Scrape(w.name);
+
+                                //test
+                                var wiki = Wiki.Lookup(w.name);
+                                wiki = wiki.Substring(0, 100);
+                                Console.WriteLine(wiki);
                                 //test
 
                                 if (!string.IsNullOrEmpty(dcomPos))
                                 {
                                     w.pos = dcomPos;
                                     //make word lower case if it's not a proper noun
-                                    if(!w.pos.Contains("proper noun")) { w.name = w.name.ToLower(); }
+                                    if (!w.pos.Contains("proper noun")) { w.name = w.name.ToLower(); }
                                     JO.CreateNewWord(w.name, w.pos);
                                 }
                                 else
                                 {
                                     //word starting with uppercase letter that is not the first word of a sentence
                                     //and whose pos could not be found in the dictionary API, is likely a Proper Noun
-                                    if(w.ID != 0 && Char.IsUpper(w.name[0]))
+                                    if (w.ID != 0 && Char.IsUpper(w.name[0]))
                                     {
                                         w.pos = "proper noun";
                                         JO.CreateNewWord(w.name, w.pos);
@@ -505,9 +507,9 @@ namespace jem1.Grammar
             if (w.pos == "unknown" || string.IsNullOrEmpty(w.pos))
             {
                 Regex regex = new Regex(@"^[0-9]+$");
-                if(regex.IsMatch(w.name)) { w.pos = "noun,determiner"; }
+                if (regex.IsMatch(w.name)) { w.pos = "noun,determiner"; }
             }
-            
+
         }
 
         private static void RunUnknownFirstRules(Word wAfter, Word w, Sentence s)

@@ -12,19 +12,19 @@ namespace jem1.Structure
     {
         public string[] wordsArray { get; set; }
         public string wordsString { get; set; }
-        public List<Word> words { get; set; }
+        public List<Word> words { get; set; } = new List<Word>();
         public int wordCount { get; set; }
         //json object list
-        public List<JObject> jol { get; set; }
-        public List<Word> subjects { get; set; }
-        public List<Word> verbs { get; set; }
+        public List<JObject> jol { get; set; } = new List<JObject>();
+        public List<Word> subjects { get; set; } = new List<Word>();
+        public List<Word> verbs { get; set; } = new List<Word>();
         public string hVerb { get; set; }
-        public List<Word> predicate { get; set; }
+        public List<Word> predicate { get; set; } = new List<Word>();
         //predicate nominative/noun
-        public List<Word> pN { get; set; }
+        public List<Word> pN { get; set; } = new List<Word>();
         //predicate adjective
-        public List<Word> pA { get; set; }
-        public List<PrepPhrase> preps { get; set; }
+        public List<Word> pA { get; set; } = new List<Word>();
+        public List<PrepPhrase> preps { get; set; } = new List<PrepPhrase>();
         //important words
         public Word i1 { get; set; }
         public Word i2 { get; set; }
@@ -32,15 +32,6 @@ namespace jem1.Structure
 
         public Clause(string c)
         {
-            words = new List<Word>();
-            subjects = new List<Word>();
-            verbs = new List<Word>();
-            jol = new List<JObject>();
-            predicate = new List<Word>();
-            preps = new List<PrepPhrase>();
-            pN = new List<Word>();
-            pA = new List<Word>();
-
             wordsString = c;
             wordsArray = c.Split(' ');
             wordCount = wordsArray.Length; 
@@ -51,13 +42,6 @@ namespace jem1.Structure
         public Clause(List<Word> c)
         {
             words = c;
-            subjects = new List<Word>();
-            verbs = new List<Word>();
-            jol = new List<JObject>();
-            predicate = new List<Word>();
-            preps = new List<PrepPhrase>();
-            pN = new List<Word>();
-            pA = new List<Word>();
 
             wordsArray = new string[c.Count];
             for(int i = 0; i < c.Count; i++)
@@ -73,7 +57,7 @@ namespace jem1.Structure
         {
             for (int i = 0; i < wordCount; i++)
             {
-                words.Add(new Word(Punctuation.Strip(wordsArray[i]), i));   
+                words.Add(new Word(wordsArray[i], i));   
             }     
         }
 

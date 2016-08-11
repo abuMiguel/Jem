@@ -174,35 +174,61 @@ namespace jem1.Grammar
 
             foreach (int id in sc.Keys)
             {
-                switch (sc[id])
+                if (w.pos == "unknown" || string.IsNullOrEmpty(w.pos))
                 {
-                    case '@': w.pos = At(sc, w.name);
-                        break;
-                    case '#': w.pos = HashTag(sc, w);
-                        break;
-                    case '$':
-                    case '(':
-                    case ')':
-                    case '<':
-                    case '>':
-                    case '/':
-                    case '\\':
-                    case '+':
-                    case '-':
-                    case '&': w.pos = Ampersand(sc, w.name);
-                        break;
-                    case '*':
-                    case '=': w.pos = SpecChars.Equals(sc, w.name);
-                        break;
-                    case '~':
-                    case '[':
-                    case ']':
-                    case '{':
-                    case '}':
-                    case '_':
-                    case '^':
-                        break;
-                    default: break;
+                    switch (sc[id])
+                    {
+                        case '@':
+                            w.pos = At(sc, w.name);
+                            break;
+                        case '#':
+                            w.pos = HashTag(sc, w);
+                            break;
+                        case '$':
+                            break;
+                        case '(':
+                            break;
+                        case ')':
+                            break;
+                        case '<':
+                            break;
+                        case '>':
+                            break;
+                        case '/':
+                            break;
+                        case '\\':
+                            break;
+                        case '+':
+                            break;
+                        case '-':
+                            break;
+                        case '&':
+                            w.pos = Ampersand(sc, w.name);
+                            break;
+                        case '*':
+                            break;
+                        case '=':
+                            w.pos = SpecChars.Equals(sc, w.name);
+                            break;
+                        case '~':
+                            break;
+                        case '[':
+                            break;
+                        case ']':
+                            break;
+                        case '{':
+                            break;
+                        case '}':
+                            break;
+                        case '_':
+                            break;
+                        case '^':
+                            break;
+                        case '.':
+                            w.pos = URL(sc, w);
+                            break;
+                        default: break;
+                    }
                 }
             }           
         }
