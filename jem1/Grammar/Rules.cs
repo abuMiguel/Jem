@@ -179,7 +179,7 @@ namespace jem1.Grammar
                     switch (sc[id])
                     {
                         case '@':
-                            w.pos = At(sc, w.name);
+                            w.pos = At(sc, w);
                             break;
                         case '#':
                             w.pos = HashTag(sc, w);

@@ -24,11 +24,6 @@ namespace jem1
             string usertext = "";
             Session sess = new Session();
 
-            //test
-            //var thepos = GetPOS("tree");
-            //test
-
-
             WriteLine("Jem: Input a sentence and I will tag it for you.");
 
             while (!exit)
@@ -70,7 +65,16 @@ namespace jem1
                             WriteLine("");
                             foreach(Word w in output)
                             {
-                                Write(w.name + " ");
+                                //add punctuation back to word for display
+                                if(s.punc.ContainsKey(w.ID))
+                                {
+                                    Write(w.name + s.punc[w.ID] + " ");
+                                }
+                                else
+                                {
+                                    Write(w.name + " ");
+                                }
+                                
                             }
                             WriteLine("");
                         }

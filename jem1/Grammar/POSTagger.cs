@@ -10,6 +10,7 @@ using static jem1.U;
 using jem1.Grammar;
 using jem1.API;
 using System.Text.RegularExpressions;
+using static jem1.DB.DBConn;
 
 namespace jem1.Grammar
 {
@@ -306,11 +307,6 @@ namespace jem1.Grammar
 
         public static void AssignPartsOfSpeech(Sentence s)
         {
-            string jsonfile, filepath;
-            filepath = ConfigurationManager.AppSettings["FilePath"];
-
-            string pos = "";
-
             foreach (Word word in s.words)
             {
                 if (string.IsNullOrEmpty(word.pos))
@@ -320,31 +316,9 @@ namespace jem1.Grammar
                         word.RemovePossessiveTag();
                     }
 
-                    jsonfile = !string.IsNullOrEmpty(word.name) ? filepath + word.name[0].ToString() + @"\" + word.name + ".json" : " ";
-
-                    if (File.Exists(jsonfile))
-                    {
-                        var singularForm = JO.GetVal(word.name, "singular");
-                        //check whether word is plural or singular
-                        if (string.IsNullOrEmpty(singularForm))
-                        {
-                            pos = JO.GetVal(word.name, "pos");  //singular
-                        }
-                        else
-                        {
-                            pos = JO.GetVal(singularForm, "pos");  //plural
-                            word.isPlural = true;
-                        }
-
-                        word.pos = pos;
-                    }
-                    else
-                    {
-                        word.pos = "unknown";
-                    }
+                    word.pos = GetWordID(word.name) > 0 ? GetPOS(word.name) : "unknown";
                 }
             }
-
             Deconflict(s);
         }
 
@@ -414,7 +388,8 @@ namespace jem1.Grammar
                                     w.pos = dcomPos;
                                     //make word lower case if it's not a proper noun
                                     if (!w.pos.Contains("proper noun")) { w.name = w.name.ToLower(); }
-                                    JO.CreateNewWord(w.name, w.pos);
+                                    if(w.pos.Contains("auxiliary verb")) { w.pos.Replace("auxiliary verb", "helper verb"); }
+                                    InsertEng(w.name, w.pos);
                                 }
                                 else
                                 {
@@ -423,7 +398,7 @@ namespace jem1.Grammar
                                     if (w.ID != 0 && Char.IsUpper(w.name[0]))
                                     {
                                         w.pos = "proper noun";
-                                        JO.CreateNewWord(w.name, w.pos);
+                                        InsertEng(w.name, w.pos);
                                     }
                                     Console.WriteLine("Dictionary.com has no entry for " + w.name);
                                 }

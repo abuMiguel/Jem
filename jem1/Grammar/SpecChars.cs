@@ -83,10 +83,10 @@ namespace jem1.Grammar
             return false;
         }
 
-        public static string At(Dictionary<int, char> sc, string w)
+        public static string At(Dictionary<int, char> sc, Word w)
         {
             //word starting with @ is usually a social media username
-            if (sc[0] == '@') { return "proper noun"; }
+            if (sc[0] == '@') { w.role = "username";  return "proper noun"; }
 
             return "unknown";
         }

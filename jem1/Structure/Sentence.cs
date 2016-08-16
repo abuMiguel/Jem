@@ -37,7 +37,7 @@ namespace jem1
 
             foreach (Clause clause in clauses)
             {
-                JO.PopulateJsonObjectList(clause);
+                //JO.PopulateJsonObjectList(clause);
                 POSTagger.TagClause(clause);
             }
         }
@@ -62,7 +62,7 @@ namespace jem1
                     words.Add(new Word(name, i));
 
                     //insert contraction word into list if word is a contraction
-                    if (this.words[i].contraction == true)
+                    if (this.words[i].contraction)
                     {
                         //change original word to it's root by removing contraction ending
                         if (words[i].name == "won't")

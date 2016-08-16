@@ -197,32 +197,30 @@ namespace jem1.Structure
             return jo.Properties().First().Name;
         }
 
-        public static void PopulateJsonObjectList(Clause c)
-        {
-            JObject jo = new JObject();
-            string json, jsonfile, filepath;
-            filepath = ConfigurationManager.AppSettings["FilePath"];
-            List<string> unknown = new List<string>();
+        //public static void PopulateJsonObjectList(Clause c)
+        //{
+        //    JObject jo = new JObject();
+        //    string json, jsonfile, filepath;
+        //    filepath = ConfigurationManager.AppSettings["FilePath"];
 
-            foreach (Word word in c.words)
-            {
-                jsonfile = !string.IsNullOrEmpty(word.name) ? filepath + word.name[0].ToString() + @"\" + word.name + ".json" : " ";
+        //    foreach (Word word in c.words)
+        //    {
+        //        jsonfile = !string.IsNullOrEmpty(word.name) ? filepath + word.name[0].ToString() + @"\" + word.name + ".json" : " ";
 
-                if (File.Exists(jsonfile))
-                {
-                    json = File.ReadAllText(jsonfile);
-                    jo = JObject.Parse(json);
-                    c.jol.Add(jo);
-                }
-                else
-                {
-                    json = @"{ """ + word.name + @""": { ""pos"":""unknown"" } }";
-                    jo = JObject.Parse(json);
-                    c.jol.Add(jo);
-                    unknown.Add(word.name);
-                }
-            }
-        }
+        //        if (File.Exists(jsonfile))
+        //        {
+        //            json = File.ReadAllText(jsonfile);
+        //            jo = JObject.Parse(json);
+        //            c.jol.Add(jo);
+        //        }
+        //        else
+        //        {
+        //            json = @"{ """ + word.name + @""": { ""pos"":""unknown"" } }";
+        //            jo = JObject.Parse(json);
+        //            c.jol.Add(jo);
+        //        }
+        //    }
+        //}
 
         //returns single json object for given string
         public static JObject GetJSONObject(string w)
@@ -267,82 +265,6 @@ namespace jem1.Structure
             return jo;
         }
 
-        //Adds words from Merriam Webster dictionary to JSON dictionary in English folder
-        public static void CreateNewWord(string word, string pos)
-        {
-            //only create the JSON if the word starts with a letter
-            Regex regex = new Regex("^[a-zA-Z]");
-            if (regex.IsMatch(word))
-            {
-
-                var posL = U.CSVToList(pos);
-
-                if (!string.IsNullOrEmpty(pos))
-                {
-                    var filepath = ConfigurationManager.AppSettings["FilePath"] + word[0].ToString() + @"\" + word + ".json";
-
-                    StringBuilder sb = new StringBuilder("{").AppendLine();
-                    sb.AppendLine("  \"" + word + "\": {");
-                    sb.Append("    \"pos\": [");
-                    foreach (string p in posL)
-                    {
-                        if (posL.Count > 1 && p != posL[posL.Count - 1])
-                        {
-                            sb.Append("\"" + p + "\",");
-                        }
-                        else if (p != posL[0] || posL.Count == 1)
-                        {
-                            sb.Append("\"" + p + "\"");
-                        }
-                    }
-                    sb.AppendLine("]");
-                    sb.AppendLine("  }");
-                    sb.AppendLine("}");
-
-                    if (!File.Exists(filepath))
-                    {
-                        File.WriteAllText(filepath, sb.ToString());
-                    }
-                }
-            }
-        }
-
-        //currently not in use
-        public static void EditSubjectJson(Clause c)
-        {
-            int ID = c.subjects[0].ID;
-            string subject = c.subjects[0].name;
-            string verb = c.verbs[0].name;
-            string pred = "";
-            string json, jsonfile, filepath;
-            JObject jo = new JObject();
-
-            for (int i = 1; i <= c.predicate.Count; i++)
-            {
-                if (i == c.predicate.Count)
-                {
-                    pred += c.predicate[i].name;
-                }
-                else
-                {
-                    pred += c.predicate[i].name + " ";
-                }
-
-            }
-
-            filepath = ConfigurationManager.AppSettings["FilePath"];
-
-            jsonfile = filepath + subject[0].ToString() + @"\" + subject + ".json";
-
-            if (File.Exists(jsonfile))
-            {
-                json = File.ReadAllText(jsonfile);
-                json = Regex.Replace(json, @"}\s*}", @",""" + verb + @""" : """ + pred + @""" } }");
-                jo = JObject.Parse(json);
-                c.jol[ID] = jo;
-
-            }
-
-        }
+        
     }
 }
