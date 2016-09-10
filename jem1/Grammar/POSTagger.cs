@@ -37,7 +37,7 @@ namespace jem1.Grammar
                 switch (w.pos)
                 {
                     case "verb":
-                        if (!w.inRelPhrase)
+                        if (!w.inRelPhrase && !w.inPrepPhrase)
                         {
                             if (verbCount == 0)
                             {
@@ -379,7 +379,9 @@ namespace jem1.Grammar
 
                                 //test
                                 var wiki = Wiki.Lookup(w.name);
-                                wiki = wiki.Substring(0, 100);
+                                var wikiLen = 0;
+                                if(wiki.Length > 100) { wikiLen = 100; } else { wikiLen = wiki.Length; }
+                                wiki = wiki.Substring(0, wikiLen);
                                 Console.WriteLine(wiki);
                                 //test
 

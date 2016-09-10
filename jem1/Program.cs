@@ -47,32 +47,23 @@ namespace jem1
                     {   //show the parts of speech for given sentence
                         if (showPOS)
                         {
+                            List<string> abbrs = new List<string>();
                             showPOS = false;
                             var output = s.words;
                             foreach (Word w in s.words)
                             {
-                                var abb = POSTagger.GetAbbrev(w);
-                                var wLen = w.name.Length;
-                                if (!string.IsNullOrEmpty(w.possessiveTag)) { wLen += w.possessiveTag.Length; }
-                                //if there is punctuation on a word then increase its length
-                                if (s.punc.ContainsKey(w.ID) && s.punc[w.ID] != "none") { wLen++; }
-                                //force the word and POS Tag to be the same length to make it look nice
-                                while (wLen > abb.Length) { abb = abb + " "; }
-                                while (abb.Length > wLen) { output[w.ID].name = output[w.ID].name + " "; wLen++; }
-
-                                Write(abb + " ");
+                                abbrs.Add(POSTagger.GetAbbrev(w));
                             }
-                            WriteLine("");
                             foreach(Word w in output)
                             {
                                 //add punctuation back to word for display
-                                if(s.punc.ContainsKey(w.ID))
+                                if(s.punc.ContainsKey(w.ID) && s.punc[w.ID] != "none")
                                 {
-                                    Write(w.name + s.punc[w.ID] + " ");
+                                    Write(w.name + s.punc[w.ID] + " (" + abbrs[w.ID] + ") ");
                                 }
                                 else
                                 {
-                                    Write(w.name + " ");
+                                    Write(w.name + " (" + abbrs[w.ID] + ") ");
                                 }
                                 
                             }

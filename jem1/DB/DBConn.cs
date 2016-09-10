@@ -51,7 +51,6 @@ namespace jem1.DB
                     conn.Open();
                     command.ExecuteNonQuery();
                     conn.Close();
-                    Console.WriteLine("Insert into eng table was successful.");
                 }
                 catch(SQLiteException e)
                 {
@@ -268,7 +267,6 @@ namespace jem1.DB
 
         public static void MigrateDataFromFileToEngTable()
         {
-            
             var dirPath = ConfigurationManager.AppSettings["FilePath"];
             DirectoryInfo root = new DirectoryInfo(dirPath);
             var subDirs = root.GetDirectories();

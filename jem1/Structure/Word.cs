@@ -80,7 +80,7 @@ namespace jem1
 
         private bool IsContraction()
         {
-            string[] sCon = new string[11]{"it's", "he's", "she's", "that's", "who's", "what's", "where's", "when's", "why's", "how's", "here's"};
+            string[] sCon = new string[12]{"it's", "he's", "she's", "that's", "who's", "what's", "where's", "when's", "why's", "how's", "here's", "there's"};
             switch (GetContractionEnding())
             {
                 case "n't": return true; 

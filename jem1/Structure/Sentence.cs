@@ -14,7 +14,7 @@ namespace jem1
 {
     class Sentence
     {
-        public string[] wordsArray { get; set; }
+        public List<string> wordsOriginal { get; set; }
         public string wordsString { get; set; }
         public List<Word> words { get; set; } = new List<Word>();
         public Dictionary<int, string> punc { get; set; } = new Dictionary<int, string>();
@@ -26,8 +26,8 @@ namespace jem1
         {
             sent = sent.Trim();
             wordsString = sent;
-            wordsArray = sent.Split(' ');
-            wordCount = wordsArray.Length;
+            wordsOriginal = sent.Split(' ').ToList<string>();
+            wordCount = wordsOriginal.Count;
 
             PopulateWordsList();
             //MWE is Multiple Word Expression
@@ -44,57 +44,58 @@ namespace jem1
 
         private void PopulateWordsList()
         {
-            int numCon = 0;
+            int numCon = 0;  //number of contractions
             string name = string.Empty;
 
-            for (int i = 0; i < wordCount - numCon; i++)
+            //use i for index of original List and j for new words List
+            for (int i = 0, j = 0; i < wordCount - numCon; i++, j++)
             {
-                name = wordsArray[i];
+                name = wordsOriginal[i];
 
                 if (!string.IsNullOrEmpty(name))
                 {
                     //check if it's the last word in the sentence or a word with a comma
-                    if (Punctuation.HasComma(wordsArray[i]) || i == wordCount - numCon - 1)
+                    if (Punctuation.HasComma(wordsOriginal[i]) || i == wordCount - numCon - 1)
                     {
-                        name = Punctuation.Strip(wordsArray[i], this, i);
+                        name = Punctuation.Strip(wordsOriginal[i], this, j);
                     }
 
-                    words.Add(new Word(name, i));
+                    words.Add(new Word(name, j));
 
                     //insert contraction word into list if word is a contraction
-                    if (this.words[i].contraction)
+                    if (words[j].contraction)
                     {
                         //change original word to it's root by removing contraction ending
-                        if (words[i].name == "won't")
+                        if (words[j].name == "won't")
                         {
-                            words[i].name = "will";
+                            words[j].name = "will";
                         }
                         else
                         {
-                            var cL = words[i].GetContractionEnding().Length;
-                            words[i].name = words[i].name.Remove(words[i].name.Length - cL);
+                            var cL = words[j].GetContractionEnding().Length;
+                            words[j].name = words[j].name.Remove(words[j].name.Length - cL);
                         }
 
-                        words.Insert(i + 1, new Word(this.words[i].conWord, i + 1));
+                        j++;
+                        words.Insert(j, new Word(words[j-1].conWord, j));
                         wordCount++;
                         numCon++;
                     }
 
-                    switch (words[i].name[words[i].name.Length - 1])
+                    switch (words[j].name[words[j].name.Length - 1])
                     {
                         case ',':
-                            punc.Add(i, ",");
+                            punc.Add(j, ",");
                             break;
                         case '.':
-                            //to do: check for ... (ellipsis)
-                            punc.Add(i, ".");
+                            punc.Add(j, ".");
                             break;
                         case '?':
-                            punc.Add(i, "?");
-                            if (i == wordCount - 1) { question = true; }
+                            punc.Add(j, "?");
+                            if (j == wordCount - 1) { question = true; }
                             break;
                         case '!':
-                            punc.Add(i, "!");
+                            punc.Add(j, "!");
                             break;
                     }
                 }

@@ -114,9 +114,11 @@ namespace jem1.Grammar
 
         public static string URL(Dictionary<int,char> sc, Word w)
         {
-            Regex regex = new Regex(@"^((ht|f)tp(s?)\:\/\/)?[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?$");
-            if (regex.IsMatch(w.name)) { w.role = "URL"; return "particle"; }
-
+            if (w.name[w.name.Length - 1] != '.')
+            {
+                Regex regex = new Regex(@"^((ht|f)tp(s?)\:\/\/)?[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?$");
+                if (regex.IsMatch(w.name)) { w.role = "URL"; return "particle"; }
+            }
             return "unknown";
         }
 

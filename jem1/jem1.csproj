@@ -110,6 +110,7 @@
     <Compile Include="Session.cs" />
     <Compile Include="Structure\Clause.cs" />
     <Compile Include="Structure\JO.cs" />
+    <Compile Include="Structure\Quote.cs" />
     <Compile Include="Structure\Sentence.cs" />
     <Compile Include="Structure\Word.cs" />
     <Compile Include="U.cs" />
