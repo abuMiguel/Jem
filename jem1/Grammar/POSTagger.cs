@@ -28,7 +28,7 @@ namespace jem1.Grammar
         {
             int verbPosition = -1;
             int verbCount = 0;
-            int nounFlag = 0;
+            List<int> nounIds = new List<int>();
 
             foreach (Word w in c.words)
             {
@@ -126,17 +126,24 @@ namespace jem1.Grammar
                         }
                         break;
                     case "noun":
-                        if (nounFlag == 0)
+                        if (!nounIds.Contains(cID))
                         {
                             List<int> ids = new List<int>();
                             for (int i = cID; i < c.wordCount; i++)
                             {
-                                if (c.words[i].pos == "noun")
+                                if (c.words[i].pos == "noun" || c.words[i].pos == "proper noun" || c.words[i].pos == "adjective")
                                 {
                                     ids.Add(i);
                                 }
                                 else { break; }
                             }
+
+                            //remove all adjectives at the end if there are any?
+                            while(c.words[ids[ids.Count - 1]].pos == "adjective")
+                            {
+                                ids.RemoveAt(ids.Count - 1);
+                            }
+
                             if (ids.Count > 1)
                             {
                                 foreach (int id in ids)
@@ -148,13 +155,16 @@ namespace jem1.Grammar
                                         {
                                             c.words[id + 1].role = "object of the preposition";
                                         }
-                                        c.words[id].role = "adjective";
-                                        nounFlag++;
+                                        //if noun, add it to list of noun ids so we don't iterate through same nouns more than once
+                                        if (c.words[id].pos != "adjective")
+                                        {
+                                            c.words[id].role = "adjective";
+                                            nounIds.Add(id);
+                                        }
                                     }
                                 }
                             }   //nounFlag is used to avoid iterating twice through the same set of consecutive nouns
                         }
-                        else { nounFlag--; }
                         break;
                     case "pronoun":
                         if (cID > 0)
@@ -511,28 +521,28 @@ namespace jem1.Grammar
             switch (w.pos)
             {
                 case "noun":
-                    if (w.role == "object of the preposition") { abbr = "OP"; }
-                    else if (w.role == "predicate nominative") { abbr = "PrN"; }
-                    else if (w.role == "subject") { abbr = "SN"; }
-                    else if (w.role == "adjective") { abbr = "Adj"; }
-                    else { abbr = "N"; }
+                    //if (w.role == "object of the preposition") { abbr = "OP"; }
+                    //else if (w.role == "predicate nominative") { abbr = "PrN"; }
+                    //else if (w.role == "subject") { abbr = "SN"; }
+                    if (w.role == "adjective") { abbr = "JJ"; }
+                    else { abbr = "NN"; }
                     break;
                 case "proper noun":
-                    if (w.role == "object of the preposition") { abbr = "OP"; }
-                    else if (w.role == "predicate nominative") { abbr = "PrN"; }
-                    else if (w.role == "subject") { abbr = "SN"; }
-                    else if (w.role == "adjective") { abbr = "Adj"; }
-                    else { abbr = "N"; }
+                    //if (w.role == "object of the preposition") { abbr = "OP"; }
+                    //else if (w.role == "predicate nominative") { abbr = "PrN"; }
+                    //else if (w.role == "subject") { abbr = "SN"; }
+                    //else if (w.role == "adjective") { abbr = "Adj"; }
+                    abbr = "NNP";
                     break;
                 case "verb":
-                    abbr = "V";
+                    abbr = "VB";
                     break;
                 case "adjective":
-                    if (w.role == "predicate adjective") { abbr = "PA"; }
-                    else { abbr = "Adj"; }
+                    //if (w.role == "predicate adjective") { abbr = "PA"; }
+                    abbr = "JJ"; 
                     break;
                 case "adverb":
-                    abbr = "Adv";
+                    abbr = "RB";
                     break;
                 case "subordinating conjunction":
                     abbr = "SC";
@@ -544,19 +554,19 @@ namespace jem1.Grammar
                     abbr = "LV";
                     break;
                 case "pronoun":
-                    if (w.role == "subject") { abbr = "SP"; }
-                    else if (w.role == "object of the preposition") { abbr = "OP"; }
-                    else { abbr = "Pro"; }
+                    //if (w.role == "subject") { abbr = "SP"; }
+                    //else if (w.role == "object of the preposition") { abbr = "OP"; }
+                    abbr = "PRP"; 
                     break;
                 case "possessive pronoun":
-                    if (w.role == "subject") { abbr = "SP"; }
-                    else { abbr = "Pro"; }
+                    //if (w.role == "subject") { abbr = "SP"; }
+                    abbr = "PRP$"; 
                     break;
                 case "conjunction":
                     abbr = "C";
                     break;
                 case "preposition":
-                    abbr = "P";
+                    abbr = "IN";
                     break;
                 case "relative pronoun":
                     abbr = "RP";
@@ -568,7 +578,7 @@ namespace jem1.Grammar
                     abbr = "?";
                     break;
                 case "interjection":
-                    abbr = "I";
+                    abbr = "UH";
                     break;
                 case "infinitive":
                     abbr = "INF";
@@ -580,13 +590,13 @@ namespace jem1.Grammar
                     abbr = "DT";
                     break;
                 case "predeterminer":
-                    abbr = "DT";
+                    abbr = "PDT";
                     break;
                 case "gerund":
                     abbr = "GER";
                     break;
                 case "particle":
-                    abbr = "PAR";
+                    abbr = "RP";
                     break;
                 default:
                     abbr = string.IsNullOrEmpty(w.pos) ? "ERR" : w.pos;
