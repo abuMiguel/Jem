@@ -118,7 +118,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="DB\jem.sqlite" />
-    <None Include="DB\jem.sqlite-journal" />
     <None Include="Json\English\a\Adele.json" />
     <None Include="Json\English\a\again.json" />
     <None Include="Json\English\a\air.json" />

@@ -33,7 +33,7 @@ namespace jem1
                 if(IsContraction())
                 {
                     this.contraction = true;
-                    this.conWord = GetConEndWord(GetContractionEnding());
+                    this.conWord = GetContractionEndWord(GetContractionEnding());
                 }
             }
 
@@ -57,15 +57,16 @@ namespace jem1
         {
             string tag = null;
             
-            //get rid of accidental double '
+            // Get rid of accidental double '
             w = Regex.Replace(w, "'+", "'");
-            //word has to have at least 3 letters to have possessive form
+
+            // Word has to have at least 3 characters to have possessive form.
             if (w.Length > 2)
             {
                 var z = w[w.Length - 1];
                 var y = w[w.Length - 2];
 
-                // possessives ending in 's, or '
+                // Possessives ending in 's, or '
                 if (z == 's' && y == '\'')
                 {
                     tag = "'s";
@@ -80,7 +81,7 @@ namespace jem1
 
         private bool IsContraction()
         {
-            string[] sCon = new string[12]{"it's", "he's", "she's", "that's", "who's", "what's", "where's", "when's", "why's", "how's", "here's", "there's"};
+            string[] sContraction = new string[12]{"it's", "he's", "she's", "that's", "who's", "what's", "where's", "when's", "why's", "how's", "here's", "there's"};
             switch (GetContractionEnding())
             {
                 case "n't": return true; 
@@ -90,12 +91,11 @@ namespace jem1
                 case "'re": return true; 
                 case "'m": return true; 
                 case "'s":
-                    if (sCon.Contains(name.ToLower())) { return true; }
+                    if (sContraction.Contains(name.ToLower())) { return true; }
                     break;
                 default: return false;
             }
             return false;
-
         }
 
         public string GetContractionEnding()
@@ -130,8 +130,8 @@ namespace jem1
                 return "";
         }
 
-        //return contraction's second word given a contraction ending
-        private string GetConEndWord(string end)
+        // Return contraction's second word given a contraction ending.
+        private string GetContractionEndWord(string end)
         {
             switch (end)
             {

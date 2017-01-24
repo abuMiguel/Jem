@@ -85,7 +85,7 @@ namespace jem1.Grammar
 
         public static string At(Dictionary<int, char> sc, Word w)
         {
-            //word starting with @ is usually a social media username
+            // Word starting with @ is usually a social media username
             if (sc[0] == '@') { w.role = "username";  return "proper noun"; }
 
             return "unknown";

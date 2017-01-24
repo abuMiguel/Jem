@@ -50,10 +50,12 @@ namespace jem1
                             List<string> abbrs = new List<string>();
                             showPOS = false;
                             var output = s.words;
+
                             foreach (Word w in s.words)
                             {
                                 abbrs.Add(POSTagger.GetAbbrev(w));
                             }
+
                             foreach(Word w in output)
                             {
                                 //add punctuation back to word for display

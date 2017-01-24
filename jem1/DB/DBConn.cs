@@ -13,11 +13,11 @@ namespace jem1.DB
 {
     static class DBConn
     {
+        public static string dbPath = AppDomain.CurrentDomain.BaseDirectory;
+        public static string dataSource = "Data Source=" + dbPath + "jem.sqlite;Version=3;";
+
         public static void ReadWords()
         {
-            var dbPath = ConfigurationManager.AppSettings["DBPath"];
-            var dataSource = "Data Source=" + dbPath + ";Version=3;";
-
             string sql = "select * from eng order by wordID asc";
 
             using (SQLiteConnection conn = new SQLiteConnection(dataSource))
@@ -30,7 +30,6 @@ namespace jem1.DB
                     Console.WriteLine("WordID: " + reader["wordID"] + " \tWord: " + reader["word"]);
                 conn.Close();
             }
-            
         }
 
         public static void InsertEng(string word, string pos)
@@ -38,8 +37,6 @@ namespace jem1.DB
             int wordID = GetMaxWordID() + 1;
             //escape single quote in the word string
             if (word.Contains("'")) { word = word.Replace("'", "''"); }
-            var dbPath = ConfigurationManager.AppSettings["DBPath"];
-            var dataSource = "Data Source=" + dbPath + ";Version=3;";
 
             string sql = $"insert into eng (wordID, word, pos) Values({wordID},'{word}','{pos}');";
 
@@ -62,9 +59,6 @@ namespace jem1.DB
 
         public static void DeleteEng()
         {
-            var dbPath = ConfigurationManager.AppSettings["DBPath"];
-            var dataSource = "Data Source=" + dbPath + ";Version=3;";
-
             string sql = "delete from eng;";
 
             using (SQLiteConnection conn = new SQLiteConnection(dataSource))
@@ -87,9 +81,6 @@ namespace jem1.DB
 
         public static void DeleteMWE()
         {
-            var dbPath = ConfigurationManager.AppSettings["DBPath"];
-            var dataSource = "Data Source=" + dbPath + ";Version=3;";
-
             string sql = "delete from mwe;";
 
             using (SQLiteConnection conn = new SQLiteConnection(dataSource))
@@ -113,9 +104,6 @@ namespace jem1.DB
         public static int GetMaxWordID()
         {
             int wordID = 0;
-            var dbPath = ConfigurationManager.AppSettings["DBPath"];
-            var dataSource = "Data Source=" + dbPath + ";Version=3;";
-
             string sql = "SELECT wordID FROM eng ORDER BY wordID DESC LIMIT 1";
 
             using (SQLiteConnection conn = new SQLiteConnection(dataSource))
@@ -144,8 +132,6 @@ namespace jem1.DB
         public static int GetMaxMWEID()
         {
             int mweID = 0;
-            var dbPath = ConfigurationManager.AppSettings["DBPath"];
-            var dataSource = "Data Source=" + dbPath + ";Version=3;";
 
             string sql = "SELECT mweID FROM mwe ORDER BY mweID DESC LIMIT 1";
 
@@ -175,10 +161,6 @@ namespace jem1.DB
         public static string GetPOS(string word)
         {
             string pos = string.Empty;
-
-            var dbPath = ConfigurationManager.AppSettings["DBPath"];
-            var dataSource = "Data Source=" + dbPath + ";Version=3;";
-
             string sql = $"select pos from eng where word = '{word}' COLLATE NOCASE;";
 
             using (SQLiteConnection conn = new SQLiteConnection(dataSource))
@@ -208,10 +190,6 @@ namespace jem1.DB
         public static int GetWordID(string word)
         {
             int wordID = 0;
-
-            var dbPath = ConfigurationManager.AppSettings["DBPath"];
-            var dataSource = "Data Source=" + dbPath + ";Version=3;";
-
             string sql = $"select wordID from eng where word = '{word}' COLLATE NOCASE;";
 
             using (SQLiteConnection conn = new SQLiteConnection(dataSource))
@@ -242,8 +220,6 @@ namespace jem1.DB
             int mweID = GetMaxMWEID() + 1;
             //escape single quote in the word string
             if (text.Contains("'")) { text = text.Replace("'", "''"); }
-            var dbPath = ConfigurationManager.AppSettings["DBPath"];
-            var dataSource = "Data Source=" + dbPath + ";Version=3;";
 
             string sql = $"insert into mwe (mweID, word1ID, word2ID, text, pos, meaningID) Values({mweID},{word1ID},{word2ID},'{text}','{pos}',{meaningID});";
 
@@ -265,6 +241,7 @@ namespace jem1.DB
             }
         }
 
+        // Code used once to migrate from old file system to sqlite database, prob. don't need anymore.
         public static void MigrateDataFromFileToEngTable()
         {
             var dirPath = ConfigurationManager.AppSettings["FilePath"];
@@ -289,6 +266,7 @@ namespace jem1.DB
             }
         }
 
+        // Code used once to migrate old file system to sqlite database, prob. don't need anymore.
         public static void MigrateDataFromFileToMWETable()
         {
             var dirPath = ConfigurationManager.AppSettings["MWEFilePath"];

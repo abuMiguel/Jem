@@ -20,12 +20,13 @@ namespace jem1.Structure
         public List<Word> verbs { get; set; } = new List<Word>();
         public string hVerb { get; set; }
         public List<Word> predicate { get; set; } = new List<Word>();
-        //predicate nominative/noun
+        // Predicate nominative/noun
         public List<Word> pN { get; set; } = new List<Word>();
-        //predicate adjective
+        // Predicate adjective
         public List<Word> pA { get; set; } = new List<Word>();
         public List<PrepPhrase> preps { get; set; } = new List<PrepPhrase>();
-        //important words
+        // Important words - Idea was that nearly every sentence can be deduced to 3 words, where 
+        // all other words only modify the Noun, Verb, and Predicate Nominative. 
         public Word i1 { get; set; }
         public Word i2 { get; set; }
         public Word i3 { get; set; }
@@ -59,20 +60,6 @@ namespace jem1.Structure
             {
                 words.Add(new Word(wordsArray[i], i));   
             }     
-        }
-
-        //UNFINISHED
-        //is complete is incomplete (ironic?), but will be used to tell whether it is a complete independent thought
-        public bool IsComplete()
-        {
-            if(i1 != null && i2 != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
     }
 }

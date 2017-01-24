@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 namespace jem1.Structure
 {
     //This class is to facilitate retrieval of JSON properties and values from a JSON Object using JSON.NET
+    //After complete migration to Sqlite database, this will be obsolete.
     static class JO
     {
         //Get all properties in JSON Object
@@ -196,31 +197,6 @@ namespace jem1.Structure
         {
             return jo.Properties().First().Name;
         }
-
-        //public static void PopulateJsonObjectList(Clause c)
-        //{
-        //    JObject jo = new JObject();
-        //    string json, jsonfile, filepath;
-        //    filepath = ConfigurationManager.AppSettings["FilePath"];
-
-        //    foreach (Word word in c.words)
-        //    {
-        //        jsonfile = !string.IsNullOrEmpty(word.name) ? filepath + word.name[0].ToString() + @"\" + word.name + ".json" : " ";
-
-        //        if (File.Exists(jsonfile))
-        //        {
-        //            json = File.ReadAllText(jsonfile);
-        //            jo = JObject.Parse(json);
-        //            c.jol.Add(jo);
-        //        }
-        //        else
-        //        {
-        //            json = @"{ """ + word.name + @""": { ""pos"":""unknown"" } }";
-        //            jo = JObject.Parse(json);
-        //            c.jol.Add(jo);
-        //        }
-        //    }
-        //}
 
         //returns single json object for given string
         public static JObject GetJSONObject(string w)

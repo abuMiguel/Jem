@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
@@ -64,6 +65,19 @@ namespace jem1
                 if (posL.Contains(w.pos)) { return true; }
             }
             return false;
+        }
+
+        public static bool IsCamelCase(string input)
+        {
+            if (string.IsNullOrEmpty(input)) { return false; }
+            Regex regex = new Regex("[A-Z]([A-Z0-9]*[a-z][a-z0-9]*[A-Z]|[a-z0-9]*[A-Z][A-Z0-9]*[a-z])[A-Za-z0-9]*");
+            return regex.IsMatch(input);
+        }
+
+        public static string SplitCamelCase(string input)
+        {
+            var output = Regex.Replace(input, "([a-z](?=[A-Z0-9])|[A-Z](?=[A-Z][a-z]))", "$1 ");
+            return output;
         }
 
         //Determine whether the words preceding a word up until a particular part of speech, are all
