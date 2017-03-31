@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace jem1
 {
-    class Session
+    internal class Session
     {
         //short-term memory
-        public List<Sentence> stm { get; set; }
+        public List<Sentence> Stm { get; set; }
 
         public Session ()
         {
-            stm = new List<Sentence>();
+            Stm = new List<Sentence>();
         }
     }
 }

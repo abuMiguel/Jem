@@ -12,30 +12,30 @@ using static jem1.Structure.JO;
 
 namespace jem1
 {
-    class Sentence
+    internal class Sentence
     {
-        public List<string> wordsOriginal { get; set; }
-        public string wordsString { get; set; }
-        public List<Word> words { get; set; } = new List<Word>();
-        public Dictionary<int, string> punc { get; set; } = new Dictionary<int, string>();
-        public bool question { get; set; } = false;
-        public List<Clause> clauses { get; set; }
-        public int wordCount { get; set; }
+        public List<string> WordsOriginal { get; set; }
+        public string WordsString { get; set; }
+        public List<Word> Words { get; set; } = new List<Word>();
+        public Dictionary<int, string> Punc { get; set; } = new Dictionary<int, string>();
+        public bool Question { get; set; } = false;
+        public List<Clause> Clauses { get; set; }
+        public int WordCount { get; set; }
 
         public Sentence(string sent)
         {
             sent = sent.Trim();
-            wordsString = sent;
-            wordsOriginal = sent.Split(' ').ToList<string>();
-            wordCount = wordsOriginal.Count;
+            WordsString = sent;
+            WordsOriginal = sent.Split(' ').ToList<string>();
+            WordCount = WordsOriginal.Count;
 
             PopulateWordsList();
             // Find Multiple Word Expressions
             FindMWEs();
             POSTagger.AssignPartsOfSpeech(this);
-            clauses = GetClauses(this);
+            Clauses = GetClauses(this);
 
-            foreach (Clause clause in clauses)
+            foreach (Clause clause in Clauses)
             {
                 //JO.PopulateJsonObjectList(clause);
                 POSTagger.TagClause(clause);
@@ -44,93 +44,91 @@ namespace jem1
 
         private void PopulateWordsList()
         {
-            int contractionCount = 0;
-            string name = string.Empty;
+            var contractionCount = 0;
 
             // Use i for index of original List and j for new words List
-            for (int i = 0, j = 0; i < wordCount - contractionCount; i++, j++)
+            for (int i = 0, j = 0; i < WordCount - contractionCount; i++, j++)
             {
-                name = wordsOriginal[i];
+                var name = WordsOriginal[i];
 
                 if (!string.IsNullOrEmpty(name))
                 {
                     // Check if word is the last in the sentence or has a comma.
-                    if (Punctuation.HasComma(wordsOriginal[i]) || i == wordCount - contractionCount - 1)
+                    if (Punctuation.HasComma(WordsOriginal[i]) || i == WordCount - contractionCount - 1)
                     {
-                        name = Punctuation.Strip(wordsOriginal[i], this, j);
+                        name = Punctuation.Strip(WordsOriginal[i], this, j);
                     }
 
-                    words.Add(new Word(name, j));
+                    Words.Add(new Word(name, j));
 
                     // Insert contraction word into list if word is a contraction
-                    if (words[j].contraction)
+                    if (Words[j].Contraction)
                     {
                         // Change original word to its root by removing contraction ending
-                        if (words[j].name == "won't")
+                        if (Words[j].Name == "won't")
                         {
-                            words[j].name = "will";
+                            Words[j].Name = "will";
                         }
                         else
                         {
-                            var cL = words[j].GetContractionEnding().Length;
-                            words[j].name = words[j].name.Remove(words[j].name.Length - cL);
+                            var cL = Words[j].GetContractionEnding().Length;
+                            Words[j].Name = Words[j].Name.Remove(Words[j].Name.Length - cL);
                         }
 
                         j++;
-                        words.Insert(j, new Word(words[j - 1].conWord, j));
-                        wordCount++;
+                        Words.Insert(j, new Word(Words[j - 1].ConWord, j));
+                        WordCount++;
                         contractionCount++;
                     }
 
-                    switch (words[j].name[words[j].name.Length - 1])
+                    switch (Words[j].Name[Words[j].Name.Length - 1])
                     {
                         case ',':
-                            punc.Add(j, ",");
+                            Punc.Add(j, ",");
                             break;
                         case '.':
-                            punc.Add(j, ".");
+                            Punc.Add(j, ".");
                             break;
                         case '?':
-                            punc.Add(j, "?");
-                            if (j == wordCount - 1) { question = true; }
+                            Punc.Add(j, "?");
+                            if (j == WordCount - 1) { Question = true; }
                             break;
                         case '!':
-                            punc.Add(j, "!");
+                            Punc.Add(j, "!");
                             break;
                     }
                 }
             }
-            if (punc.Count == 0) { punc.Add(0, "none"); }
+            if (Punc.Count == 0) { Punc.Add(0, "none"); }
         }
 
         //Find any Multiple Word Expression found in the sentence and tag the part of speech
         private void FindMWEs()
         {
             var filePath = ConfigurationManager.AppSettings["MWEFilePath"];
-            string dir = "", filename = "";
-            string jsonfile = "", largest = "";
-            int startId = 0, endId = 0;
+            var largest = "";
+            var endId = 0;
 
-            foreach (Word w in this.words)
+            foreach (Word w in this.Words)
             {
                 //Do not check last word, it cannot begin a MWE
-                if (w.ID < this.words.Count() - 1)
+                if (w.Id < this.Words.Count() - 1)
                 {
-                    startId = w.ID;
-                    dir = w.name;
-                    filename = w.name;
+                    var startId = w.Id;
+                    var dir = w.Name;
+                    var filename = w.Name;
 
-                    foreach (Word w2 in this.words)
+                    foreach (Word w2 in this.Words)
                     {
-                        if (w2.ID > w.ID)
+                        if (w2.Id > w.Id)
                         {
-                            filename += " " + w2.name;
-                            jsonfile = filePath + w.name[0].ToString() + @"\" + dir + @"\" + filename.Replace(" ", "") + ".json";
+                            filename += " " + w2.Name;
+                            var jsonfile = filePath + w.Name[0].ToString() + @"\" + dir + @"\" + filename.Replace(" ", "") + ".json";
 
                             if (File.Exists(jsonfile))
                             {
                                 largest = filename;
-                                endId = w2.ID;
+                                endId = w2.Id;
                             }
                         }
                     }
@@ -138,18 +136,17 @@ namespace jem1
                     // If there is a MWE starting with this word
                     if (!string.IsNullOrEmpty(largest))
                     {
-                        List<string> posL = new List<string>();
-                        posL = JO.GetValsList(largest, "pos");
+                        var posL = JO.GetValsList(largest, "pos");
 
                         for (int i = startId, j = 0; i <= endId; i++, j++)
                         {
                             try
                             {
-                                this.words[i].pos = posL[j];
+                                this.Words[i].Pos = posL[j];
                             }
                             catch
                             {
-                                this.words[i].pos = posL[0];
+                                this.Words[i].Pos = posL[0];
                             }
                         }
                     }
@@ -162,8 +159,8 @@ namespace jem1
 
         public string GetPuncAll()
         {
-            var punctuation = punc.Values.ToList();
-            StringBuilder sb = new StringBuilder();
+            var punctuation = Punc.Values.ToList();
+            var sb = new StringBuilder();
             foreach (string p in punctuation)
             {
                 sb.Append(p);
@@ -173,8 +170,8 @@ namespace jem1
 
         private List<Clause> GetClauses(Sentence s)
         {
-            List<Clause> clauses = new List<Clause>();
-            List<Word> dividers = GetClauseDividers(s);
+            var clauses = new List<Clause>();
+            var dividers = GetClauseDividers(s);
 
             bool firstWordIsDivider = false;
             int previousDividerId = 0;
@@ -182,15 +179,15 @@ namespace jem1
             foreach (Word div in dividers)
             {
                 // Strings built to create a clause, redo is only for divider starting a sentence.
-                List<Word> cIni = new List<Word>();
-                List<Word> cIniFinal = new List<Word>();
-                List<Word> cIniRedo = new List<Word>();
+                var cIni = new List<Word>();
+                var cIniFinal = new List<Word>();
+                var cIniRedo = new List<Word>();
 
                 // Divider is the first word in the sentence.
-                if (div.ID == 0)
+                if (div.Id == 0)
                 {
                     firstWordIsDivider = true;
-                    clauses.Add(new Clause(s.words));
+                    clauses.Add(new Clause(s.Words));
                     if (dividers.Count == 1)
                     {
                         // Divider is first word and there is only 1 divider.
@@ -199,12 +196,12 @@ namespace jem1
                 }
                 else
                 {
-                    foreach (Word w in s.words)
+                    foreach (Word w in s.Words)
                     {
                         // If is first divider and divider is not the first word in the sentence.
-                        if (div.ID == dividers[0].ID)
+                        if (div.Id == dividers[0].Id)
                         {
-                            if (w.ID < div.ID)
+                            if (w.Id < div.Id)
                             {
                                 cIni.Add(w);
                             }
@@ -213,13 +210,13 @@ namespace jem1
                         {
                             // Is NOT the first divider.
                             // The first word of the sentence was a divider and there are multiple dividers.
-                            if (dividers.Count > 1 && div.ID == dividers[1].ID && firstWordIsDivider)
+                            if (dividers.Count > 1 && div.Id == dividers[1].Id && firstWordIsDivider)
                             {
-                                if (w.ID >= div.ID)
+                                if (w.Id >= div.Id)
                                 {
                                     if (dividers.Count > 2)
                                     {
-                                        if (w.ID < dividers[2].ID)
+                                        if (w.Id < dividers[2].Id)
                                         {
                                             cIni.Add(w);
                                         }
@@ -233,7 +230,7 @@ namespace jem1
                             }
                             else
                             {
-                                if (w.ID < div.ID && w.ID >= previousDividerId && div != dividers[dividers.Count - 1])
+                                if (w.Id < div.Id && w.Id >= previousDividerId && div != dividers[dividers.Count - 1])
                                 {
                                     cIni.Add(w);
                                 }
@@ -242,7 +239,7 @@ namespace jem1
                         //If the divider is the last one, get the clause at the end
                         if (div == dividers[dividers.Count - 1])
                         {
-                            if (w.ID >= div.ID)
+                            if (w.Id >= div.Id)
                             {
                                 cIniFinal.Add(w);
                             }
@@ -262,13 +259,13 @@ namespace jem1
                     }
                 }
 
-                previousDividerId = div.ID;
+                previousDividerId = div.Id;
             }
 
             // If there are no dividers, the entire sentence is one clause.
             if (dividers.Count == 0)
             {
-                clauses.Add(new Clause(s.words));
+                clauses.Add(new Clause(s.Words));
             }
 
             return clauses;
@@ -278,9 +275,9 @@ namespace jem1
         {
             List<Word> divs = new List<Word>();
 
-            foreach (Word w in s.words)
+            foreach (Word w in s.Words)
             {
-                switch (w.pos)
+                switch (w.Pos)
                 {
                     case "subordinating conjunction":
                         divs.Add(w);
@@ -290,14 +287,14 @@ namespace jem1
                         bool beforeVerb = false;
                         bool afterVerb = false;
 
-                        foreach (Word word in s.words)
+                        foreach (Word word in s.Words)
                         {
                             // Check for verbs in the same sentence.
-                            if (word.pos == "verb" || word.pos == "linking verb" || word.pos == "helper verb")
+                            if (word.Pos == "verb" || word.Pos == "linking verb" || word.Pos == "helper verb")
                             {
                                 // Is the verb before or after the coordinating conjunction?
-                                if (word.ID < w.ID) { beforeVerb = true; }
-                                if (word.ID > w.ID) { afterVerb = true; }
+                                if (word.Id < w.Id) { beforeVerb = true; }
+                                if (word.Id > w.Id) { afterVerb = true; }
                             }
                         }
 

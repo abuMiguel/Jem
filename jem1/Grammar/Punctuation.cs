@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace jem1.Grammar
 {
-    static class Punctuation
+    internal static class Punctuation
     {
         public static string Strip(string s, Sentence sent, int i)
         {
-            string p = string.Empty, sw = string.Empty;
+            string p, sw;
 
             switch (s.Last<char>())
             {
@@ -21,13 +21,13 @@ namespace jem1.Grammar
                 case ';':
                     sw = s.TrimEnd(new char[6] { ',', '.', '!', ':', ';', '?' });
                     p = s.Remove(0, sw.Length);
-                    sent.punc.Add(i, p);
+                    sent.Punc.Add(i, p);
                     return sw;
                 case '.':
                     sw = s.TrimEnd(new char[6] { ',', '.', '!', ':', ';', '?' });
                     sw = sw.Replace(".", "");
                     p = s.Remove(0, sw.Length);
-                    sent.punc.Add(i, p);
+                    sent.Punc.Add(i, p);
                     return sw;
                 default:
                     return s;
@@ -37,7 +37,7 @@ namespace jem1.Grammar
 
         public static string GetPunc(string s)
         {
-            string p = string.Empty, sw = string.Empty;
+            var p = string.Empty;
 
             switch (s.Last<char>())
             {
@@ -47,13 +47,12 @@ namespace jem1.Grammar
                 case '?':
                 case ':':
                 case ';':
-                    sw = s.TrimEnd(new char[6] { ',', '.', '!', ':', ';', '?' });
+                    var sw = s.TrimEnd(new char[] { ',', '.', '!', ':', ';', '?' });
                     p = s.Remove(0, sw.Length);
                     return sw;
                 default:
                     return null;
             }
-
         }
 
         public static bool HasPunc(string s)

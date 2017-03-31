@@ -13,16 +13,16 @@ namespace jem1.DB
 {
     static class DBConn
     {
-        public static string dbPath = AppDomain.CurrentDomain.BaseDirectory;
-        public static string dataSource = "Data Source=" + dbPath + "jem.sqlite;Version=3;";
+        public static string DbPath = AppDomain.CurrentDomain.BaseDirectory;
+        public static string DataSource = "Data Source=" + DbPath + "jem.sqlite;Version=3;";
 
         public static void ReadWords()
         {
-            string sql = "select * from eng order by wordID asc";
+            var sql = "select * from eng order by wordID asc";
 
-            using (SQLiteConnection conn = new SQLiteConnection(dataSource))
+            using (var conn = new SQLiteConnection(DataSource))
             {
-                SQLiteCommand command = new SQLiteCommand(sql, conn);
+                var command = new SQLiteCommand(sql, conn);
                 conn.Open();
                 command.ExecuteNonQuery();
                 SQLiteDataReader reader = command.ExecuteReader();
@@ -34,24 +34,24 @@ namespace jem1.DB
 
         public static void InsertEng(string word, string pos)
         {
-            int wordID = GetMaxWordID() + 1;
+            int wordId = GetMaxWordID() + 1;
             //escape single quote in the word string
             if (word.Contains("'")) { word = word.Replace("'", "''"); }
 
-            string sql = $"insert into eng (wordID, word, pos) Values({wordID},'{word}','{pos}');";
+            string sql = $"insert into eng (wordID, word, pos) Values({wordId},'{word}','{pos}');";
 
-            using (SQLiteConnection conn = new SQLiteConnection(dataSource))
+            using (var conn = new SQLiteConnection(DataSource))
             {
                 try
                 {
-                    SQLiteCommand command = new SQLiteCommand(sql, conn);
+                    var command = new SQLiteCommand(sql, conn);
                     conn.Open();
                     command.ExecuteNonQuery();
                     conn.Close();
                 }
                 catch(SQLiteException e)
                 {
-                    Console.WriteLine($"Insert into eng table was unsuccessful for word: {word}, ID: {wordID}.");
+                    Console.WriteLine($"Insert into eng table was unsuccessful for word: {word}, ID: {wordId}.");
                     Console.WriteLine(e.Message);
                 }
             }
@@ -59,13 +59,13 @@ namespace jem1.DB
 
         public static void DeleteEng()
         {
-            string sql = "delete from eng;";
+            var sql = "delete from eng;";
 
-            using (SQLiteConnection conn = new SQLiteConnection(dataSource))
+            using (var conn = new SQLiteConnection(DataSource))
             {
                 try
                 {
-                    SQLiteCommand command = new SQLiteCommand(sql, conn);
+                    var command = new SQLiteCommand(sql, conn);
                     conn.Open();
                     command.ExecuteNonQuery();
                     conn.Close();
@@ -81,13 +81,13 @@ namespace jem1.DB
 
         public static void DeleteMWE()
         {
-            string sql = "delete from mwe;";
+            var sql = "delete from mwe;";
 
-            using (SQLiteConnection conn = new SQLiteConnection(dataSource))
+            using (var conn = new SQLiteConnection(DataSource))
             {
                 try
                 {
-                    SQLiteCommand command = new SQLiteCommand(sql, conn);
+                    var command = new SQLiteCommand(sql, conn);
                     conn.Open();
                     command.ExecuteNonQuery();
                     conn.Close();
@@ -103,20 +103,20 @@ namespace jem1.DB
 
         public static int GetMaxWordID()
         {
-            int wordID = 0;
-            string sql = "SELECT wordID FROM eng ORDER BY wordID DESC LIMIT 1";
+            int wordId = 0;
+            var sql = "SELECT wordID FROM eng ORDER BY wordID DESC LIMIT 1";
 
-            using (SQLiteConnection conn = new SQLiteConnection(dataSource))
+            using (var conn = new SQLiteConnection(DataSource))
             {
                 try
                 {
-                    SQLiteCommand command = new SQLiteCommand(sql, conn);
+                    var command = new SQLiteCommand(sql, conn);
                     conn.Open();
                     command.ExecuteNonQuery();
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        wordID = reader.GetInt32(reader.GetOrdinal("wordID"));
+                        wordId = reader.GetInt32(reader.GetOrdinal("wordID"));
                     }
                     conn.Close();
                 }
@@ -126,20 +126,20 @@ namespace jem1.DB
                     Console.WriteLine(e.Message);
                 }
             }
-            return wordID;
+            return wordId;
         }
 
         public static int GetMaxMWEID()
         {
             int mweID = 0;
 
-            string sql = "SELECT mweID FROM mwe ORDER BY mweID DESC LIMIT 1";
+            var sql = "SELECT mweID FROM mwe ORDER BY mweID DESC LIMIT 1";
 
-            using (SQLiteConnection conn = new SQLiteConnection(dataSource))
+            using (var conn = new SQLiteConnection(DataSource))
             {
                 try
                 {
-                    SQLiteCommand command = new SQLiteCommand(sql, conn);
+                    var command = new SQLiteCommand(sql, conn);
                     conn.Open();
                     command.ExecuteNonQuery();
                     SQLiteDataReader reader = command.ExecuteReader();
@@ -160,14 +160,14 @@ namespace jem1.DB
 
         public static string GetPOS(string word)
         {
-            string pos = string.Empty;
+            var pos = string.Empty;
             string sql = $"select pos from eng where word = '{word}' COLLATE NOCASE;";
 
-            using (SQLiteConnection conn = new SQLiteConnection(dataSource))
+            using (var conn = new SQLiteConnection(DataSource))
             {
                 try
                 {
-                    SQLiteCommand command = new SQLiteCommand(sql, conn);
+                    var command = new SQLiteCommand(sql, conn);
                     conn.Open();
                     command.ExecuteNonQuery();
                     SQLiteDataReader reader = command.ExecuteReader();
@@ -189,20 +189,20 @@ namespace jem1.DB
 
         public static int GetWordID(string word)
         {
-            int wordID = 0;
+            int wordId = 0;
             string sql = $"select wordID from eng where word = '{word}' COLLATE NOCASE;";
 
-            using (SQLiteConnection conn = new SQLiteConnection(dataSource))
+            using (var conn = new SQLiteConnection(DataSource))
             {
                 try
                 {
-                    SQLiteCommand command = new SQLiteCommand(sql, conn);
+                    var command = new SQLiteCommand(sql, conn);
                     conn.Open();
                     command.ExecuteNonQuery();
                     SQLiteDataReader reader = command.ExecuteReader();
                     while (reader.Read())
                     {
-                        wordID = reader.GetInt32(reader.GetOrdinal("wordID"));
+                        wordId = reader.GetInt32(reader.GetOrdinal("wordID"));
                     }
                     conn.Close();
                 }
@@ -212,7 +212,7 @@ namespace jem1.DB
                     Console.WriteLine(e.Message);
                 }
             }
-            return wordID;
+            return wordId;
         }
 
         public static void InsertMWE(int word1ID, int word2ID, string text, string pos, int meaningID)
@@ -223,11 +223,11 @@ namespace jem1.DB
 
             string sql = $"insert into mwe (mweID, word1ID, word2ID, text, pos, meaningID) Values({mweID},{word1ID},{word2ID},'{text}','{pos}',{meaningID});";
 
-            using (SQLiteConnection conn = new SQLiteConnection(dataSource))
+            using (var conn = new SQLiteConnection(DataSource))
             {
                 try
                 {
-                    SQLiteCommand command = new SQLiteCommand(sql, conn);
+                    var command = new SQLiteCommand(sql, conn);
                     conn.Open();
                     command.ExecuteNonQuery();
                     conn.Close();

@@ -86,7 +86,7 @@ namespace jem1.Grammar
         public static string At(Dictionary<int, char> sc, Word w)
         {
             // Word starting with @ is usually a social media username
-            if (sc[0] == '@') { w.role = "username";  return "proper noun"; }
+            if (sc[0] == '@') { w.Role = "username";  return "proper noun"; }
 
             return "unknown";
         }
@@ -114,10 +114,10 @@ namespace jem1.Grammar
 
         public static string URL(Dictionary<int,char> sc, Word w)
         {
-            if (w.name[w.name.Length - 1] != '.')
+            if (w.Name[w.Name.Length - 1] != '.')
             {
-                Regex regex = new Regex(@"^((ht|f)tp(s?)\:\/\/)?[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?$");
-                if (regex.IsMatch(w.name)) { w.role = "URL"; return "particle"; }
+                var regex = new Regex(@"^((ht|f)tp(s?)\:\/\/)?[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+&amp;%\$#_]*)?$");
+                if (regex.IsMatch(w.Name)) { w.Role = "URL"; return "particle"; }
             }
             return "unknown";
         }

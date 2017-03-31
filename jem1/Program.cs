@@ -37,7 +37,7 @@ namespace jem1
                     showPOS = true;
 
                     Sentence s = new Sentence(usertext);
-                    sess.stm.Add(s);
+                    sess.Stm.Add(s);
 
                     if (Answer.Find(sess) == "exit")
                     {
@@ -49,9 +49,9 @@ namespace jem1
                         {
                             List<string> abbrs = new List<string>();
                             showPOS = false;
-                            var output = s.words;
+                            var output = s.Words;
 
-                            foreach (Word w in s.words)
+                            foreach (Word w in s.Words)
                             {
                                 abbrs.Add(POSTagger.GetAbbrev(w));
                             }
@@ -59,13 +59,13 @@ namespace jem1
                             foreach(Word w in output)
                             {
                                 //add punctuation back to word for display
-                                if(s.punc.ContainsKey(w.ID) && s.punc[w.ID] != "none")
+                                if(s.Punc.ContainsKey(w.Id) && s.Punc[w.Id] != "none")
                                 {
-                                    Write(w.name + s.punc[w.ID] + " (" + abbrs[w.ID] + ") ");
+                                    Write(w.Name + s.Punc[w.Id] + " (" + abbrs[w.Id] + ") ");
                                 }
                                 else
                                 {
-                                    Write(w.name + " (" + abbrs[w.ID] + ") ");
+                                    Write(w.Name + " (" + abbrs[w.Id] + ") ");
                                 }
                                 
                             }

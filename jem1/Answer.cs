@@ -11,12 +11,12 @@ using jem1.Structure;
 
 namespace jem1
 {
-    static class Answer
+    internal static class Answer
     {
         public static string Find(Session sess)
         {
-            var ls = sess.stm.Last();
-            if (ls.question)
+            var ls = sess.Stm.Last();
+            if (ls.Question)
             {
                 Question q = new Question(ls);
                 return q.answer;
@@ -28,7 +28,7 @@ namespace jem1
         {
             //Check if they are saying goodbye     
             var gbye = JO.GetValsList("goodbye", "synonyms");
-            var adios = gbye.Find(x => x == ls.wordsString);
+            var adios = gbye.Find(x => x == ls.WordsString);
             if (!string.IsNullOrEmpty(adios))
             {
                 return "exit";

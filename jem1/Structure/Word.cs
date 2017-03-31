@@ -1,56 +1,52 @@
-﻿using jem1.Grammar;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace jem1
 {
     public class Word
     {
-        public string name { get; set; }
-        public string pos { get; set; } = null;
-        public bool contraction { get; set; } = false;
-        public string conWord { get; set;  } = null;
-        public string role { get; set; } = null;
-        public bool inRelPhrase { get; set; } = false;
-        public bool inPrepPhrase { get; set; } = false;
-        public bool inInfPhrase { get; set; } = false;
-        public bool isPlural { get; set; } = false;
-        public string possessiveTag { get; set; }
-        public int ID { get; set; }
-        public List<string> descriptor { get; set; }
+        public string Name { get; set; }
+        public string Pos { get; set; } = null;
+        public bool Contraction { get; set; } = false;
+        public string ConWord { get; set;  } = null;
+        public string Role { get; set; } = null;
+        public bool InRelPhrase { get; set; } = false;
+        public bool InPrepPhrase { get; set; } = false;
+        public bool InInfPhrase { get; set; } = false;
+        public bool IsPlural { get; set; } = false;
+        public string PossessiveTag { get; set; }
+        public int Id { get; set; }
+        public List<string> Descriptor { get; set; }
 
-        public Word(string name, int ID)
+        public Word(string name, int id)
         {
-            this.name = name;
-            this.ID = ID;
+            this.Name = name;
+            this.Id = id;
 
             if (name.Contains("'"))
             {
                 if(IsContraction())
                 {
-                    this.contraction = true;
-                    this.conWord = GetContractionEndWord(GetContractionEnding());
+                    this.Contraction = true;
+                    this.ConWord = GetContractionEndWord(GetContractionEnding());
                 }
             }
 
-            if(name.Contains("'") && this.contraction == false)
+            if(name.Contains("'") && this.Contraction == false)
             {
-                this.possessiveTag = GetPossessiveTag(name);
+                this.PossessiveTag = GetPossessiveTag(name);
             }
             else if(name == "its")
             {
-                this.possessiveTag = "s";
+                this.PossessiveTag = "s";
             }
             else
             {
-                this.possessiveTag = null;
+                this.PossessiveTag = null;
             }
             
-            this.descriptor = new List<string>();
+            this.Descriptor = new List<string>();
         }
 
         private string GetPossessiveTag(string w)
@@ -81,7 +77,7 @@ namespace jem1
 
         private bool IsContraction()
         {
-            string[] sContraction = new string[12]{"it's", "he's", "she's", "that's", "who's", "what's", "where's", "when's", "why's", "how's", "here's", "there's"};
+            var sContraction = new string[]{"it's", "he's", "she's", "that's", "who's", "what's", "where's", "when's", "why's", "how's", "here's", "there's"};
             switch (GetContractionEnding())
             {
                 case "n't": return true; 
@@ -91,7 +87,7 @@ namespace jem1
                 case "'re": return true; 
                 case "'m": return true; 
                 case "'s":
-                    if (sContraction.Contains(name.ToLower())) { return true; }
+                    if (sContraction.Contains(Name.ToLower())) { return true; }
                     break;
                 default: return false;
             }
@@ -100,7 +96,7 @@ namespace jem1
 
         public string GetContractionEnding()
         {
-            var w = this.name;
+            var w = this.Name;
             var aPos = w.IndexOf("'");
             if(aPos < 0) { return ""; }
             //if only one letter after the '
@@ -131,7 +127,7 @@ namespace jem1
         }
 
         // Return contraction's second word given a contraction ending.
-        private string GetContractionEndWord(string end)
+        private static string GetContractionEndWord(string end)
         {
             switch (end)
             {
@@ -149,15 +145,15 @@ namespace jem1
         public void RemovePossessiveTag()
         {
             bool possessive = false;
-            possessive = !string.IsNullOrEmpty(possessiveTag);
+            possessive = !string.IsNullOrEmpty(PossessiveTag);
 
             // 's at the end
             if (possessive)
             {
-                var pLen = possessiveTag.Length;
-                var starti = name.Length - pLen;
+                var pLen = PossessiveTag.Length;
+                var starti = Name.Length - pLen;
 
-                name = name.Remove(starti, pLen);
+                Name = Name.Remove(starti, pLen);
             }
 
         }

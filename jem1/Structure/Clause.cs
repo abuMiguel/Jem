@@ -8,57 +8,57 @@ using System.Threading.Tasks;
 
 namespace jem1.Structure
 {
-    class Clause
+    internal class Clause
     {
-        public string[] wordsArray { get; set; }
-        public string wordsString { get; set; }
-        public List<Word> words { get; set; } = new List<Word>();
-        public int wordCount { get; set; }
+        public string[] WordsArray { get; set; }
+        public string WordsString { get; set; }
+        public List<Word> Words { get; set; } = new List<Word>();
+        public int WordCount { get; set; }
         //json object list
-        public List<JObject> jol { get; set; } = new List<JObject>();
-        public List<Word> subjects { get; set; } = new List<Word>();
-        public List<Word> verbs { get; set; } = new List<Word>();
-        public string hVerb { get; set; }
-        public List<Word> predicate { get; set; } = new List<Word>();
+        public List<JObject> Jol { get; set; } = new List<JObject>();
+        public List<Word> Subjects { get; set; } = new List<Word>();
+        public List<Word> Verbs { get; set; } = new List<Word>();
+        public string HVerb { get; set; }
+        public List<Word> Predicate { get; set; } = new List<Word>();
         // Predicate nominative/noun
-        public List<Word> pN { get; set; } = new List<Word>();
+        public List<Word> PN { get; set; } = new List<Word>();
         // Predicate adjective
-        public List<Word> pA { get; set; } = new List<Word>();
-        public List<PrepPhrase> preps { get; set; } = new List<PrepPhrase>();
+        public List<Word> PA { get; set; } = new List<Word>();
+        public List<PrepPhrase> Preps { get; set; } = new List<PrepPhrase>();
         // Important words - Idea was that nearly every sentence can be deduced to 3 words, where 
         // all other words only modify the Noun, Verb, and Predicate Nominative. 
-        public Word i1 { get; set; }
-        public Word i2 { get; set; }
-        public Word i3 { get; set; }
+        public Word I1 { get; set; }
+        public Word I2 { get; set; }
+        public Word I3 { get; set; }
 
         public Clause(string c)
         {
-            wordsString = c;
-            wordsArray = c.Split(' ');
-            wordCount = wordsArray.Length; 
+            WordsString = c;
+            WordsArray = c.Split(' ');
+            WordCount = WordsArray.Length; 
 
             PopulateWordsList();
         }
 
         public Clause(List<Word> c)
         {
-            words = c;
+            Words = c;
 
-            wordsArray = new string[c.Count];
-            for(int i = 0; i < c.Count; i++)
+            WordsArray = new string[c.Count];
+            for(var i = 0; i < c.Count; i++)
             {
-                wordsArray[i] = c[i].name;
+                WordsArray[i] = c[i].Name;
             }
-            wordsString = string.Join(" ", wordsArray);
-            wordCount = wordsArray.Length;
+            WordsString = string.Join(" ", WordsArray);
+            WordCount = WordsArray.Length;
 
         }
 
         private void PopulateWordsList()
         {
-            for (int i = 0; i < wordCount; i++)
+            for (var i = 0; i < WordCount; i++)
             {
-                words.Add(new Word(wordsArray[i], i));   
+                Words.Add(new Word(WordsArray[i], i));   
             }     
         }
     }

@@ -10,13 +10,13 @@ using static jem1.U;
 
 namespace jem1.API
 {
-    class DCom
+    internal class DCom
     {
         public static string Scrape(string word)
         {
-            List<string> posL = new List<string>();
+            var posL = new List<string>();
 
-            ScrapingBrowser browser = new ScrapingBrowser();
+            var browser = new ScrapingBrowser();
             try
             {
                 WebPage pageResult = browser.NavigateToPage(new Uri("http://dictionary.com/browse/" + word + "?s=t"));

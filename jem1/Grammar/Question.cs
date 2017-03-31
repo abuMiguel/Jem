@@ -20,12 +20,12 @@ namespace jem1.Grammar
 
         public Question(Sentence s)
         {
-            if (qwords.Contains(s.words[0].name.ToLower()))
+            if (qwords.Contains(s.Words[0].Name.ToLower()))
             {
-                q1 = s.words[0].name;
-                q2 = s.wordCount > 1 ? s.words[1].name : null;
-                q3 = s.wordCount > 2 ? s.words[2].name : null;
-                q4 = s.wordCount > 3 ? s.words[3].name : null;
+                q1 = s.Words[0].Name;
+                q2 = s.WordCount > 1 ? s.Words[1].Name : null;
+                q3 = s.WordCount > 2 ? s.Words[2].Name : null;
+                q4 = s.WordCount > 3 ? s.Words[3].Name : null;
             }
 
             switch (q1.ToLower())
@@ -40,7 +40,7 @@ namespace jem1.Grammar
                     }
                     break;
                 case "what":
-                    if (JO.GetVal(s.clauses[0].jol[s.clauses[0].i2.ID], "root") == "be")
+                    if (JO.GetVal(s.Clauses[0].Jol[s.Clauses[0].I2.Id], "root") == "be")
                     {
                         Identify(s);
                     }
@@ -51,30 +51,30 @@ namespace jem1.Grammar
         //Where
         private void FindLocation(Sentence s)
         {
-            var c = s.clauses[0];
-            if (c.pN.Count > 0)
+            var c = s.Clauses[0];
+            if (c.PN.Count > 0)
             {
-                if (c.pN[0].ID > 0)
+                if (c.PN[0].Id > 0)
                 {
                     string loc = "";
-                    bool iknow = JO.HasProp(c.jol[c.pN[0].ID], "location");
+                    bool iknow = JO.HasProp(c.Jol[c.PN[0].Id], "location");
                     if (iknow)
                     {
-                        loc = JO.GetVal(c.jol[c.pN[0].ID], "location");
+                        loc = JO.GetVal(c.Jol[c.PN[0].Id], "location");
                         answer = loc;
                     }
                     else
                     {
-                        loc = JO.GetValFromAncestors(c.pN[0].name, "location", "location");
+                        loc = JO.GetValFromAncestors(c.PN[0].Name, "location", "location");
                         answer = !string.IsNullOrEmpty(loc) ? loc : "I've heard of it, but I don't know where it is.";
                     }
                 }
             }
             else
             {
-                if (c.predicate.Count > 0)
+                if (c.Predicate.Count > 0)
                 {
-                    answer = "I have never heard of " + c.predicate[c.predicate.Count - 1].name + ".";
+                    answer = "I have never heard of " + c.Predicate[c.Predicate.Count - 1].Name + ".";
                 }
                 else { answer = "I have never heard of it."; }
             }
@@ -83,21 +83,21 @@ namespace jem1.Grammar
         //How many
         private void FindNumber(Sentence s)
         {
-            var c = s.clauses[0];
+            var c = s.Clauses[0];
             //get singular for How Many q3
             var sing = JO.GetVal(q3, "singular");
             if (string.IsNullOrEmpty(sing)) { sing = q3; }
 
-            string iknow = JO.GetVal2D(c.jol[c.pN[0].ID], "has", sing);
+            string iknow = JO.GetVal2D(c.Jol[c.PN[0].Id], "has", sing);
             if (string.IsNullOrEmpty(iknow))
             {
                 //check if property inherited
-                answer = JO.GetValQtyFromAncestors(c.pN[0].name, "has", sing);
+                answer = JO.GetValQtyFromAncestors(c.PN[0].Name, "has", sing);
                 if (string.IsNullOrEmpty(answer)) { answer = "I don't know."; }
             }
             else
             {
-                string num = JO.GetVal(c.jol[c.pN[0].ID], q3);
+                string num = JO.GetVal(c.Jol[c.PN[0].Id], q3);
                 answer = num;
             }
 
@@ -106,28 +106,28 @@ namespace jem1.Grammar
         //What is (are,am)
         private void Identify(Sentence s)
         {
-            var c = s.clauses[0];
+            var c = s.Clauses[0];
 
-            if (c.i3 != null && c.i3.ID > 0)
+            if (c.I3 != null && c.I3.Id > 0)
             {
                 JObject toID;
                 bool i3wasPlural = false;
-                if (JO.HasProp(c.jol[c.i3.ID], "singular"))
+                if (JO.HasProp(c.Jol[c.I3.Id], "singular"))
                 {
-                    toID = JO.GetJSONObject(JO.GetVal(c.jol[c.i3.ID], "singular"));
+                    toID = JO.GetJSONObject(JO.GetVal(c.Jol[c.I3.Id], "singular"));
                     i3wasPlural = true;
                 }
                 else
                 {
-                    toID = c.jol[c.i3.ID];
+                    toID = c.Jol[c.I3.Id];
                 }
 
-                var prop = string.IsNullOrEmpty(JO.GetVal(c.i2.name, "singular")) ? c.i2.name : JO.GetVal(c.i2.name, "singular");
+                var prop = string.IsNullOrEmpty(JO.GetVal(c.I2.Name, "singular")) ? c.I2.Name : JO.GetVal(c.I2.Name, "singular");
 
 
-                if (c.words[c.i3.ID - 1].pos.Contains("possessive"))
+                if (c.Words[c.I3.Id - 1].Pos.Contains("possessive"))
                 {
-                    var root = JO.GetVal(c.jol[c.i3.ID - 1], "root");
+                    var root = JO.GetVal(c.Jol[c.I3.Id - 1], "root");
                     prop = JO.GetFirst(toID);
                     toID = JO.GetJSONObject(root);
 

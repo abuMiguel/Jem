@@ -8,26 +8,26 @@ using static jem1.Grammar.SpecChars;
 
 namespace jem1.Grammar
 {
-    static class Rules
+    internal static class Rules
     {
         //first word is not a rel pro
         public static void FirstRelPro(Word w, List<string> posL)
         {
             posL.Remove("relative pronoun");
-            w.pos = ListToString(posL);
+            w.Pos = ListToString(posL);
         }
 
         //Determiner preceding rule 
         public static void DeterminerPrecedingRule(Word wBefore, List<string> posL, Word w, Sentence s)
         {
-            string[] oklist = new string[2] { "adjective", "adverb" };
+            var oklist = new string[] { "adjective", "adverb" };
 
-            if (wBefore.pos.Contains("determiner") || NothingButBetween(w, "determiner", oklist, s))
+            if (wBefore.Pos.Contains("determiner") || NothingButBetween(w, "determiner", oklist, s))
             {
                 posL.RemoveAll(x => !x.Contains("noun") && !x.Contains("adjective") && !x.Contains("adverb"));
             }
 
-            w.pos = ListToString(posL);
+            w.Pos = ListToString(posL);
         }
 
         //word at end of sentence with preceding determiner
@@ -35,51 +35,51 @@ namespace jem1.Grammar
         {
             posL.RemoveAll(x => !x.Contains("noun"));
             if(posL.Count == 0) { posL.Add("noun"); }
-            w.pos = ListToString(posL);
+            w.Pos = ListToString(posL);
         }
 
         //Is the ING word preceded by 
         public static void IngVerbRule(Word wBefore, List<string> posL, Word w)
         {
             //ING verb rule
-            if (wBefore.pos == "helper verb" || wBefore.pos == "linking verb")
+            if (wBefore.Pos == "helper verb" || wBefore.Pos == "linking verb")
             {
                 posL.RemoveAll(x => x != "verb");
             }
 
-            w.pos = ListToString(posL);
+            w.Pos = ListToString(posL);
         }
 
         //Is the ING word the first word 
         public static void IngStartRule(List<string> posL, Word w)
         {
             posL.Remove("verb");
-            w.pos = ListToString(posL);
+            w.Pos = ListToString(posL);
         }
 
         //Infinitive rule, not last word
         public static void InfinitiveRule(Word w, Word wAfter)
         {
-            if (wAfter.pos.Contains("verb") && !wAfter.pos.Contains("adjective"))
+            if (wAfter.Pos.Contains("verb") && !wAfter.Pos.Contains("adjective"))
             {
-                w.pos = "infinitive";
+                w.Pos = "infinitive";
             }
-            else if (wAfter.pos == "noun" || wAfter.pos.Contains("determiner") || wAfter.pos == "adjective" || wAfter.pos == "pronoun")
+            else if (wAfter.Pos == "noun" || wAfter.Pos.Contains("determiner") || wAfter.Pos == "adjective" || wAfter.Pos == "pronoun")
             {
-                w.pos = "preposition";
+                w.Pos = "preposition";
             }
         }
 
         //NOT first word, any word after infinitive must be adverb or verb
         public static void ToBeforeRule(List<string> posL, Word w, Word wBefore)
         {
-            if (wBefore.pos == "infinitive")
+            if (wBefore.Pos == "infinitive")
             {
                 posL.RemoveAll(x => x != "verb" && x != "adverb");
-                w.pos = ListToString(posL);
+                w.Pos = ListToString(posL);
 
             }
-            else if (wBefore.pos == "preposition")
+            else if (wBefore.Pos == "preposition")
             {
                 posL.Remove("verb"); posL.Remove("adverb");
             }
@@ -88,10 +88,9 @@ namespace jem1.Grammar
         //Determiner pronoun disambiguation
         public static void DetPronounRule(Word w, Sentence s, List<string> posL)
         {
-            if (NothingButBetweenForwardContains(w, "noun,pronoun", new string[3] { "adjective", "determiner", "possessive determiner" }, s) == true)
+            if (NothingButBetweenForwardContains(w, "noun,pronoun", new string[] { "adjective", "determiner", "possessive determiner" }, s))
             {
-                if(posL.Contains("predeterminer")){  w.pos = "predeterminer";  }
-                else { w.pos = "determiner"; }
+                w.Pos = posL.Contains("predeterminer") ? "predeterminer" : "determiner";
             }
             else
             {
@@ -108,20 +107,20 @@ namespace jem1.Grammar
         //(middle word) any relative pronoun possibility meeting this requirement is a relative pronoun
         public static void RelativePronounRule(Word wBefore, Word w)
         {
-            if (wBefore.pos == "noun" || wBefore.pos == "pronoun")
+            if (wBefore.Pos == "noun" || wBefore.Pos == "pronoun")
             {
-                w.pos = "relative pronoun";
+                w.Pos = "relative pronoun";
             }
         }
 
         //Middle word, adj adv disambiguation
         public static void AdjAdvRule(Word w, Word wAfter, Sentence s)
         {
-            if (wAfter.pos.Contains("adverb") || wAfter.pos.Contains("adjective") || wAfter.pos.Contains("determiner"))
+            if (wAfter.Pos.Contains("adverb") || wAfter.Pos.Contains("adjective") || wAfter.Pos.Contains("determiner"))
             {
-                if (U.NothingButBetweenForwardContains(w, "noun", new string[6] { "adverb", "adjective", "determiner", "predeterminer", "coordinating conjunction", "conjunction" }, s))
+                if (NothingButBetweenForwardContains(w, "noun", new string[] { "adverb", "adjective", "determiner", "predeterminer", "coordinating conjunction", "conjunction" }, s))
                 {
-                    w.pos = "adverb";
+                    w.Pos = "adverb";
                 }
             }
         }
@@ -129,7 +128,7 @@ namespace jem1.Grammar
         //best guess for a word ending in 'ly' is adverb
         public static void LyAdverbRule(Word w)
         {
-            w.pos = "adverb"; 
+            w.Pos = "adverb"; 
         }
 
         //assume an unknown word ending in S is a plural noun
@@ -137,22 +136,22 @@ namespace jem1.Grammar
         {
             if (HasPOS(s, new List<string> { "verb", "helper verb", "linking verb" }))
             {
-                w.pos = "noun";
-                w.isPlural = true;
+                w.Pos = "noun";
+                w.IsPlural = true;
             }
             else
             {
-                w.pos = "verb";
+                w.Pos = "verb";
             }
         }
 
         public static void UnknownMiddleWordAfterDetRule(Word wBefore, Word w, Sentence s)
         {
             //Determiner preceding rule
-            string[] oklist = new string[4] { "adjective", "noun", "unknown", "adverb" };
-            if (wBefore.pos.Contains("determiner"))
+            var oklist = new string[] { "adjective", "noun", "unknown", "adverb" };
+            if (wBefore.Pos.Contains("determiner"))
             {
-                w.pos = "noun,adjective";
+                w.Pos = "noun,adjective";
             }
 
         }
@@ -160,29 +159,29 @@ namespace jem1.Grammar
         public static void UnknownLastWordAfterDetRule(Word wBefore, Word w, Sentence s)
         {
             //Determiner preceding rule
-            string[] oklist = new string[4] { "adjective", "noun", "unknown", "adverb" };
-            if (wBefore.pos.Contains("determiner"))
+            var oklist = new string[] { "adjective", "noun", "unknown", "adverb" };
+            if (wBefore.Pos.Contains("determiner"))
             {
-                w.pos = "noun";
+                w.Pos = "noun";
             }
         }
 
         public static void UnknownSpecialCharactersRule(Word w, Sentence s)
         {
             //find what special chars are being used
-            Dictionary<int, char> sc = SpecChars.GetSpecialCharacters(w.name);
+            Dictionary<int, char> sc = GetSpecialCharacters(w.Name);
 
             foreach (int id in sc.Keys)
             {
-                if (w.pos == "unknown" || string.IsNullOrEmpty(w.pos))
+                if (w.Pos == "unknown" || string.IsNullOrEmpty(w.Pos))
                 {
                     switch (sc[id])
                     {
                         case '@':
-                            w.pos = At(sc, w);
+                            w.Pos = At(sc, w);
                             break;
                         case '#':
-                            w.pos = HashTag(sc, w);
+                            w.Pos = HashTag(sc, w);
                             break;
                         case '$':
                             break;
@@ -203,12 +202,12 @@ namespace jem1.Grammar
                         case '-':
                             break;
                         case '&':
-                            w.pos = Ampersand(sc, w.name);
+                            w.Pos = Ampersand(sc, w.Name);
                             break;
                         case '*':
                             break;
                         case '=':
-                            w.pos = SpecChars.Equals(sc, w.name);
+                            w.Pos = SpecChars.Equals(sc, w.Name);
                             break;
                         case '~':
                             break;
@@ -225,7 +224,7 @@ namespace jem1.Grammar
                         case '^':
                             break;
                         case '.':
-                            w.pos = URL(sc, w);
+                            w.Pos = URL(sc, w);
                             break;
                         default: break;
                     }

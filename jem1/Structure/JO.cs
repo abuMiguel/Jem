@@ -213,19 +213,19 @@ namespace jem1.Structure
             }
             else { filepath = ConfigurationManager.AppSettings["FilePath"]; }
 
-            if (!string.IsNullOrEmpty(word.possessiveTag))
+            if (!string.IsNullOrEmpty(word.PossessiveTag))
             {
                 word.RemovePossessiveTag();
             }
 
             if (MWE)
             {
-                int si = word.name.IndexOf(' ');
-                jsonfile = filepath + word.name[0].ToString() + @"\" + word.name.Substring(0, si) + @"\" + word.name.Replace(" ", "") + ".json";
+                int si = word.Name.IndexOf(' ');
+                jsonfile = filepath + word.Name[0].ToString() + @"\" + word.Name.Substring(0, si) + @"\" + word.Name.Replace(" ", "") + ".json";
             }
             else
             {
-                jsonfile = filepath + word.name[0].ToString() + @"\" + word.name + ".json";
+                jsonfile = filepath + word.Name[0].ToString() + @"\" + word.Name + ".json";
             }
 
             if (File.Exists(jsonfile))
@@ -235,7 +235,7 @@ namespace jem1.Structure
             }
             else
             {
-                json = @"{ """ + word.name + @""": { ""pos"":""unknown"" } }";
+                json = @"{ """ + word.Name + @""": { ""pos"":""unknown"" } }";
                 jo = JObject.Parse(json);
             }
             return jo;

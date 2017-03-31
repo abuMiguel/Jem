@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace jem1.Grammar
 {
-    static class Determiner
+    internal static class Determiner
     {
         public static string AorAn(string w)
         {
-            string determiner = "a";
+            var determiner = "a";
             string[] vowels = { "a", "e", "i", "o", "u" };
             foreach(string v in vowels)
             {
@@ -25,7 +25,7 @@ namespace jem1.Grammar
 
         public static string AorAn(string w, string silent)
         {
-            string determiner = "a";
+            var determiner = "a";
             string[] vowels = { "a", "e", "i", "o", "u" };
             foreach (string v in vowels)
             {

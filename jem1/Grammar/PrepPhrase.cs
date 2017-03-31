@@ -6,25 +6,25 @@ using System.Threading.Tasks;
 
 namespace jem1.Grammar
 {
-    class PrepPhrase
+    internal class PrepPhrase
     {
-        List<Word> words { get; set; }
-        string prep { get; set; }
-        string objPrep { get; set; }
-        int count { get; set; }
+        private List<Word> Words { get; set; }
+        private string Prep { get; set; }
+        private string ObjPrep { get; set; }
+        private int Count { get; set; }
         //relationship
-        string rel { get; set; }
+        private string Rel { get; set; }
 
         public PrepPhrase(List<Word> w)
         {
-            words = w;
-            prep = w[0].name;
-            objPrep = w[w.Count - 1].name;
-            count = w.Count;
-            rel = FindRelationship();
+            Words = w;
+            Prep = w[0].Name;
+            ObjPrep = w[w.Count - 1].Name;
+            Count = w.Count;
+            Rel = FindRelationship();
         }
 
-        private string FindRelationship()
+        private static string FindRelationship()
         {
 
             return "";

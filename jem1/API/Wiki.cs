@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace jem1.API
 {
-    class Wiki
+    internal class Wiki
     {
         public class Result
         {
@@ -31,21 +31,21 @@ namespace jem1.API
         {
             string url = "http://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&explaintext=1&titles=" + word.Replace(' ', '_') + "&redirects";
 
-            HttpWebRequest webrequest = (HttpWebRequest)WebRequest.Create(url);
+            var webrequest = (HttpWebRequest)WebRequest.Create(url);
             webrequest.Method = "GET";
             webrequest.ContentType = "application/x-www-form-urlencoded";
-            HttpWebResponse webresponse = (HttpWebResponse)webrequest.GetResponse();
-            Encoding enc = Encoding.GetEncoding("utf-8");
+            var webresponse = (HttpWebResponse)webrequest.GetResponse();
+            var enc = Encoding.GetEncoding("utf-8");
 
             var txt = string.Empty;
-            using (StreamReader reader = new StreamReader(webresponse.GetResponseStream(), enc))  // create a StreamReader
+            using (var reader = new StreamReader(webresponse.GetResponseStream(), enc)) 
             {
-                JsonSerializer ser = new JsonSerializer();                            // create JsonSerializer object.
-                Result result = ser.Deserialize<Result>(new JsonTextReader(reader));  // Deserialize the data and store it in Result class’s object
+                var ser = new JsonSerializer();                            
+                var result = ser.Deserialize<Result>(new JsonTextReader(reader));
 
                 foreach (Page page in result.query.pages.Values)
                 {
-                    txt += page.extract;   // Append each value from page to txtArticle.
+                    txt += page.extract; 
                 }
             }
             return txt;
