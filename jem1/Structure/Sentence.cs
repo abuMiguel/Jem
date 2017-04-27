@@ -21,6 +21,8 @@ namespace jem1
         public bool Question { get; set; } = false;
         public List<Clause> Clauses { get; set; }
         public int WordCount { get; set; }
+        public bool ExpectCompleteThought { get; set; } = true;
+        public bool IsCompleteThought { get; set; } = true;
 
         public Sentence(string sent)
         {
@@ -39,7 +41,17 @@ namespace jem1
             {
                 //JO.PopulateJsonObjectList(clause);
                 POSTagger.TagClause(clause);
+                if (!U.IsCompleteThought(clause))
+                {
+                    this.IsCompleteThought = false;
+                }
             }
+
+            if (ExpectCompleteThought && this.IsCompleteThought)
+            {
+                Rules.ProperSentenceCorrectionRule(this);
+            }
+
         }
 
         private void PopulateWordsList()

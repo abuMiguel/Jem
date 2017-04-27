@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using jem1.Structure;
 using static jem1.U;
 using static jem1.Grammar.SpecChars;
 
@@ -20,7 +21,7 @@ namespace jem1.Grammar
         //Determiner preceding rule 
         public static void DeterminerPrecedingRule(Word wBefore, List<string> posL, Word w, Sentence s)
         {
-            var oklist = new string[] { "adjective", "adverb" };
+            var oklist = new[] { "adjective", "adverb" };
 
             if (wBefore.Pos.Contains("determiner") || NothingButBetween(w, "determiner", oklist, s))
             {
@@ -34,7 +35,7 @@ namespace jem1.Grammar
         public static void DeterminerPrecedingEndRule(Word wBefore, Word w, List<string> posL)
         {
             posL.RemoveAll(x => !x.Contains("noun"));
-            if(posL.Count == 0) { posL.Add("noun"); }
+            if (posL.Count == 0) { posL.Add("noun"); }
             w.Pos = ListToString(posL);
         }
 
@@ -118,17 +119,43 @@ namespace jem1.Grammar
         {
             if (wAfter.Pos.Contains("adverb") || wAfter.Pos.Contains("adjective") || wAfter.Pos.Contains("determiner"))
             {
-                if (NothingButBetweenForwardContains(w, "noun", new string[] { "adverb", "adjective", "determiner", "predeterminer", "coordinating conjunction", "conjunction" }, s))
+                if (NothingButBetweenForwardContains(w, "noun", new[] { "adverb", "adjective", "determiner", "predeterminer", "coordinating conjunction", "conjunction" }, s))
                 {
                     w.Pos = "adverb";
                 }
             }
         }
 
+        public static void HeSheItNounVerbRule(Word w, Word wBefore, Sentence s)
+        {
+            var wb = wBefore.Name.ToLower();
+            if (wb == "he" || wb == "she" || wb == "it")
+            {
+                w.Pos = "verb";
+            }
+        }
+
+        public static void ProperSentenceCorrectionRule(Sentence s)
+        {
+            bool lacksVerb = !s.Clauses.Any(x => x.Verbs.Count > 0);
+
+            if (lacksVerb)
+            {
+                
+            }
+
+        }
+
+        //Middle word, disambiguate between verb and noun when there are two verbs in a row
+        public static void DoubleVerbRule(Word w, Sentence s)
+        {
+            w.Pos = "noun";
+        }
+
         //best guess for a word ending in 'ly' is adverb
         public static void LyAdverbRule(Word w)
         {
-            w.Pos = "adverb"; 
+            w.Pos = "adverb";
         }
 
         //assume an unknown word ending in S is a plural noun
@@ -148,7 +175,7 @@ namespace jem1.Grammar
         public static void UnknownMiddleWordAfterDetRule(Word wBefore, Word w, Sentence s)
         {
             //Determiner preceding rule
-            var oklist = new string[] { "adjective", "noun", "unknown", "adverb" };
+            //var oklist = new[] { "adjective", "noun", "unknown", "adverb" };
             if (wBefore.Pos.Contains("determiner"))
             {
                 w.Pos = "noun,adjective";
@@ -159,7 +186,7 @@ namespace jem1.Grammar
         public static void UnknownLastWordAfterDetRule(Word wBefore, Word w, Sentence s)
         {
             //Determiner preceding rule
-            var oklist = new string[] { "adjective", "noun", "unknown", "adverb" };
+            //var oklist = new[] { "adjective", "noun", "unknown", "adverb" };
             if (wBefore.Pos.Contains("determiner"))
             {
                 w.Pos = "noun";
@@ -229,7 +256,7 @@ namespace jem1.Grammar
                         default: break;
                     }
                 }
-            }           
+            }
         }
     }
 }

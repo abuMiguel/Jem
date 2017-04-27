@@ -429,8 +429,8 @@ namespace jem1.Grammar
                         else if (w.Id > 0 && w.Id != s.WordCount - 1) //NOT first word OR last word
                         {
                             var wBefore = s.Words[w.Id - 1];
-                            var wAfter = s.Words[w.Id + 1];
-                            RunUnknownMiddleRules(wBefore, wAfter, w, s);
+                            //var wAfter = s.Words[w.Id + 1];
+                            RunUnknownMiddleRules(wBefore, w, s);
                         }
                         else if (w.Id == s.WordCount - 1)  //Last word
                         {
@@ -462,6 +462,9 @@ namespace jem1.Grammar
             if (wBefore.Pos == "infinitive") { Rules.ToBeforeRule(posL, w, wBefore); }
             if (w.Pos.Contains("determiner") && w.Pos.Contains("pronoun") && pass == 2) { Rules.DetPronounRule(w, s, posL); }
             if (w.Pos.Contains("adjective") && w.Pos.Contains("adverb")) { Rules.AdjAdvRule(w, wAfter, s); }
+            if (posL.Contains("verb") && wBefore.Pos == "verb" && posL.Contains("noun")) { Rules.DoubleVerbRule(w, s); }
+            if (posL.Contains("verb") && posL.Contains("noun") && wBefore.Pos == "pronoun") { Rules.HeSheItNounVerbRule(w, wBefore, s); }
+            //if (wBefore.Pos == "noun" && posL.Contains("noun") && posL.Contains("verb")) { Rules.}
             if (!string.IsNullOrEmpty(w.PossessiveTag)) { w.Pos = "possessive determiner"; }
 
         }
@@ -499,7 +502,7 @@ namespace jem1.Grammar
 
         }
 
-        private static void RunUnknownMiddleRules(Word wBefore, Word wAfter, Word w, Sentence s)
+        private static void RunUnknownMiddleRules(Word wBefore, Word w, Sentence s)
         {
             Rules.UnknownMiddleWordAfterDetRule(wBefore, w, s);
         }

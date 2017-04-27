@@ -80,6 +80,12 @@ namespace jem1
             return output;
         }
 
+        //TO DO: Finish this
+        public static bool IsCompleteThought(Clause c)
+        {
+            return true;
+        }
+
         //Determine whether the words preceding a word up until a particular part of speech, are all
         //words listed in an OK list. This allows a rule to apply where there are an infinite number 
         //of words inbetween that don't disturb the rule.
