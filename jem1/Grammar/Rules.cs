@@ -135,6 +135,7 @@ namespace jem1.Grammar
             }
         }
 
+        //To do: Finish this
         public static void ProperSentenceCorrectionRule(Sentence s)
         {
             bool lacksVerb = !s.Clauses.Any(x => x.Verbs.Count > 0);

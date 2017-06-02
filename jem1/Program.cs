@@ -8,7 +8,6 @@ using System.Dynamic;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using jem1.Structure;
-using static jem1.Structure.JO;
 using static jem1.DB.DBConn;
 using static System.Console;
 using jem1.Grammar;
@@ -19,8 +18,8 @@ namespace jem1
     {
         static void Main(string[] args)
         {
-            bool exit = false;
-            bool showPOS = false;
+            var exit = false;
+            var showPOS = false;
             string usertext = "";
             Session sess = new Session();
 
@@ -39,7 +38,7 @@ namespace jem1
                     Sentence s = new Sentence(usertext);
                     sess.Stm.Add(s);
 
-                    if (Answer.Find(sess) == "exit")
+                    if (s.Words[0].Name.ToLower() == "exit" && s.Words.Count == 1)
                     {
                         exit = true;
                     }

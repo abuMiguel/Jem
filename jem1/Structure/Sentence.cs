@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static jem1.Structure.JO;
+using jem1.DB;
 
 namespace jem1
 {
@@ -33,7 +33,7 @@ namespace jem1
 
             PopulateWordsList();
             // Find Multiple Word Expressions
-            FindMWEs();
+            FindMWEs2();
             POSTagger.AssignPartsOfSpeech(this);
             Clauses = GetClauses(this);
 
@@ -63,109 +63,97 @@ namespace jem1
             {
                 var name = WordsOriginal[i];
 
-                if (!string.IsNullOrEmpty(name))
+                if (string.IsNullOrEmpty(name)) continue;
+
+                // Check if word is the last in the sentence or has a comma.
+                if (Punctuation.HasComma(WordsOriginal[i]) || i == WordCount - contractionCount - 1)
                 {
-                    // Check if word is the last in the sentence or has a comma.
-                    if (Punctuation.HasComma(WordsOriginal[i]) || i == WordCount - contractionCount - 1)
+                    name = Punctuation.Strip(WordsOriginal[i], this, j);
+                }
+
+                Words.Add(new Word(name, j));
+
+                // Insert contraction word into list if word is a contraction
+                if (Words[j].Contraction)
+                {
+                    // Change original word to its root by removing contraction ending
+                    if (Words[j].Name == "won't")
                     {
-                        name = Punctuation.Strip(WordsOriginal[i], this, j);
+                        Words[j].Name = "will";
+                    }
+                    else
+                    {
+                        var cL = Words[j].GetContractionEnding().Length;
+                        Words[j].Name = Words[j].Name.Remove(Words[j].Name.Length - cL);
                     }
 
-                    Words.Add(new Word(name, j));
+                    j++;
+                    Words.Insert(j, new Word(Words[j - 1].ConWord, j));
+                    WordCount++;
+                    contractionCount++;
+                }
 
-                    // Insert contraction word into list if word is a contraction
-                    if (Words[j].Contraction)
-                    {
-                        // Change original word to its root by removing contraction ending
-                        if (Words[j].Name == "won't")
-                        {
-                            Words[j].Name = "will";
-                        }
-                        else
-                        {
-                            var cL = Words[j].GetContractionEnding().Length;
-                            Words[j].Name = Words[j].Name.Remove(Words[j].Name.Length - cL);
-                        }
-
-                        j++;
-                        Words.Insert(j, new Word(Words[j - 1].ConWord, j));
-                        WordCount++;
-                        contractionCount++;
-                    }
-
-                    switch (Words[j].Name[Words[j].Name.Length - 1])
-                    {
-                        case ',':
-                            Punc.Add(j, ",");
-                            break;
-                        case '.':
-                            Punc.Add(j, ".");
-                            break;
-                        case '?':
-                            Punc.Add(j, "?");
-                            if (j == WordCount - 1) { Question = true; }
-                            break;
-                        case '!':
-                            Punc.Add(j, "!");
-                            break;
-                    }
+                switch (Words[j].Name[Words[j].Name.Length - 1])
+                {
+                    case ',':
+                        Punc.Add(j, ",");
+                        break;
+                    case '.':
+                        Punc.Add(j, ".");
+                        break;
+                    case '?':
+                        Punc.Add(j, "?");
+                        if (j == WordCount - 1) { Question = true; }
+                        break;
+                    case '!':
+                        Punc.Add(j, "!");
+                        break;
                 }
             }
             if (Punc.Count == 0) { Punc.Add(0, "none"); }
         }
 
-        //Find any Multiple Word Expression found in the sentence and tag the part of speech
-        private void FindMWEs()
+        private void FindMWEs2()
         {
-            var filePath = ConfigurationManager.AppSettings["MWEFilePath"];
-            var largest = "";
-            var endId = 0;
+            if (this.Words.Count < 2){ return; }
+            var matches = new List<MWE>();
 
-            foreach (Word w in this.Words)
+            for (var i = 0; i < this.Words.Count - 1; i++ )
             {
-                //Do not check last word, it cannot begin a MWE
-                if (w.Id < this.Words.Count() - 1)
+                var mwes = DBConn.GetMWEs(this.Words[i].Name, this.Words[i + 1].Name);
+                if (mwes == null || mwes.Count <= 0) continue;
+                foreach (var mwe in mwes)
                 {
-                    var startId = w.Id;
-                    var dir = w.Name;
-                    var filename = w.Name;
-
-                    foreach (Word w2 in this.Words)
+                    var mweLen = mwe.Text.Split(' ').Length;
+                    var numWordsAfter = this.Words.Count - 1 - i;
+                    if (mweLen <= numWordsAfter)
                     {
-                        if (w2.Id > w.Id)
+                        var match = string.Empty;
+                        for (var j = 0; j < mweLen; j++)
                         {
-                            filename += " " + w2.Name;
-                            var jsonfile = filePath + w.Name[0].ToString() + @"\" + dir + @"\" + filename.Replace(" ", "") + ".json";
+                            match += this.Words[i + j].Name + " ";
+                        }
+                        match = match.Trim();
 
-                            if (File.Exists(jsonfile))
-                            {
-                                largest = filename;
-                                endId = w2.Id;
-                            }
+                        if (string.Equals(mwe.Text, match, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            matches.Add(mwe);
                         }
                     }
-
-                    // If there is a MWE starting with this word
-                    if (!string.IsNullOrEmpty(largest))
-                    {
-                        var posL = JO.GetValsList(largest, "pos");
-
-                        for (int i = startId, j = 0; i <= endId; i++, j++)
-                        {
-                            try
-                            {
-                                this.Words[i].Pos = posL[j];
-                            }
-                            catch
-                            {
-                                this.Words[i].Pos = posL[0];
-                            }
-                        }
-                    }
-
-                    largest = "";
 
                 }
+                if (matches.Count <= 0) return;
+
+                var longest = matches.Max(x => x.Text.Split(' ').Length);
+                var matchedMwe = matches.FirstOrDefault(x => x.Text.Split(' ').Length == longest);
+                var posA = matchedMwe?.Pos.Split(',');
+                if (posA == null) return;
+
+                for (var k = 0; k < posA.Length; k++, i++)
+                {
+                    this.Words[i].Pos = posA[k];
+                }
+                i--;
             }
         }
 

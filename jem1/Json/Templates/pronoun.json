@@ -1,9 +1,0 @@
-﻿{
-  "pronoun": {
-    "pos": "pronoun",
-    "forms":  [ "form1", "form2" ],
-    "person": "third",
-    "sex": "male",
-    "plural": "no"
-  }
-}

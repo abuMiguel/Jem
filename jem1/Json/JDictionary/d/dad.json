@@ -1,9 +1,0 @@
-﻿{
-  "dad": {
-    "is": "person",
-    "description": [ "male", "parent" ],
-    "pos": "noun",
-    "plural": "dads",
-    "synonyms": [ "father", "daddy", "pa", "papa", "dadda" ]
-  }
-}

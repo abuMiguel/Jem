@@ -384,11 +384,20 @@ namespace jem1.Grammar
                         //Lookup word's possible parts of speech on dictionary.com on first pass
                         if (i == 1)
                         {
-                            var dcomPos = DCom.Scrape(w.Name);
+                            string dcomPos, wiki;
+                            try
+                            {
+                                dcomPos = DCom.Scrape(w.Name);
 
-                            //test
-                            var wiki = Wiki.Lookup(w.Name);
-                            //test
+                                //test
+                                wiki = Wiki.Lookup(w.Name);
+                                //test
+                            }
+                            catch
+                            {
+                                dcomPos = string.Empty;
+                                wiki = string.Empty;
+                            }
 
                             if (!string.IsNullOrEmpty(dcomPos))
                             {
@@ -566,7 +575,7 @@ namespace jem1.Grammar
                     abbr = "IN";
                     break;
                 case "relative pronoun":
-                    abbr = "RP";
+                    abbr = "RPRP";
                     break;
                 case "determiner":
                     abbr = "DT";

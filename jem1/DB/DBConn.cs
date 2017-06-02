@@ -6,15 +6,16 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SQLite;
 using System.IO;
+using ImpromptuInterface.InvokeExt;
+using jem1.Structure;
 using Newtonsoft.Json.Linq;
-using static jem1.Structure.JO;
 
 namespace jem1.DB
 {
-    static class DBConn
+    public static class DBConn
     {
         public static string DbPath = AppDomain.CurrentDomain.BaseDirectory;
-        public static string DataSource = "Data Source=" + DbPath + "jem.sqlite;Version=3;";
+        public static string DataSource => "Data Source=" + DbPath + "jem.sqlite;Version=3;";
 
         public static void ReadWords()
         {
@@ -215,6 +216,46 @@ namespace jem1.DB
             return wordId;
         }
 
+        public static List<MWE> GetMWEs(string w, string wa)
+        {
+            var mweList = new List<MWE>();
+            var sql = "select * from mwe where mwe.word1ID = " +
+                         $"(select wordId from eng where word = '{w}') " +
+                         $"and mwe.word2ID = (select wordId from eng where word = '{wa}') " +
+                         "COLLATE NOCASE;";
+
+            using (var conn = new SQLiteConnection(DataSource))
+            {
+                try
+                {
+                    var command = new SQLiteCommand(sql, conn);
+                    conn.Open();
+                    command.ExecuteNonQuery();
+                    var reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        var mwe = new MWE
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("mweID")),
+                            W1Id = reader.GetInt32(reader.GetOrdinal("word1ID")),
+                            W2Id = reader.GetInt32(reader.GetOrdinal("word2ID")),
+                            Text = reader.GetString(reader.GetOrdinal("text")),
+                            Pos = reader.GetString(reader.GetOrdinal("pos")),
+                            MeaningId = reader.GetInt32(reader.GetOrdinal("meaningID"))
+                        };
+                        mweList.Add(mwe);
+                    }
+                    conn.Close();
+                }
+                catch (SQLiteException e)
+                {
+                    Console.WriteLine("Get matching MWE Id's from mwe table was unsuccessful.");
+                    Console.WriteLine(e.Message);
+                }
+            }
+            return mweList;
+        }
+
         public static void InsertMWE(int word1ID, int word2ID, string text, string pos, int meaningID)
         {
             int mweID = GetMaxMWEID() + 1;
@@ -240,65 +281,5 @@ namespace jem1.DB
                 }
             }
         }
-
-        // Code used once to migrate from old file system to sqlite database, prob. don't need anymore.
-        public static void MigrateDataFromFileToEngTable()
-        {
-            var dirPath = ConfigurationManager.AppSettings["FilePath"];
-            DirectoryInfo root = new DirectoryInfo(dirPath);
-            var subDirs = root.GetDirectories();
-
-            DeleteEng();
-
-            foreach (DirectoryInfo dir in subDirs)
-            {
-                var files = dir.GetFiles("*.*");
-                foreach(FileInfo file in files)
-                {
-                    var json = File.ReadAllText(file.FullName);
-                    var jo = JObject.Parse(json);
-
-                    var word = GetFirst(jo);
-                    var pos = GetVal(jo, "pos");
-
-                    InsertEng(word, pos);
-                }
-            }
-        }
-
-        // Code used once to migrate old file system to sqlite database, prob. don't need anymore.
-        public static void MigrateDataFromFileToMWETable()
-        {
-            var dirPath = ConfigurationManager.AppSettings["MWEFilePath"];
-            DirectoryInfo root = new DirectoryInfo(dirPath);
-            var subDirs = root.GetDirectories();
-
-            DeleteMWE();
-
-            foreach (DirectoryInfo dir in subDirs)
-            {
-                var subDirs2 = dir.GetDirectories();
-
-                foreach (DirectoryInfo dir2 in subDirs2)
-                {
-                    var files = dir2.GetFiles("*.*");
-
-                    foreach (FileInfo file in files)
-                    {
-                        var json = File.ReadAllText(file.FullName);
-                        var jo = JObject.Parse(json);
-                        var word = GetFirst(jo);
-
-                        var pos = GetVal(jo, "pos");
-                        List<string> wordL = word.Split(' ').ToList();
-                        int word1 = GetWordID(wordL[0]);
-                        int word2 = GetWordID(wordL[1]);
-
-                        InsertMWE(word1, word2, word, pos, 0);
-                    }
-                }
-            }
-        }
-
     }
 }
