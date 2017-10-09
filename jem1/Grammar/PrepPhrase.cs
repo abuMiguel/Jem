@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace jem1.Grammar
 {
-    internal class PrepPhrase
+    public class PrepPhrase
     {
         private List<Word> Words { get; set; }
         private string Prep { get; set; }

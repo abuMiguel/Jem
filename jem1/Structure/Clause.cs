@@ -8,14 +8,12 @@ using System.Threading.Tasks;
 
 namespace jem1.Structure
 {
-    internal class Clause
+    public class Clause
     {
         public string[] WordsArray { get; set; }
         public string WordsString { get; set; }
         public List<Word> Words { get; set; } = new List<Word>();
         public int WordCount { get; set; }
-        //json object list
-        public List<JObject> Jol { get; set; } = new List<JObject>();
         public List<Word> Subjects { get; set; } = new List<Word>();
         public List<Word> Verbs { get; set; } = new List<Word>();
         public string HVerb { get; set; }

@@ -105,6 +105,9 @@
     <Compile Include="Grammar\Question.cs" />
     <Compile Include="Grammar\Rules.cs" />
     <Compile Include="Grammar\SpecChars.cs" />
+    <Compile Include="Intent.cs" />
+    <Compile Include="Interfaces\IMeaning.cs" />
+    <Compile Include="Meaning.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session.cs" />

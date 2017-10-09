@@ -391,7 +391,6 @@ namespace jem1.Grammar
 
                                 //test
                                 wiki = Wiki.Lookup(w.Name);
-                                //test
                             }
                             catch
                             {

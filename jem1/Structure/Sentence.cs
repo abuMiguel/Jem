@@ -12,17 +12,19 @@ using jem1.DB;
 
 namespace jem1
 {
-    internal class Sentence
+    public class Sentence
     {
         public List<string> WordsOriginal { get; set; }
         public string WordsString { get; set; }
         public List<Word> Words { get; set; } = new List<Word>();
+        //Punctuation: key = word's sentence id (0 based), value = punctuation string, i.e. "?"
         public Dictionary<int, string> Punc { get; set; } = new Dictionary<int, string>();
-        public bool Question { get; set; } = false;
+        public bool IsQuestion { get; set; } = false;
         public List<Clause> Clauses { get; set; }
         public int WordCount { get; set; }
         public bool ExpectCompleteThought { get; set; } = true;
         public bool IsCompleteThought { get; set; } = true;
+        public string Type { get; set; } = "statement";
 
         public Sentence(string sent)
         {
@@ -30,7 +32,29 @@ namespace jem1
             WordsString = sent;
             WordsOriginal = sent.Split(' ').ToList<string>();
             WordCount = WordsOriginal.Count;
+            this.ProcessSentence();
+            this.IsQuestion = Question.IsQuestion(this);
+            this.Type = this.GetSentenceType();
+        }
 
+        public string GetSentenceType()
+        {
+            string type = "statement";
+
+            if (this.IsQuestion)
+            {
+                type = "question";
+            }
+            else
+            {
+                type = "statement";
+            }
+
+            return type;
+        }
+
+        public void ProcessSentence()
+        {
             PopulateWordsList();
             // Find Multiple Word Expressions
             FindMWEs2();
@@ -51,7 +75,6 @@ namespace jem1
             {
                 Rules.ProperSentenceCorrectionRule(this);
             }
-
         }
 
         private void PopulateWordsList()
@@ -103,7 +126,7 @@ namespace jem1
                         break;
                     case '?':
                         Punc.Add(j, "?");
-                        if (j == WordCount - 1) { Question = true; }
+                        if (j == WordCount - 1) { IsQuestion = true; }
                         break;
                     case '!':
                         Punc.Add(j, "!");
