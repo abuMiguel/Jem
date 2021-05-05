@@ -43,9 +43,9 @@ namespace jem1
         {
             new Meaning()
             {
-                Name = "Full Visibility",
+                Name = "Company",
                 Is = new List<string>(){"business"},
-                Definition = "A certified Virgina based small business information technology solutions provider specialized in delivering safe and secure solutions for federal government agencies",
+                Definition = "Company Description",
                 Synonyms = new List<string>(){}
             }
         };
